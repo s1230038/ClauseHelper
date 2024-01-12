@@ -2,6 +2,11 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
+import styled from 'styled-components'
+
+const H1 = styled.h1`
+  color: red;
+`;
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -57,9 +62,9 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <h2>
+            <H1>
               Docs <span>-&gt;</span>
-            </h2>
+            </H1>
             <p>
               Find in-depth information about Next.js features and&nbsp;API.
             </p>
