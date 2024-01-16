@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Put this file (pre-commit) in .git/hooks/
+./githooks/pre-commit.sh
