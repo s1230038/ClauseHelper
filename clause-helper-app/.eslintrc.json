@@ -12,7 +12,7 @@
   ],
   "settings": {
     "import/resolver": {
-      "typescript": {}
+      "typescript": { "project": ".\\clause-helper-app\\" }
     }
   },
   "rules": {
