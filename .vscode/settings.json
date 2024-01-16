@@ -8,6 +8,11 @@
 	},
 	"eslint.format.enable": false,
 	"editor.formatOnSave": true,
+    "[typescript]": {
+		"editor.formatOnType": true,
+			"editor.formatOnPaste": true,
+			"editor.formatOnSave": true
+	},
 	"[javascript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
