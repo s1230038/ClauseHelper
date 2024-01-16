@@ -1,28 +1,11 @@
 {
-    "eslint.nodePath": ".\\clause-helper-app\\node_modules",
+    "eslint.codeActionsOnSave.rules": null,
     "eslint.options": {
-        "configFile": ".\\clause-helper-app\\.eslintrc.json"
+        "overrideConfigFile": ".\\clause-helper-app\\.eslintrc.json"
     },
-	"editor.codeActionsOnSave": {
-		"source.fixAll.eslint": "explicit"
-	},
-	"eslint.format.enable": false,
-	"editor.formatOnSave": true,
-    "[typescript]": {
-		"editor.formatOnType": true,
-		"editor.formatOnPaste": true,
-		"editor.formatOnSave": true
-	},
-	"[javascript]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
-	"[json]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
-	"editor.lineNumbers": "on",
-	"editor.rulers": [80],
-	"editor.wordWrap": "on",
-	"files.insertFinalNewline": true,
-	"files.trimTrailingWhitespace": true,
-	"typescript.enablePromptUseWorkspaceTsdk": true
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "eslint.format.enable": false,
+    "editor.formatOnSave": true,
 }
