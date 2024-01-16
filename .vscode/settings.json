@@ -1,4 +1,5 @@
 {
+    "eslint.nodePath": ".\\clause-helper-app\\node_modules",
     "eslint.codeActionsOnSave.rules": null,
     "eslint.options": {
         "overrideConfigFile": ".\\clause-helper-app\\.eslintrc.json"
