@@ -15,5 +15,4 @@
     },
 
     "eslint.format.enable": true,
-    "editor.formatOnSave": false,
 }
