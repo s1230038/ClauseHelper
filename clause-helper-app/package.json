@@ -9,6 +9,7 @@
     "lint": "next lint --dir src",
     "test": "jest",
     "format": "next lint --fix --dir src",
+    "secretlint": "secretlint --maskSecrets --secretlintignore .gitignore '**/*'",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
