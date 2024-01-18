@@ -34,6 +34,7 @@
     "@storybook/test": "^7.6.8",
     "@testing-library/jest-dom": "^6.2.0",
     "@testing-library/react": "^14.1.2",
+    "@types/jest": "^29.5.11",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -53,6 +54,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "prettier": "^3.2.2",
     "storybook": "^7.6.8",
+    "ts-jest": "^29.1.1",
     "tsconfig-paths-webpack-plugin": "^4.1.0",
     "typescript": "^5",
     "typescript-eslint": "^0.0.1-alpha.0"
