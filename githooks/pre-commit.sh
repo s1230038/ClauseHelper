@@ -3,6 +3,7 @@
 echo 
 echo '--- Execute Git hook ---'
 echo 'For more information, see .git/hooks/pre-commit'
+echo
 echo '*** npm script ***'
 cd clause-helper-app
 
@@ -13,6 +14,7 @@ if [ $? -eq 1 ]; then
     echo "secretlint failed. Commit stopped."
     exit 1
 fi
+echo
 
 echo 'ESLint automatically formats files:'
 npm run format
