@@ -1,4 +1,10 @@
-import { render, screen, RenderResult, fireEvent, getByRole } from '@testing-library/react'
+import {
+  render,
+  screen,
+  RenderResult,
+  fireEvent,
+  getByRole,
+} from '@testing-library/react'
 import { Input } from './index'
 
 // describeで処理をまとめる
