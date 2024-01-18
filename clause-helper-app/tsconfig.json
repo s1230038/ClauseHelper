@@ -15,7 +15,7 @@
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": "./",
-    "typeRoots": ["./node_modules/@types"],
+    "typeRoots": ["./node_modules/@types", "./node_modules/@testing-library"],
     "paths": {
       "@/*": ["./src/*"],
       "~/*": ["./src/*"]
