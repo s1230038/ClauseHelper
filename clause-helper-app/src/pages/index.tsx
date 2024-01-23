@@ -9,6 +9,7 @@ function App() {
       // 置換対象の条数を抽出
       const targets = extractSections(text)
       console.log(targets)
+      // TODO: 置換対象文字列と置換後文字列のペアの配列を作り、それを元にtextを置換する。
 
       const converted = text
         .replace('第', '')
@@ -36,6 +37,7 @@ function App() {
 }
 
 function extractSections(text: string): string[] {
+  // TODO: 正規表現の抽出部分が既に失敗しているようである。
   const regex = /\b第(\d+)条\b/g
   const extracts: RegExpExecArray | null = regex.exec(text)
   return extracts !== null ? extracts.map((match) => match[1]) : ['']
