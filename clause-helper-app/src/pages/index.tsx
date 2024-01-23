@@ -37,7 +37,8 @@ function App() {
 
 function extractSections(text: string): string[] {
   const regex = /\b第(\d+)条\b/g
-  return regex.exec(text).map((match) => match[1])
+  const extracts: RegExpExecArray | null = regex.exec(text)
+  return extracts !== null ? extracts.map((match) => match[1]) : ['']
 }
 
 export default App
