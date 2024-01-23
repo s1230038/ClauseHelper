@@ -6,6 +6,10 @@ function App() {
 
   useEffect(() => {
     const convertText = () => {
+      // 置換対象の条数を抽出
+      const targets = extractSections(text)
+      console.log(targets)
+
       const converted = text
         .replace('第', '')
         .replace('百', '100')
@@ -29,6 +33,11 @@ function App() {
       <textarea id="convertedText" value={convertedText} readOnly />
     </div>
   )
+}
+
+function extractSections(text: string): string[] {
+  const regex = /\b第(\d+)条\b/g
+  return regex.exec(text).map((match) => match[1])
 }
 
 export default App
