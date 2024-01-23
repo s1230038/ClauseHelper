@@ -37,10 +37,9 @@ function App() {
 }
 
 function extractSections(text: string): string[] {
-  // TODO: 正規表現の抽出部分が既に失敗しているようである。
-  const regex = /\b第(\d+)条\b/g
-  const extracts: RegExpExecArray | null = regex.exec(text)
-  return extracts !== null ? extracts.map((match) => match[1]) : ['']
+  const regex = /第.*?条/g
+  const matches = text.match(regex)
+  return matches ? matches : []
 }
 
 export default App
