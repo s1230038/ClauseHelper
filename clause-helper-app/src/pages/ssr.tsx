@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 
@@ -24,9 +25,7 @@ const SSR: NextPage<SSRProps> = (props) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps<SSRProps> = async (
-  context,
-) => {
+export const getServerSideProps: GetServerSideProps<SSRProps> = async () => {
   const timestamp = new Date().toLocaleString()
   const message = `${timestamp} にgetServerSidePropsが実行されました`
   // $ npm run build 実行時のログに出力される（標準エラー出力）
