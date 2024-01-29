@@ -42,4 +42,31 @@ function extractSections(text: string): string[] {
   return matches ? matches : []
 }
 
+// E.g. 百四十三 -> 143, 五百 -> 500
+function convertKansuji2Number(kansuji: string): number {
+  const articleNum: number = 0
+  const prevChar: string = ''
+  const kansujiTable = new Map<string, number>([
+    ['一', 1],
+    ['二', 2],
+    ['三', 3],
+    ['四', 4],
+    ['五', 5],
+    ['六', 6],
+    ['七', 7],
+    ['八', 8],
+    ['九', 9],
+    ['十', 10],
+    ['百', 100],
+    ['千', 1000],
+  ])
+
+  for (const char of kansuji) {
+    if (kansujiTable.get(char) == undefined) {
+      throw new Error('Not Kansuji: ' + char)
+    }
+    prevChar = char
+  }
+}
+
 export default App
