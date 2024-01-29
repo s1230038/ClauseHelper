@@ -1,3 +1,4 @@
+import { kanji2number, findKanjiNumbers } from '@geolonia/japanese-numeral'
 import { useState, useEffect } from 'react'
 
 function App() {
@@ -7,9 +8,17 @@ function App() {
   useEffect(() => {
     const convertText = () => {
       // 置換対象の条数を抽出
-      const targets = extractSections(text)
-      console.log(targets)
+      const kanjiNumberArticleList = extractSections(text)
+      console.log(kanjiNumberArticleList)
       // TODO: 置換対象文字列と置換後文字列のペアの配列を作り、それを元にtextを置換する。
+      const kanjiNumberArticle2numArticle = new Map<string, string>()
+      for (const kanjiNumberArticle in kanjiNumberArticleList) {
+        const kanjiNumList = findKanjiNumbers(kanjiNumberArticle)
+        const kanjiNum: string = kanjiNumList[0] // kanjiNumList[0]のみが存在すると想定
+        const num = kanji2number(kanjiNum)
+        kanjiNumberArticle2numArticle.set(kanjiNumberArticle, '第' + num + '条')
+      }
+      console.log(kanjiNumberArticle2numArticle)
 
       const converted = text
         .replace('第', '')
@@ -40,33 +49,6 @@ function extractSections(text: string): string[] {
   const regex = /第[一二三四五六七八九十百千]+条/g
   const matches = text.match(regex)
   return matches ? matches : []
-}
-
-// E.g. 百四十三 -> 143, 五百 -> 500
-function convertKansuji2Number(kansuji: string): number {
-  const articleNum: number = 0
-  const prevChar: string = ''
-  const kansujiTable = new Map<string, number>([
-    ['一', 1],
-    ['二', 2],
-    ['三', 3],
-    ['四', 4],
-    ['五', 5],
-    ['六', 6],
-    ['七', 7],
-    ['八', 8],
-    ['九', 9],
-    ['十', 10],
-    ['百', 100],
-    ['千', 1000],
-  ])
-
-  for (const char of kansuji) {
-    if (kansujiTable.get(char) == undefined) {
-      throw new Error('Not Kansuji: ' + char)
-    }
-    prevChar = char
-  }
 }
 
 export default App
