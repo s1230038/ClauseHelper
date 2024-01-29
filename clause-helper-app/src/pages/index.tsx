@@ -12,7 +12,7 @@ function App() {
       console.log(kanjiNumberArticleList)
       // TODO: 置換対象文字列と置換後文字列のペアの配列を作り、それを元にtextを置換する。
       const kanjiNumberArticle2numArticle = new Map<string, string>()
-      for (const kanjiNumberArticle in kanjiNumberArticleList) {
+      for (const kanjiNumberArticle of kanjiNumberArticleList) {
         const kanjiNumList = findKanjiNumbers(kanjiNumberArticle)
         const kanjiNum: string = kanjiNumList[0] // kanjiNumList[0]のみが存在すると想定
         const num = kanji2number(kanjiNum)
