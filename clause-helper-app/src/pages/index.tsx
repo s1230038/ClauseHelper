@@ -19,6 +19,7 @@ function App() {
         kanjiNumberArticle2numArticle.set(kanjiNumberArticle, '第' + num + '条')
       }
       console.log(kanjiNumberArticle2numArticle)
+      // TODO: 全角数字を半角数字に変換
 
       // 置換処理
       let converted = text
