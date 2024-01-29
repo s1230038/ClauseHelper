@@ -10,7 +10,7 @@ function App() {
       // 置換対象の条数を抽出
       const kanjiNumberArticleList = extractSections(text)
       console.log(kanjiNumberArticleList)
-      // TODO: 置換対象文字列と置換後文字列のペアの配列を作り、それを元にtextを置換する。
+      // 置換対象文字列と置換後文字列のペアの配列を作り、それを元にtextを置換する。
       const kanjiNumberArticle2numArticle = new Map<string, string>()
       for (const kanjiNumberArticle of kanjiNumberArticleList) {
         const kanjiNumList = findKanjiNumbers(kanjiNumberArticle)
@@ -20,12 +20,12 @@ function App() {
       }
       console.log(kanjiNumberArticle2numArticle)
 
-      const converted = text
-        .replace('第', '')
-        .replace('百', '100')
-        .replace('千', '1000')
-        .replace('万', '10000')
-        .replace('億', '100000000')
+      // 置換処理
+      let converted = text
+      for (const [target, replaceTo] of kanjiNumberArticle2numArticle) {
+        converted = converted.replace(target, replaceTo)
+      }
+
       setConvertedText(converted)
     }
     convertText()
