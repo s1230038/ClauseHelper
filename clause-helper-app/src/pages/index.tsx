@@ -50,7 +50,7 @@ function App() {
 
 function extractSections(text: string): string[] {
   const regex = /第[一二三四五六七八九十百千]+条/g
-  const matches = text.match(regex)
+  const matches = [...new Set(text.match(regex))]
   return matches ? matches : []
 }
 
