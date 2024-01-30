@@ -7,7 +7,11 @@ function App() {
 
   useEffect(() => {
     const convertText = () => {
-      const converted: string = replaceKanjiClause2Num(text)
+      const converted: string = replaceKanjiClause2Num(
+        text,
+        { beginning: '第', end: '条' },
+        { beginning: '第', end: '項' },
+      )
       setConvertedText(converted)
     }
     convertText()
