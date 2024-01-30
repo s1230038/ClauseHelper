@@ -11,21 +11,22 @@ function App() {
       const kanjiClauseList = extractSections(text)
       console.log(kanjiClauseList)
       // 置換対象文字列と置換後文字列のペアの配列を作り、それを元にtextを置換する。
-      const kanjiClause2numClause = new Map<string, string>()
+      type KanjiClause2numClause = { kanjiClause: string; numClause: string }
+      const repTable: KanjiClause2numClause[] = [] // replacement table
       for (const kanjiClause of kanjiClauseList) {
         const kanjiNumList = findKanjiNumbers(kanjiClause)
         const kanjiNum: string = kanjiNumList[0] // kanjiNumList[0]のみが存在すると想定
-        const num = kanji2number(kanjiNum)
-        kanjiClause2numClause.set(kanjiClause, '第' + num + '条')
+        const numClause: string = '第' + kanji2number(kanjiNum) + '条'
+        repTable.push({ kanjiClause, numClause })
       }
-      console.log(kanjiClause2numClause)
+      console.log(repTable)
       // TODO: 全角数字を半角数字に変換
       // TODO: 第n項の漢数字も数字に変換
 
       // 置換処理
       let converted = text
-      for (const [target, replaceTo] of kanjiClause2numClause) {
-        converted = converted.replaceAll(target, replaceTo)
+      for (const target of repTable) {
+        converted = converted.replaceAll(target.kanjiClause, target.numClause)
       }
 
       setConvertedText(converted)
