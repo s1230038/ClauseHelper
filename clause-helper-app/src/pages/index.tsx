@@ -20,11 +20,12 @@ function App() {
       }
       console.log(kanjiClause2numClause)
       // TODO: 全角数字を半角数字に変換
+      // TODO: 第n項の漢数字も数字に変換
 
       // 置換処理
       let converted = text
       for (const [target, replaceTo] of kanjiClause2numClause) {
-        converted = converted.replace(target, replaceTo)
+        converted = converted.replaceAll(target, replaceTo)
       }
 
       setConvertedText(converted)
