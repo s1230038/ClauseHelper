@@ -8,22 +8,22 @@ function App() {
   useEffect(() => {
     const convertText = () => {
       // 置換対象の条数を抽出
-      const kanjiNumberArticleList = extractSections(text)
-      console.log(kanjiNumberArticleList)
+      const kanjiClauseList = extractSections(text)
+      console.log(kanjiClauseList)
       // 置換対象文字列と置換後文字列のペアの配列を作り、それを元にtextを置換する。
-      const kanjiNumberArticle2numArticle = new Map<string, string>()
-      for (const kanjiNumberArticle of kanjiNumberArticleList) {
-        const kanjiNumList = findKanjiNumbers(kanjiNumberArticle)
+      const kanjiClause2numClause = new Map<string, string>()
+      for (const kanjiClause of kanjiClauseList) {
+        const kanjiNumList = findKanjiNumbers(kanjiClause)
         const kanjiNum: string = kanjiNumList[0] // kanjiNumList[0]のみが存在すると想定
         const num = kanji2number(kanjiNum)
-        kanjiNumberArticle2numArticle.set(kanjiNumberArticle, '第' + num + '条')
+        kanjiClause2numClause.set(kanjiClause, '第' + num + '条')
       }
-      console.log(kanjiNumberArticle2numArticle)
+      console.log(kanjiClause2numClause)
       // TODO: 全角数字を半角数字に変換
 
       // 置換処理
       let converted = text
-      for (const [target, replaceTo] of kanjiNumberArticle2numArticle) {
+      for (const [target, replaceTo] of kanjiClause2numClause) {
         converted = converted.replace(target, replaceTo)
       }
 
