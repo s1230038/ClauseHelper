@@ -62,7 +62,8 @@ function replaceKanjiClause2Num(
     }
   }
 
-  // TODO: 全角数字を半角数字に変換
+  // 全角数字を半角数字に変換
+  converted = replaceHankakuSuji2Num(converted)
 
   return converted
 }
@@ -75,6 +76,11 @@ function extractSections(
   const regex = new RegExp(beginning + '[一二三四五六七八九十百千]+' + end, 'g')
   const matches = [...new Set(text.match(regex))]
   return matches ? matches : []
+}
+
+function replaceHankakuSuji2Num(text: string): string {
+  const fullNums = '０１２３４５６７８９'
+  return text.replace(/[０-９]/g, (m) => fullNums.indexOf(m).toString())
 }
 
 export default App
