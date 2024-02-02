@@ -32,7 +32,7 @@ function App() {
 }
 
 type replacedTarget = { beginning: string; end: string }
-type KanjiClause2numClause = { kanjiClause: string; numClause: string }
+type ReplacePair = { from: string; to: string }
 function replaceKanjiClause2Num(
   origText: string,
   ...targets: replacedTarget[]
@@ -46,19 +46,17 @@ function replaceKanjiClause2Num(
       target.end,
     )
     console.log(kanjiClauseList)
-    // 置換対象文字列と置換後文字列のペアの配列を作り、それを元にtextを置換する。
-    const repTable: KanjiClause2numClause[] = [] // replacement table
-    for (const kanjiClause of kanjiClauseList) {
-      const kanjiNumList = findKanjiNumbers(kanjiClause)
-      const kanjiNum: string = kanjiNumList[0] // kanjiNumList[0]のみが存在すると想定
-      const numClause: string =
-        target.beginning + kanji2number(kanjiNum) + target.end
-      repTable.push({ kanjiClause, numClause })
-    }
+    // replacement table
+    const repTable: ReplacePair[] = getKanjiClause2NumClauseTable(
+      kanjiClauseList,
+      target.beginning,
+      target.end,
+    )
+
     console.log(repTable)
     // 置換処理
     for (const target of repTable) {
-      converted = converted.replaceAll(target.kanjiClause, target.numClause)
+      converted = converted.replaceAll(target.from, target.to)
     }
   }
 
@@ -66,6 +64,22 @@ function replaceKanjiClause2Num(
   converted = replaceHankakuSuji2Num(converted)
 
   return converted
+}
+
+function getKanjiClause2NumClauseTable(
+  kanjiClauseList: string[],
+  beginning: string,
+  end: string,
+): ReplacePair[] {
+  // 置換対象文字列と置換後文字列のペアの配列を作る
+  const repTable: ReplacePair[] = [] // replacement table
+  for (const kanjiClause of kanjiClauseList) {
+    const kanjiNumList = findKanjiNumbers(kanjiClause)
+    const kanjiNum: string = kanjiNumList[0] // kanjiNumList[0]のみが存在すると想定
+    const numClause: string = beginning + kanji2number(kanjiNum) + end
+    repTable.push({ from: kanjiClause, to: numClause })
+  }
+  return repTable
 }
 
 function extractSections(
