@@ -28,7 +28,7 @@
         }
       }
     ],
-    "max-lines-per-function": ["error", 150],
+    "max-lines-per-function": ["error", 70],
     "prettier/prettier": [
       "error",
       {
