@@ -1,6 +1,7 @@
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/default */
 /* eslint-disable react/no-unescaped-entities */
+/* eslint-disable max-lines-per-function */
 import React from 'react'
 
 import { Header } from './Header'
