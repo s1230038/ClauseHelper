@@ -1,6 +1,3 @@
-import { kanji2number, findKanjiNumbers } from '@geolonia/japanese-numeral'
-import { useState, useEffect } from 'react'
-
 function ExpandAllParentheses() {
   return (
     <>
@@ -61,7 +58,7 @@ function Manipulator() {
   )
 }
 
-function ConvertedClause({ convertedText }) {
+function ConvertedClause({ convertedText }: { convertedText: string }) {
   return (
     <>
       <textarea id="ConvertedClause" value={convertedText} readOnly />
@@ -69,7 +66,7 @@ function ConvertedClause({ convertedText }) {
   )
 }
 
-function InputClause({ originalText }) {
+function InputClause({ originalText }: { originalText: string }) {
   return (
     <>
       <textarea
