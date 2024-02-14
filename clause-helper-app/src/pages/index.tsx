@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 function ExpandAllParentheses() {
   return (
     <>
@@ -14,27 +16,35 @@ function CollapseAllParentheses() {
   )
 }
 
-function ParenthesesChangeRange() {
+function ParenthesesChangeRange({ selectedRange }: { selectedRange: string }) {
   return (
     <>
       <p>丸括弧の展開／縮小の範囲</p>
       <label>
-        <input type="radio" value="allLevels" />
+        <input
+          type="radio"
+          value="allLevels"
+          checked={selectedRange === 'allLevels'}
+        />
         全階層
       </label>
 
       <label>
-        <input type="radio" value="oneLevel" />
+        <input
+          type="radio"
+          value="oneLevel"
+          checked={selectedRange === 'oneLevel'}
+        />
         １階層
       </label>
     </>
   )
 }
 
-function ParenthesesManipulator() {
+function ParenthesesManipulator({ selectedRange }: { selectedRange: string }) {
   return (
     <>
-      <ParenthesesChangeRange />
+      <ParenthesesChangeRange selectedRange={selectedRange} />
       <CollapseAllParentheses />
       <ExpandAllParentheses />
     </>
@@ -49,11 +59,11 @@ function CopyConvertedClause() {
   )
 }
 
-function Manipulator() {
+function Manipulator({ selectedRange }: { selectedRange: string }) {
   return (
     <>
       <CopyConvertedClause />
-      <ParenthesesManipulator />
+      <ParenthesesManipulator selectedRange={selectedRange} />
     </>
   )
 }
@@ -88,11 +98,13 @@ const DUMMY_CONVERTED_TEXT =
 function ClauseViewHelper() {
   const originalText: string = DUMMY_ORIGINAL_TEXT
   const convertedText: string = DUMMY_CONVERTED_TEXT
+  const [selectedRange, setSelectedRange] = useState('allLevels')
+
   return (
     <>
       <InputClause originalText={originalText} />
       <ConvertedClause convertedText={convertedText} />
-      <Manipulator />
+      <Manipulator selectedRange={selectedRange} />
     </>
   )
 }
