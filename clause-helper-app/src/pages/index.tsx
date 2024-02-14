@@ -16,27 +16,25 @@ function CollapseAllParentheses() {
   )
 }
 
-function ParenthesesChangeRange({ selectedRange }: { selectedRange: string }) {
+function ParenthesesChangeRange(
+  { rangeOptions }: { rangeOptions: RadioButtonOption[] },
+  { selectedRange }: { selectedRange: string },
+  { onChange },
+) {
   return (
     <>
       <p>丸括弧の展開／縮小の範囲</p>
-      <label>
-        <input
-          type="radio"
-          value="allLevels"
-          checked={selectedRange === 'allLevels'}
-        />
-        全階層
-      </label>
-
-      <label>
-        <input
-          type="radio"
-          value="oneLevel"
-          checked={selectedRange === 'oneLevel'}
-        />
-        １階層
-      </label>
+      {rangeOptions.map((option) => (
+        <label key={option.value}>
+          <input
+            type="radio"
+            value={option.value}
+            checked={selectedRange === option.value}
+            onChange={onChange}
+          />
+          {option.displayLabel}
+        </label>
+      ))}
     </>
   )
 }
@@ -76,17 +74,31 @@ const DUMMY_ORIGINAL_TEXT =
 const DUMMY_CONVERTED_TEXT =
   '第19条の三　法第103条の二第5項第二号（法第103条の三第2項及び第106条の九において準用する場合を含む。）に規定する政令で定める特別の関係にある者は、次に掲げる関係にある者（特定株主を除く。）とする。'
 
+type RadioButtonOption = { value: string; displayLabel: string }
+
 function ClauseViewHelper() {
   const originalText: string = DUMMY_ORIGINAL_TEXT
   const convertedText: string = DUMMY_CONVERTED_TEXT
   const [selectedRange, setSelectedRange] = useState('allLevels')
+  const rangeOptions: RadioButtonOption[] = [
+    { value: 'allLevels', displayLabel: '全階層' },
+    { value: 'oneLevel', displayLabel: '１階層' },
+  ]
+
+  const handleRangeChange = (event) => {
+    setSelectedRange(event.target.value)
+  }
 
   return (
     <>
       <InputClause originalText={originalText} />
       <ConvertedClause convertedText={convertedText} />
       <CopyConvertedClause />
-      <ParenthesesChangeRange selectedRange={selectedRange} />
+      <ParenthesesChangeRange
+        rangeOptions={rangeOptions}
+        selectedRange={selectedRange}
+        onChange={handleRangeChange}
+      />
       <CollapseAllParentheses />
       <ExpandAllParentheses />
     </>
