@@ -41,29 +41,10 @@ function ParenthesesChangeRange({ selectedRange }: { selectedRange: string }) {
   )
 }
 
-function ParenthesesManipulator({ selectedRange }: { selectedRange: string }) {
-  return (
-    <>
-      <ParenthesesChangeRange selectedRange={selectedRange} />
-      <CollapseAllParentheses />
-      <ExpandAllParentheses />
-    </>
-  )
-}
-
 function CopyConvertedClause() {
   return (
     <>
       <button id="CopyConvertedClause">コピー</button>
-    </>
-  )
-}
-
-function Manipulator({ selectedRange }: { selectedRange: string }) {
-  return (
-    <>
-      <CopyConvertedClause />
-      <ParenthesesManipulator selectedRange={selectedRange} />
     </>
   )
 }
@@ -104,7 +85,10 @@ function ClauseViewHelper() {
     <>
       <InputClause originalText={originalText} />
       <ConvertedClause convertedText={convertedText} />
-      <Manipulator selectedRange={selectedRange} />
+      <CopyConvertedClause />
+      <ParenthesesChangeRange selectedRange={selectedRange} />
+      <CollapseAllParentheses />
+      <ExpandAllParentheses />
     </>
   )
 }
