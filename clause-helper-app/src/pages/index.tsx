@@ -23,7 +23,7 @@ function ParenthesesChangeRange({
 }: {
   rangeOptions: RadioButtonOption[]
   selectedRange: string
-  onChange: any
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }) {
   return (
     <>
@@ -89,7 +89,7 @@ function ClauseViewHelper() {
     { value: 'oneLevel', displayLabel: '１階層' },
   ]
 
-  const handleRangeChange = (event) => {
+  const handleRangeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedRange(event.target.value)
   }
 
