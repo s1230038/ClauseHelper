@@ -16,11 +16,19 @@ function CollapseAllParentheses() {
   )
 }
 
-function ParenthesesChangeRange(
-  { rangeOptions }: { rangeOptions: RadioButtonOption[] },
-  { selectedRange }: { selectedRange: string },
-  { onChange },
-) {
+type RadioButtonOption = { value: string; displayLabel: string }
+
+interface ParenthesesChangeRangeProps {
+  rangeOptions: RadioButtonOption[]
+  selectedRange: string
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+const ParenthesesChangeRange: React.FC<ParenthesesChangeRangeProps> = ({
+  rangeOptions,
+  selectedRange,
+  onChange,
+}) => {
   return (
     <>
       <p>丸括弧の展開／縮小の範囲</p>
@@ -73,8 +81,6 @@ const DUMMY_ORIGINAL_TEXT =
 
 const DUMMY_CONVERTED_TEXT =
   '第19条の三　法第103条の二第5項第二号（法第103条の三第2項及び第106条の九において準用する場合を含む。）に規定する政令で定める特別の関係にある者は、次に掲げる関係にある者（特定株主を除く。）とする。'
-
-type RadioButtonOption = { value: string; displayLabel: string }
 
 function ClauseViewHelper() {
   const originalText: string = DUMMY_ORIGINAL_TEXT
