@@ -16,11 +16,7 @@ function CollapseAllParentheses() {
   )
 }
 
-function ParenthesesChangeRange(
-  { rangeOptions }: { rangeOptions: RadioButtonOption[] },
-  { selectedRange }: { selectedRange: string },
-  { onChange },
-) {
+function ParenthesesChangeRange({ rangeOptions, selectedRange, onChange }) {
   return (
     <>
       <p>丸括弧の展開／縮小の範囲</p>
