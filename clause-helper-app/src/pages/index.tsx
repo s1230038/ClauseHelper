@@ -23,7 +23,7 @@ function ParenthesesChangeRange({
 }: {
   rangeOptions: RadioButtonOption[]
   selectedRange: string
-  onChange: OnChangeFunction
+  onChange: OnChangeInput
 }) {
   return (
     <>
@@ -59,31 +59,36 @@ function ConvertedClause({ convertedText }: { convertedText: string }) {
   )
 }
 
-function InputClause({ originalText }: { originalText: string }) {
+function InputClause({
+  originalText,
+  onChange,
+}: {
+  originalText: string
+  onChange: OnChangeTextArea
+}) {
   return (
     <>
       <textarea
         id="InputClause"
         placeholder="法律の条文を入力"
         value={originalText}
+        onChange={onChange}
       />
     </>
   )
 }
 
 // dummy data
-const DUMMY_ORIGINAL_TEXT =
-  '第十九条の三　法第百三条の二第五項第二号（法第百三条の三第二項及び第百六条の九において準用する場合を含む。）に規定する政令で定める特別の関係にある者は、次に掲げる関係にある者（特定株主を除く。）とする。'
-
 const DUMMY_CONVERTED_TEXT =
-  '第19条の三　法第103条の二第5項第二号（法第103条の三第2項及び第106条の九において準用する場合を含む。）に規定する政令で定める特別の関係にある者は、次に掲げる関係にある者（特定株主を除く。）とする。'
+  '固定：第19条の三　法第103条の二第5項第二号（法第103条の三第2項及び第106条の九において準用する場合を含む。）に規定する政令で定める特別の関係にある者は、次に掲げる関係にある者（特定株主を除く。）とする。'
 
 // 型エイリアス (type alias)
 type RadioButtonOption = { value: string; displayLabel: string }
-type OnChangeFunction = (event: React.ChangeEvent<HTMLInputElement>) => void
+type OnChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => void
+type OnChangeTextArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => void
 
 function ClauseViewHelper() {
-  const originalText: string = DUMMY_ORIGINAL_TEXT
+  const [originalText, setOriginalText] = useState('')
   const convertedText: string = DUMMY_CONVERTED_TEXT
   const [selectedRange, setSelectedRange] = useState('allLevels')
   const rangeOptions: RadioButtonOption[] = [
@@ -91,13 +96,17 @@ function ClauseViewHelper() {
     { value: 'oneLevel', displayLabel: '１階層' },
   ]
 
-  const handleRangeChange: OnChangeFunction = (event) => {
+  const handleRangeChange: OnChangeInput = (event) => {
     setSelectedRange(event.target.value)
+  }
+
+  const handleOriginalText: OnChangeTextArea = (event) => {
+    setOriginalText(event.target.value)
   }
 
   return (
     <>
-      <InputClause originalText={originalText} />
+      <InputClause originalText={originalText} onChange={handleOriginalText} />
       <ConvertedClause convertedText={convertedText} />
       <CopyConvertedClause />
       <ParenthesesChangeRange
