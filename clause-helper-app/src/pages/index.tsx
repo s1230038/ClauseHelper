@@ -133,7 +133,8 @@ function replaceKanjiClause2Num(origText: string): string {
   let repTable: ReplacePair[] = getReplaceTableForBranchNumber(origText)
   repTable = repTable.concat(getReplaceTableForArticleAndParagraph(origText))
 
-  // TODO: repTableを文字数を長い要素から降順にソート
+  // repTableを文字数の長い要素から降順にソート
+  repTable.sort((a, b) => b.from.length - a.from.length)
 
   // 置換処理
   console.log(repTable)
