@@ -133,6 +133,29 @@ function replaceKanjiClause2Num(origText: string): string {
     { beginning: '第', end: '条' },
     { beginning: '第', end: '項' },
   ]
+  const repTable: ReplacePair[] = getReplaceTableForArticleAndParagraph(
+    origText,
+    artAndPara,
+  )
+
+  // 置換処理
+  console.log(repTable)
+  for (const target of repTable) {
+    converted = converted.replaceAll(target.from, target.to)
+  }
+
+  // 全角数字を半角数字に変換
+  converted = replaceHankakuSuji2Num(converted)
+
+  return converted
+}
+
+// 第x条と第x項の置換テーブルを取得
+function getReplaceTableForArticleAndParagraph(
+  origText: string,
+  artAndPara: ReplacedTarget[],
+): ReplacePair[] {
+  let repTable: ReplacePair[] = []
   for (const target of artAndPara) {
     // 置換対象を抽出
     const kanjiClauseList: string[] = extractSections(
@@ -142,23 +165,13 @@ function replaceKanjiClause2Num(origText: string): string {
     )
     console.log(kanjiClauseList)
     // replacement table
-    const repTable: ReplacePair[] = getKanjiClause2NumClauseTable(
+    repTable = getKanjiClause2NumClauseTable(
       kanjiClauseList,
       target.beginning,
       target.end,
     )
-
-    console.log(repTable)
-    // 置換処理
-    for (const target of repTable) {
-      converted = converted.replaceAll(target.from, target.to)
-    }
   }
-
-  // 全角数字を半角数字に変換
-  converted = replaceHankakuSuji2Num(converted)
-
-  return converted
+  return repTable
 }
 
 function getKanjiClause2NumClauseTable(
