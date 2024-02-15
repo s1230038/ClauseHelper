@@ -157,8 +157,10 @@ function getReplaceTableForArticleAndParagraph(
     // 置換対象を抽出
     const kanjiClauseList: string[] = extractSections(
       origText,
-      target.beginning,
-      target.end,
+      RegExp(
+        target.beginning + '[一二三四五六七八九十百千]+' + target.end,
+        'g',
+      ),
     )
     console.log(kanjiClauseList)
     // replacement table
@@ -188,12 +190,7 @@ function getKanjiClause2NumClauseTable(
   return repTable
 }
 
-function extractSections(
-  text: string,
-  beginning: string,
-  end: string,
-): string[] {
-  const regex = new RegExp(beginning + '[一二三四五六七八九十百千]+' + end, 'g')
+function extractSections(text: string, regex: RegExp): string[] {
   const matches = [...new Set(text.match(regex))]
   return matches ? matches : []
 }
