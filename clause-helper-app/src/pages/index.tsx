@@ -167,13 +167,9 @@ function getReplaceTableForBranchNumber(origText: string): ReplacePair[] {
   console.log('branchNest2: ' + branchNest2)
   console.log('branchNest3: ' + branchNest3)
   // 置換テーブルを生成
-  let repTable: ReplacePair[] = getKanjiClause2NumClauseTable(
-    branchNest3,
-    '',
-    '',
-  )
-  repTable = repTable.concat(getKanjiClause2NumClauseTable(branchNest2, '', ''))
-  repTable = repTable.concat(getKanjiClause2NumClauseTable(branchNest1, '', ''))
+  let repTable: ReplacePair[] = getKanjiBranch2NumBranchTable(branchNest3)
+  repTable = repTable.concat(getKanjiBranch2NumBranchTable(branchNest2))
+  repTable = repTable.concat(getKanjiBranch2NumBranchTable(branchNest1))
   return repTable
 }
 
@@ -219,6 +215,23 @@ function getKanjiClause2NumClauseTable(
     const kanjiNum: string = kanjiNumList[0] // kanjiNumList[0]のみが存在すると想定
     const numClause: string = beginning + kanji2number(kanjiNum) + end
     repTable.push({ from: kanjiClause, to: numClause })
+  }
+  return repTable
+}
+
+// 枝番号（第〇条の〇の〇の〇）の変換
+function getKanjiBranch2NumBranchTable(
+  kanjiBranchList: string[],
+): ReplacePair[] {
+  // 置換対象文字列と置換後文字列のペアの配列を作る
+  const repTable: ReplacePair[] = [] // replacement table
+  let numBranch: string = '条'
+  for (const kanjiBranch of kanjiBranchList) {
+    const kanjiNumList = findKanjiNumbers(kanjiBranch)
+    for (const kanjiNum of kanjiNumList) {
+      numBranch = numBranch + 'の' + kanji2number(kanjiNum)
+    }
+    repTable.push({ from: kanjiBranch, to: numBranch })
   }
   return repTable
 }
