@@ -129,14 +129,8 @@ function ClauseViewHelper() {
 
 function replaceKanjiClause2Num(origText: string): string {
   let converted = origText
-  const artAndPara: ReplacedTarget[] = [
-    { beginning: '第', end: '条' },
-    { beginning: '第', end: '項' },
-  ]
-  const repTable: ReplacePair[] = getReplaceTableForArticleAndParagraph(
-    origText,
-    artAndPara,
-  )
+  const repTable: ReplacePair[] =
+    getReplaceTableForArticleAndParagraph(origText)
 
   // 置換処理
   console.log(repTable)
@@ -153,8 +147,11 @@ function replaceKanjiClause2Num(origText: string): string {
 // 第x条と第x項の置換テーブルを取得
 function getReplaceTableForArticleAndParagraph(
   origText: string,
-  artAndPara: ReplacedTarget[],
 ): ReplacePair[] {
+  const artAndPara: ReplacedTarget[] = [
+    { beginning: '第', end: '条' },
+    { beginning: '第', end: '項' },
+  ]
   let repTable: ReplacePair[] = []
   for (const target of artAndPara) {
     // 置換対象を抽出
