@@ -165,11 +165,12 @@ function getReplaceTableForArticleAndParagraph(
     )
     console.log(kanjiClauseList)
     // replacement table
-    repTable = getKanjiClause2NumClauseTable(
+    const newRepTable: ReplacePair[] = getKanjiClause2NumClauseTable(
       kanjiClauseList,
       target.beginning,
       target.end,
     )
+    repTable = repTable.concat(newRepTable)
   }
   return repTable
 }
