@@ -129,10 +129,9 @@ function ClauseViewHelper() {
 
 function replaceKanjiClause2Num(origText: string): string {
   let converted = origText
-  const repTable: ReplacePair[] =
-    getReplaceTableForArticleAndParagraph(origText)
-
-  getReplaceTableForBranchNumber(origText)
+  // 置換対象が長い方から置換テーブルに配置
+  let repTable: ReplacePair[] = getReplaceTableForBranchNumber(origText)
+  repTable = repTable.concat(getReplaceTableForArticleAndParagraph(origText))
 
   // 置換処理
   console.log(repTable)
@@ -164,12 +163,18 @@ function getReplaceTableForBranchNumber(origText: string): ReplacePair[] {
     origText,
     RegExp('条の[二三四五六七八九十百千]+', 'g'),
   )
-
   console.log('branchNest1: ' + branchNest1)
   console.log('branchNest2: ' + branchNest2)
   console.log('branchNest3: ' + branchNest3)
-
-  return []
+  // 置換テーブルを生成
+  let repTable: ReplacePair[] = getKanjiClause2NumClauseTable(
+    branchNest3,
+    '',
+    '',
+  )
+  repTable = repTable.concat(getKanjiClause2NumClauseTable(branchNest2, '', ''))
+  repTable = repTable.concat(getKanjiClause2NumClauseTable(branchNest1, '', ''))
+  return repTable
 }
 
 // 第x条と第x項の置換テーブルを取得
