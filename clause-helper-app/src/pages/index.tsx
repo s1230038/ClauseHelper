@@ -91,11 +91,7 @@ function ClauseViewHelper() {
   const [convertedText, setConvertedText] = useState('')
   useEffect(() => {
     const convertText = () => {
-      const converted: string = replaceKanjiClause2Num(
-        originalText,
-        { beginning: '第', end: '条' },
-        { beginning: '第', end: '項' },
-      )
+      const converted: string = replaceKanjiClause2Num(originalText)
       setConvertedText(converted)
     }
     convertText()
@@ -131,12 +127,13 @@ function ClauseViewHelper() {
   )
 }
 
-function replaceKanjiClause2Num(
-  origText: string,
-  ...targets: ReplacedTarget[]
-): string {
+function replaceKanjiClause2Num(origText: string): string {
   let converted = origText
-  for (const target of targets) {
+  const artAndPara: ReplacedTarget[] = [
+    { beginning: '第', end: '条' },
+    { beginning: '第', end: '項' },
+  ]
+  for (const target of artAndPara) {
     // 置換対象を抽出
     const kanjiClauseList: string[] = extractSections(
       origText,
