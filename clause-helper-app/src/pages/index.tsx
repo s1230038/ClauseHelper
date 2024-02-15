@@ -163,13 +163,11 @@ function getReplaceTableForBranchNumber(origText: string): ReplacePair[] {
     origText,
     RegExp('条の[二三四五六七八九十百千]+', 'g'),
   )
-  console.log('branchNest1: ' + branchNest1)
-  console.log('branchNest2: ' + branchNest2)
-  console.log('branchNest3: ' + branchNest3)
   // 置換テーブルを生成
   let repTable: ReplacePair[] = getKanjiBranch2NumBranchTable(branchNest3)
   repTable = repTable.concat(getKanjiBranch2NumBranchTable(branchNest2))
   repTable = repTable.concat(getKanjiBranch2NumBranchTable(branchNest1))
+  console.log('replaceTable4Branch: ' + repTable)
   return repTable
 }
 
