@@ -167,7 +167,6 @@ function getReplaceTableForBranchNumber(origText: string): ReplacePair[] {
   let repTable: ReplacePair[] = getKanjiBranch2NumBranchTable(branchNest3)
   repTable = repTable.concat(getKanjiBranch2NumBranchTable(branchNest2))
   repTable = repTable.concat(getKanjiBranch2NumBranchTable(branchNest1))
-  console.log('replaceTable4Branch: ' + repTable)
   return repTable
 }
 
