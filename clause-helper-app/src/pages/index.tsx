@@ -132,6 +132,8 @@ function replaceKanjiClause2Num(origText: string): string {
   const repTable: ReplacePair[] =
     getReplaceTableForArticleAndParagraph(origText)
 
+  getReplaceTableForBranchNumber(origText)
+
   // 置換処理
   console.log(repTable)
   for (const target of repTable) {
@@ -142,6 +144,32 @@ function replaceKanjiClause2Num(origText: string): string {
   converted = replaceHankakuSuji2Num(converted)
 
   return converted
+}
+
+// 枝番号（第〇条の〇の〇の〇）の変換テーブル
+function getReplaceTableForBranchNumber(origText: string): ReplacePair[] {
+  // 置換対象を抽出
+  const branchNest3: string[] = extractSections(
+    origText,
+    RegExp(
+      '条の[二三四五六七八九十百千]+の[二三四五六七八九十百千]+の[二三四五六七八九十百千]+',
+      'g',
+    ),
+  )
+  const branchNest2: string[] = extractSections(
+    origText,
+    RegExp('条の[二三四五六七八九十百千]+の[二三四五六七八九十百千]+', 'g'),
+  )
+  const branchNest1: string[] = extractSections(
+    origText,
+    RegExp('条の[二三四五六七八九十百千]+', 'g'),
+  )
+
+  console.log('branchNest1: ' + branchNest1)
+  console.log('branchNest2: ' + branchNest2)
+  console.log('branchNest3: ' + branchNest3)
+
+  return []
 }
 
 // 第x条と第x項の置換テーブルを取得
