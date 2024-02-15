@@ -83,7 +83,7 @@ function InputClause({
 type RadioButtonOption = { value: string; displayLabel: string }
 type OnChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => void
 type OnChangeTextArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => void
-type replacedTarget = { beginning: string; end: string }
+type ReplacedTarget = { beginning: string; end: string }
 type ReplacePair = { from: string; to: string }
 
 function ClauseViewHelper() {
@@ -133,7 +133,7 @@ function ClauseViewHelper() {
 
 function replaceKanjiClause2Num(
   origText: string,
-  ...targets: replacedTarget[]
+  ...targets: ReplacedTarget[]
 ): string {
   let converted = origText
   for (const target of targets) {
