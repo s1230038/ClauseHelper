@@ -151,17 +151,17 @@ function getReplaceTableForBranchNumber(origText: string): ReplacePair[] {
   const branchNest3: string[] = extractSections(
     origText,
     RegExp(
-      '条の[二三四五六七八九十百千]+の[二三四五六七八九十百千]+の[二三四五六七八九十百千]+',
+      '条の[一二三四五六七八九十百千]+の[一二三四五六七八九十百千]+の[一二三四五六七八九十百千]+',
       'g',
     ),
   )
   const branchNest2: string[] = extractSections(
     origText,
-    RegExp('条の[二三四五六七八九十百千]+の[二三四五六七八九十百千]+', 'g'),
+    RegExp('条の[一二三四五六七八九十百千]+の[一二三四五六七八九十百千]+', 'g'),
   )
   const branchNest1: string[] = extractSections(
     origText,
-    RegExp('条の[二三四五六七八九十百千]+', 'g'),
+    RegExp('条の[一二三四五六七八九十百千]+', 'g'),
   )
   // 置換テーブルを生成
   let repTable: ReplacePair[] = getKanjiBranch2NumBranchTable(branchNest3)
