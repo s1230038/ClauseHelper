@@ -223,8 +223,8 @@ function getKanjiBranch2NumBranchTable(
 ): ReplacePair[] {
   // 置換対象文字列と置換後文字列のペアの配列を作る
   const repTable: ReplacePair[] = [] // replacement table
-  let numBranch: string = '条'
   for (const kanjiBranch of kanjiBranchList) {
+    let numBranch: string = '条'
     const kanjiNumList = findKanjiNumbers(kanjiBranch)
     for (const kanjiNum of kanjiNumList) {
       numBranch = numBranch + 'の' + kanji2number(kanjiNum)
