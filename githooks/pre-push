@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Put this file (pre-push) in .git/hooks/
+./githooks/pre-push.sh
