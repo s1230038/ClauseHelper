@@ -52,8 +52,8 @@ describe('Input Clause', () => {
     expect(convertedNode).toHaveValue(convertedText)
   })
 
-  // 条文の漢数字が算用数字に変換されていることをテスト（トリッキー）
-  it('should convert Kansuji clause into numerical one as tricky case', () => {
+  // 条文の漢数字が算用数字に変換されていることをテスト（トリッキーな枝番号。「十三」が「10三」にはならないか）
+  it('should convert Kansuji clause into numerical one as tricky branch', () => {
     // TestIdがInputClauseであるコンポーネントに対応するinputの要素を取得する
     const inputNode: HTMLInputElement = screen.getByTestId('InputClause')
     const convertedNode: HTMLInputElement =
@@ -70,6 +70,31 @@ describe('Input Clause', () => {
     一　違反者又は特定関係者（当該違反者と同一の違反行為をした者を除く。）が違反行為の開始時に当該違反行為に係る有価証券又は商品を所有している場合
     二　違反者が違反行為の開始時に自己又は特定関係者の計算において当該違反行為に係る商品の買付け（市場デリバティブ取引（法第2条第21項第一号に掲げる取引に限る。）による買付けに限る。）をしている場合（当該特定関係者が当該違反者と同一の違反行為をした場合にあつては、当該特定関係者が自己の計算において当該買付けをしている場合を除く。）
     三　違反者が違反行為の開始時に当該違反行為に係る有価証券等について自己又は特定関係者の計算において第33条の11第二号から第六号までに掲げる取引を約定している場合（当該特定関係者が当該違反者と同一の違反行為をした場合にあつては、当該特定関係者が自己の計算において当該取引を約定している場合を除く。）`
+
+    // fireEventを使って、inputNodeのonChangeイベントを発火する
+    fireEvent.change(inputNode, { target: { value: inputText } })
+    // convertedNodeに変換されたテキストが表示されているか確認する
+    expect(convertedNode).toHaveValue(convertedText)
+  })
+
+  // 条文の漢数字が算用数字に変換されていることをテスト（項と号の混在）
+  it('should convert Kansuji clause into numerical one as Kou and Gou', () => {
+    // TestIdがInputClauseであるコンポーネントに対応するinputの要素を取得する
+    const inputNode: HTMLInputElement = screen.getByTestId('InputClause')
+    const convertedNode: HTMLInputElement =
+      screen.getByTestId('ConvertedClause')
+
+    const inputText: string = `第二百六十四条の十　管理不全土地管理人は、管理不全土地管理命令の対象とされた土地及び管理不全土地管理命令の効力が及ぶ動産並びにその管理、処分その他の事由により管理不全土地管理人が得た財産（以下「管理不全土地等」という。）の管理及び処分をする権限を有する。
+    ２　管理不全土地管理人が次に掲げる行為の範囲を超える行為をするには、裁判所の許可を得なければならない。ただし、この許可がないことをもって善意でかつ過失がない第三者に対抗することはできない。
+    一　保存行為
+    二　管理不全土地等の性質を変えない範囲内において、その利用又は改良を目的とする行為
+    ３　管理不全土地管理命令の対象とされた土地の処分についての前項の許可をするには、その所有者の同意がなければならない。`
+
+    const convertedText = `第264条の10　管理不全土地管理人は、管理不全土地管理命令の対象とされた土地及び管理不全土地管理命令の効力が及ぶ動産並びにその管理、処分その他の事由により管理不全土地管理人が得た財産（以下「管理不全土地等」という。）の管理及び処分をする権限を有する。
+    2　管理不全土地管理人が次に掲げる行為の範囲を超える行為をするには、裁判所の許可を得なければならない。ただし、この許可がないことをもって善意でかつ過失がない第三者に対抗することはできない。
+    一　保存行為
+    二　管理不全土地等の性質を変えない範囲内において、その利用又は改良を目的とする行為
+    3　管理不全土地管理命令の対象とされた土地の処分についての前項の許可をするには、その所有者の同意がなければならない。`
 
     // fireEventを使って、inputNodeのonChangeイベントを発火する
     fireEvent.change(inputNode, { target: { value: inputText } })
