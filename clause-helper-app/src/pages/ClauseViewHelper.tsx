@@ -197,7 +197,7 @@ function getReplaceTableForArticleAndParagraph(
         'g',
       ),
     )
-    console.log(kanjiClauseList)
+
     // replacement table
     const newRepTable: ReplacePair[] = getKanjiClause2NumClauseTable(
       kanjiClauseList,
