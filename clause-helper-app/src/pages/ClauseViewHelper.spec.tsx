@@ -78,7 +78,7 @@ describe('Input Clause', () => {
   })
 
   // 条文の漢数字が算用数字に変換されていることをテスト（項と号の混在）
-  it('should convert Kansuji clause into numerical one as Kou and Gou', () => {
+  it('should convert Kansuji clause into numerical one as mixed Kou and Gou', () => {
     // TestIdがInputClauseであるコンポーネントに対応するinputの要素を取得する
     const inputNode: HTMLInputElement = screen.getByTestId('InputClause')
     const convertedNode: HTMLInputElement =
