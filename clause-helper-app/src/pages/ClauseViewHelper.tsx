@@ -55,7 +55,12 @@ function CopyConvertedClause() {
 function ConvertedClause({ convertedText }: { convertedText: string }) {
   return (
     <>
-      <textarea id="ConvertedClause" value={convertedText} readOnly />
+      <textarea
+        id="ConvertedClause"
+        value={convertedText}
+        data-testid="ConvertedClause"
+        readOnly
+      />
     </>
   )
 }
@@ -74,6 +79,7 @@ function InputClause({
         placeholder="法律の条文を入力"
         value={originalText}
         onChange={onChange}
+        data-testid="InputClause"
       />
     </>
   )
