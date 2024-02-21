@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 /* eslint-disable no-irregular-whitespace */
 import { render, screen, RenderResult, fireEvent } from '@testing-library/react'
 import { ClauseViewHelper } from './ClauseViewHelper'
@@ -26,9 +27,9 @@ describe('Input Clause', () => {
     }
   })
 
-  // 初期描画時にtextbox Roleが空であることをテスト
-  it('should convert Kansuji clause into numerical one', () => {
-    // labelがUsernameであるコンポーネントに対応するinputの要素を取得する
+  // 条文の漢数字が算用数字に変換されていることをテスト（通常）
+  it('should convert Kansuji clause into numerical one as normal case', () => {
+    // TestIdがInputClauseであるコンポーネントに対応するinputの要素を取得する
     const inputNode: HTMLInputElement = screen.getByTestId('InputClause')
     const convertedNode: HTMLInputElement =
       screen.getByTestId('ConvertedClause')
@@ -44,6 +45,31 @@ describe('Input Clause', () => {
     二　夫婦の関係
     三　会社の総株主等の議決権の百分の五十を超える議決権を保有している者（以下この条において「支配株主等」という。）と当該会社（以下この条において「被支配会社」という。）との関係
     四　被支配会社とその支配株主等の他の被支配会社との関係`
+
+    // fireEventを使って、inputNodeのonChangeイベントを発火する
+    fireEvent.change(inputNode, { target: { value: inputText } })
+    // convertedNodeに変換されたテキストが表示されているか確認する
+    expect(convertedNode).toHaveValue(convertedText)
+  })
+
+  // 条文の漢数字が算用数字に変換されていることをテスト（トリッキー）
+  it('should convert Kansuji clause into numerical one as tricky case', () => {
+    // TestIdがInputClauseであるコンポーネントに対応するinputの要素を取得する
+    const inputNode: HTMLInputElement = screen.getByTestId('InputClause')
+    const convertedNode: HTMLInputElement =
+      screen.getByTestId('ConvertedClause')
+
+    const inputText: string = `（現実売買等による相場操縦行為をした者に対する課徴金につき自己の計算において有価証券の買付け等をしたものとみなす場合）
+    第三十三条の十三　法第百七十四条の二第八項に規定する政令で定める場合は、次に掲げる場合とする。
+    一　違反者又は特定関係者（当該違反者と同一の違反行為をした者を除く。）が違反行為の開始時に当該違反行為に係る有価証券又は商品を所有している場合
+    二　違反者が違反行為の開始時に自己又は特定関係者の計算において当該違反行為に係る商品の買付け（市場デリバティブ取引（法第二条第二十一項第一号に掲げる取引に限る。）による買付けに限る。）をしている場合（当該特定関係者が当該違反者と同一の違反行為をした場合にあつては、当該特定関係者が自己の計算において当該買付けをしている場合を除く。）
+    三　違反者が違反行為の開始時に当該違反行為に係る有価証券等について自己又は特定関係者の計算において第三十三条の十一第二号から第六号までに掲げる取引を約定している場合（当該特定関係者が当該違反者と同一の違反行為をした場合にあつては、当該特定関係者が自己の計算において当該取引を約定している場合を除く。）`
+
+    const convertedText = `（現実売買等による相場操縦行為をした者に対する課徴金につき自己の計算において有価証券の買付け等をしたものとみなす場合）
+    第33条の13　法第174条の2第8項に規定する政令で定める場合は、次に掲げる場合とする。
+    一　違反者又は特定関係者（当該違反者と同一の違反行為をした者を除く。）が違反行為の開始時に当該違反行為に係る有価証券又は商品を所有している場合
+    二　違反者が違反行為の開始時に自己又は特定関係者の計算において当該違反行為に係る商品の買付け（市場デリバティブ取引（法第2条第21項第一号に掲げる取引に限る。）による買付けに限る。）をしている場合（当該特定関係者が当該違反者と同一の違反行為をした場合にあつては、当該特定関係者が自己の計算において当該買付けをしている場合を除く。）
+    三　違反者が違反行為の開始時に当該違反行為に係る有価証券等について自己又は特定関係者の計算において第33条の11第二号から第六号までに掲げる取引を約定している場合（当該特定関係者が当該違反者と同一の違反行為をした場合にあつては、当該特定関係者が自己の計算において当該取引を約定している場合を除く。）`
 
     // fireEventを使って、inputNodeのonChangeイベントを発火する
     fireEvent.change(inputNode, { target: { value: inputText } })
