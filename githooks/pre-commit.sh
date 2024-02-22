@@ -7,7 +7,7 @@ echo
 echo '*** npm script ***'
 cd clause-helper-app
 
-echo 'Secretlint checking files':
+echo '* Secretlint checking files':
 npm run secretlint
 # If secretlint errors, stop the commit
 if [ $? -eq 1 ]; then
@@ -16,8 +16,9 @@ if [ $? -eq 1 ]; then
 fi
 echo
 
-echo 'ESLint automatically formats files:'
+echo '* ESLint automatically formats files:'
 npm run format
+echo
 
 cd ..
 echo '*** npm script completed ***'

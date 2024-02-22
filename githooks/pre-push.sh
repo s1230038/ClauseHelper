@@ -7,9 +7,9 @@ echo
 echo '*** npm script ***'
 cd clause-helper-app
 
-echo 'Test runs'
+echo '* Test runs'
 npm run test
-
+echo
 
 cd ..
 echo '*** npm script completed ***'
