@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint --dir src",
     "debug": "set NODE_OPTIONS=--inspect && next dev",
-    "test": "jest",
+    "test": "jest --silent",
     "format": "next lint --fix --dir src",
     "secretlint": "secretlint --maskSecrets --secretlintignore .gitignore \"**/*\"",
     "storybook": "storybook dev -p 6006",
