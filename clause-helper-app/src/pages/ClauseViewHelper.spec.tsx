@@ -136,4 +136,17 @@ describe('Parentheses Change Range', () => {
     expect(optionAllLevel.checked).toBe(false)
     expect(optionOneLevel.checked).toBe(true)
   })
+
+  // クリックによる変更（元に戻る）
+  it('should be reverted when clicking twice', () => {
+    const optionAllLevel: HTMLInputElement = screen.getByLabelText('全階層')
+    const optionOneLevel: HTMLInputElement = screen.getByLabelText('１階層')
+
+    // ボタンをクリックする
+    fireEvent.click(optionOneLevel)
+    fireEvent.click(optionAllLevel)
+
+    expect(optionAllLevel.checked).toBe(true)
+    expect(optionOneLevel.checked).toBe(false)
+  })
 })
