@@ -102,3 +102,26 @@ describe('Input Clause', () => {
     expect(convertedNode).toHaveValue(convertedText)
   })
 })
+
+describe('Parentheses Change Range', () => {
+  let renderResult: RenderResult
+
+  // それぞれのテストケース前にコンポーネントを描画し、renderResultにセットする
+  beforeEach(() => {
+    renderResult = render(<ClauseViewHelper />)
+  })
+
+  // テストケース実行後に描画していたコンポーネントを開放する
+  afterEach(() => {
+    renderResult.unmount()
+  })
+
+  // 初期描画時
+  it('should be selected in the radio buttons on initial render', () => {
+    const optionAllLevel: HTMLInputElement = screen.getByLabelText('全階層')
+    const optionOneLevel: HTMLInputElement = screen.getByLabelText('１階層')
+
+    expect(optionAllLevel.checked).toBe(true)
+    expect(optionOneLevel.checked).toBe(false)
+  })
+})
