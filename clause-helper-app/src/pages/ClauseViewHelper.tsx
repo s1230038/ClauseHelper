@@ -187,7 +187,6 @@ function getParenthesisCorrespondence(
       if (lpStack.length === 0) {
         // 対応する開き括弧がない場合は不正
         const message = 'The correspondence between parentheses is invalid.'
-        console.error(message)
         throw new Error(message)
       }
       const lp: LeftParenthesis | undefined = lpStack.pop()
