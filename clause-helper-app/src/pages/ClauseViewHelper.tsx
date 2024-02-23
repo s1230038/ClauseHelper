@@ -96,7 +96,11 @@ type OnChangeTextArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => void
 type ReplacedTarget = { beginning: string; end: string }
 type ReplacePair = { from: string; to: string }
 type LeftParenthesis = { level: number; beginning: number }
-type ParenthesisCorrespondence = LeftParenthesis & { end: number }
+type ParenthesisCorrespondence = LeftParenthesis & {
+  end: number
+  debugBegin: string
+  debugEnd: string
+}
 type ButtonProps = { onClick: MouseEventHandler<HTMLButtonElement> }
 
 export function ClauseViewHelper() {
@@ -193,6 +197,8 @@ function getParenthesisCorrespondence(
           level: lp.level,
           beginning: lp.beginning,
           end: i,
+          debugBegin: text.charAt(lp.beginning + 1),
+          debugEnd: text.charAt(lp.beginning - 1),
         }
         pcList.push(pc)
       } else {
