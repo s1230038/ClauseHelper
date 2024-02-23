@@ -172,7 +172,7 @@ export function ClauseViewHelper() {
   )
 }
 
-function getParenthesisCorrespondence(
+export function getParenthesisCorrespondence(
   text: string,
 ): ParenthesisCorrespondence[] {
   const lpStack: LeftParenthesis[] = [] // Left Parentheses stack
