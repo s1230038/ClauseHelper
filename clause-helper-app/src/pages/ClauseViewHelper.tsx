@@ -187,6 +187,7 @@ function getParenthesisCorrespondence(
         throw new Error(message)
       }
       const lp: LeftParenthesis | undefined = lpStack.pop()
+      level--
       if (typeof lp === 'object' && lp != null) {
         const pc: ParenthesisCorrespondence = {
           level: lp.level,
