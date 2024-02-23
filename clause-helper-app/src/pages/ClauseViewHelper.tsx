@@ -1,7 +1,7 @@
 import { kanji2number, findKanjiNumbers } from '@geolonia/japanese-numeral'
 import { useState, useEffect, MouseEventHandler } from 'react'
 
-function ExpandAllParentheses(onClick: MouseEventHandler<HTMLButtonElement>) {
+function ExpandAllParentheses({ onClick }: ButtonProps) {
   return (
     <>
       <button onClick={onClick} id="ExpandAllParentheses">
@@ -11,7 +11,7 @@ function ExpandAllParentheses(onClick: MouseEventHandler<HTMLButtonElement>) {
   )
 }
 
-function CollapseAllParentheses(onClick: MouseEventHandler<HTMLButtonElement>) {
+function CollapseAllParentheses({ onClick }: ButtonProps) {
   return (
     <>
       <button onClick={onClick} id="CollapseAllParentheses">
@@ -95,6 +95,9 @@ type OnChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => void
 type OnChangeTextArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => void
 type ReplacedTarget = { beginning: string; end: string }
 type ReplacePair = { from: string; to: string }
+interface ButtonProps {
+  onClick: MouseEventHandler<HTMLButtonElement>
+}
 
 export function ClauseViewHelper() {
   const [originalText, setOriginalText] = useState('')
