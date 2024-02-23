@@ -1,18 +1,22 @@
 import { kanji2number, findKanjiNumbers } from '@geolonia/japanese-numeral'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, MouseEventHandler } from 'react'
 
-function ExpandAllParentheses() {
+function ExpandAllParentheses(onClick: MouseEventHandler<HTMLButtonElement>) {
   return (
     <>
-      <button id="ExpandAllParentheses">丸括弧を展開</button>
+      <button onClick={onClick} id="ExpandAllParentheses">
+        丸括弧を展開
+      </button>
     </>
   )
 }
 
-function CollapseAllParentheses() {
+function CollapseAllParentheses(onClick: MouseEventHandler<HTMLButtonElement>) {
   return (
     <>
-      <button id="CollapseAllParentheses">丸括弧を短縮</button>
+      <button onClick={onClick} id="CollapseAllParentheses">
+        丸括弧を短縮
+      </button>
     </>
   )
 }
@@ -95,6 +99,7 @@ type ReplacePair = { from: string; to: string }
 export function ClauseViewHelper() {
   const [originalText, setOriginalText] = useState('')
   const [convertedText, setConvertedText] = useState('')
+
   useEffect(() => {
     const convertText = () => {
       const converted: string = replaceKanjiClause2Num(originalText)
@@ -117,6 +122,30 @@ export function ClauseViewHelper() {
     setOriginalText(event.target.value)
   }
 
+  const handleClickCollapsing: MouseEventHandler<HTMLButtonElement> = (
+    event,
+  ) => {
+    if (selectedRange === 'allLevels') {
+      console.log('handleClickCollapsing() allLevels: event=' + event)
+      // TODO: collapse all levels
+    } else {
+      console.log('handleClickCollapsing() oneLevels: event=' + event)
+      // TODO: collapse all levels
+    }
+  }
+
+  const handleClickExpanding: MouseEventHandler<HTMLButtonElement> = (
+    event,
+  ) => {
+    if (selectedRange === 'allLevels') {
+      console.log('handleClickExpanding() allLevels: event=' + event)
+      // TODO: collapse all levels
+    } else {
+      console.log('handleClickExpanding() oneLevels: event=' + event)
+      // TODO: collapse all levels
+    }
+  }
+
   return (
     <>
       <InputClause originalText={originalText} onChange={handleOriginalText} />
@@ -127,8 +156,8 @@ export function ClauseViewHelper() {
         selectedRange={selectedRange}
         onChange={handleRangeChange}
       />
-      <CollapseAllParentheses />
-      <ExpandAllParentheses />
+      <CollapseAllParentheses onClick={handleClickCollapsing} />
+      <ExpandAllParentheses onClick={handleClickExpanding} />
     </>
   )
 }
