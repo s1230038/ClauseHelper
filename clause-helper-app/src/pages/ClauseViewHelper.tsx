@@ -95,6 +95,8 @@ type OnChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => void
 type OnChangeTextArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => void
 type ReplacedTarget = { beginning: string; end: string }
 type ReplacePair = { from: string; to: string }
+type LeftParenthesis = { level: number; beginning: number }
+type ParenthesisCorrespondence = LeftParenthesis & { end: number }
 type ButtonProps = { onClick: MouseEventHandler<HTMLButtonElement> }
 
 export function ClauseViewHelper() {
@@ -128,7 +130,6 @@ export function ClauseViewHelper() {
   ) => {
     if (selectedRange === 'allLevels') {
       console.log('handleClickCollapsing() allLevels: event=' + event)
-      // TODO: collapse all levels
     } else {
       console.log('handleClickCollapsing() oneLevels: event=' + event)
       // TODO: collapse all levels
@@ -140,7 +141,8 @@ export function ClauseViewHelper() {
   ) => {
     if (selectedRange === 'allLevels') {
       console.log('handleClickExpanding() allLevels: event=' + event)
-      // TODO: collapse all levels
+      // convert the original text into the replaced one again
+      setConvertedText(replaceKanjiClause2Num(originalText))
     } else {
       console.log('handleClickExpanding() oneLevels: event=' + event)
       // TODO: collapse all levels
@@ -161,6 +163,41 @@ export function ClauseViewHelper() {
       <ExpandAllParentheses onClick={handleClickExpanding} />
     </>
   )
+}
+
+function getParenthesisCorrespondence(
+  text: string,
+): ParenthesisCorrespondence[] {
+  const lpStack: LeftParenthesis[] = [] // Left Parentheses stack
+  const pcList: ParenthesisCorrespondence[] = []
+  let level: number = 0
+  for (let i = 0; i < text.length; i++) {
+    const char: string = text.charAt(i)
+    if (char === '（') {
+      lpStack.push({ level: level, beginning: i })
+      level++
+    } else if (char === '）') {
+      if (lpStack.length === 0) {
+        // 対応する開き括弧がない場合は不正
+        const message = 'The correspondence between parentheses is invalid.'
+        console.error(message)
+        throw new Error(message)
+      }
+      const lp: LeftParenthesis | undefined = lpStack.pop()
+      if (typeof lp === 'object' && lp != null) {
+        const pc: ParenthesisCorrespondence = {
+          level: lp.level,
+          beginning: lp.beginning,
+          end: i,
+        }
+        pcList.push(pc)
+      } else {
+        throw new Error('lpStack element is invalid.')
+      }
+    }
+  }
+
+  return pcList
 }
 
 function replaceKanjiClause2Num(origText: string): string {
