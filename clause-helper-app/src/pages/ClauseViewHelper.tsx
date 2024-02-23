@@ -95,9 +95,7 @@ type OnChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => void
 type OnChangeTextArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => void
 type ReplacedTarget = { beginning: string; end: string }
 type ReplacePair = { from: string; to: string }
-interface ButtonProps {
-  onClick: MouseEventHandler<HTMLButtonElement>
-}
+type ButtonProps = { onClick: MouseEventHandler<HTMLButtonElement> }
 
 export function ClauseViewHelper() {
   const [originalText, setOriginalText] = useState('')
