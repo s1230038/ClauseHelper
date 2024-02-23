@@ -198,7 +198,7 @@ function getParenthesisCorrespondence(
           beginning: lp.beginning,
           end: i,
           debugBegin: text.charAt(lp.beginning + 1),
-          debugEnd: text.charAt(lp.beginning - 1),
+          debugEnd: text.charAt(i + 1),
         }
         pcList.push(pc)
       } else {
