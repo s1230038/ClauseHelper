@@ -215,7 +215,8 @@ function replaceKanjiClause2Num(origText: string): string {
   let repTable: ReplacePair[] = getReplaceTableForBranchNumber(origText)
   repTable = repTable.concat(getReplaceTableForArticleAndParagraph(origText))
 
-  // repTableを文字数の長い要素から降順にソート
+  // repTableを文字数の長い要素から降順にソート。
+  // 長い置換対象文字列と短い置換対象文字列に重複する文字列がある場合、先に短い方の置換をすると長い方の置換が行われなくなるため。
   repTable.sort((a, b) => b.from.length - a.from.length)
 
   // 置換処理
