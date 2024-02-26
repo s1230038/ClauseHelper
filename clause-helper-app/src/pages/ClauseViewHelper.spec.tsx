@@ -239,10 +239,10 @@ describe('Parenthesis Correspondence', () => {
     expect(result).toEqual(expected3)
 
     // abnormal case
-    result = collapse(inputText, 4, pcList)
+    result = collapse(inputText, 4, pcList) // level exceeds over existing
     expect(result).toEqual(inputText)
 
-    result = collapse(inputText, 0, [])
+    result = collapse(inputText, 0, []) // pcList is "undefined"
     expect(result).toEqual(inputText)
   })
 })
