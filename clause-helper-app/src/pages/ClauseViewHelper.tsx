@@ -224,7 +224,7 @@ export function collapse(
   let collapsedText = origText
   for (const pc of targetPcList) {
     // Parenthesis block
-    const pBlock = origText.slice(pc.beginning, pc.end)
+    const pBlock = origText.slice(pc.beginning, pc.end + 1)
     collapsedText = collapsedText.replaceAll(pBlock, '（…）')
   }
   return collapsedText
