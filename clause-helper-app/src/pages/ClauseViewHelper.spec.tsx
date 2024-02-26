@@ -237,5 +237,12 @@ describe('Parenthesis Correspondence', () => {
 
     result = collapse(inputText, 3, pcList)
     expect(result).toEqual(expected3)
+
+    // abnormal case
+    result = collapse(inputText, 4, pcList)
+    expect(result).toEqual(inputText)
+
+    result = collapse(inputText, 0, [])
+    expect(result).toEqual(expected3)
   })
 })
