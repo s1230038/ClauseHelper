@@ -132,11 +132,12 @@ export function ClauseViewHelper() {
   const handleClickCollapsing: MouseEventHandler<HTMLButtonElement> = (
     event,
   ) => {
+    const pcList: ParenthesisCorrespondence[] =
+      getParenthesisCorrespondence(convertedText)
+    console.log(pcList)
+
     if (selectedRange === 'allLevels') {
       console.log('handleClickCollapsing() allLevels: event=' + event)
-      const pcList: ParenthesisCorrespondence[] =
-        getParenthesisCorrespondence(convertedText)
-      console.log(pcList)
     } else {
       console.log('handleClickCollapsing() oneLevels: event=' + event)
       // TODO: collapse all levels
