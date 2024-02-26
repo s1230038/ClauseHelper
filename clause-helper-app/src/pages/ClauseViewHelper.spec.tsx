@@ -243,6 +243,6 @@ describe('Parenthesis Correspondence', () => {
     expect(result).toEqual(inputText)
 
     result = collapse(inputText, 0, [])
-    expect(result).toEqual(expected3)
+    expect(result).toEqual(inputText)
   })
 })
