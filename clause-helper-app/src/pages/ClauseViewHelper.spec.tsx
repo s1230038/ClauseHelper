@@ -181,18 +181,18 @@ describe('Parenthesis Correspondence', () => {
         debugEnd: 'を',
       },
       {
-        level: 0,
-        beginning: 3,
-        end: 184,
-        debugBegin: '中',
-        debugEnd: 'は',
-      },
-      {
         level: 1,
         beginning: 221,
         end: 279,
         debugBegin: '発',
         debugEnd: 'を',
+      },
+      {
+        level: 0,
+        beginning: 3,
+        end: 184,
+        debugBegin: '中',
+        debugEnd: 'は',
       },
       {
         level: 0,
