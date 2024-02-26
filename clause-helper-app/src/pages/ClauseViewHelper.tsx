@@ -211,6 +211,25 @@ export function getParenthesisCorrespondence(
   return pcList
 }
 
+// 指定したtargetLevelのネストまで丸括弧を短縮表示する
+export function collapse(
+  origText: string,
+  targetLevel: number,
+  pcList: ParenthesisCorrespondence[], // TODO: pcList = [] を渡した場合をテストすること。
+): string {
+  const targetPcList = pcList.filter(({ level }) => level === targetLevel)
+  if (targetLevel === undefined) {
+    return origText
+  }
+  let collapsedText = origText
+  for (const pc of targetPcList) {
+    // Parenthesis block
+    const pBlock = origText.slice(pc.beginning, pc.end)
+    collapsedText = collapsedText.replaceAll(pBlock, '（…）')
+  }
+  return collapsedText
+}
+
 function replaceKanjiClause2Num(origText: string): string {
   let converted = origText
   // 置換対象が長い方から置換テーブルに配置
