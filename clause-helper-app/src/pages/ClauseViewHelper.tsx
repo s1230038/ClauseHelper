@@ -184,7 +184,7 @@ export function getParenthesisCorrespondence(
   let level: number = 0
   for (let i = 0; i < text.length; i++) {
     const char: string = text.charAt(i)
-    if (char === '（') {
+    if (char === '（' && text.charAt(i + 1) !== '」') {
       lpStack.push({ level: level, beginning: i })
       level++
     } else if (char === '）') {
