@@ -209,7 +209,7 @@ export function getParenthesisCorrespondence(
       }
     }
   }
-  // 置換対象文字長を降順にソート
+  // 置換対象文字長の降順でソート。短い置換対象文字列で長い置換対象文字列を意図せず置換しないため
   pcList.sort((a, b) => b.end - b.beginning - (a.end - a.beginning))
   return pcList
 }
