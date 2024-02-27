@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import { kanji2number, findKanjiNumbers } from '@geolonia/japanese-numeral'
 import { useState, useEffect, MouseEventHandler } from 'react'
 
@@ -138,6 +139,8 @@ export function ClauseViewHelper() {
 
     if (selectedRange === 'allLevels') {
       console.log('handleClickCollapsing() allLevels: event=' + event)
+      const collapsedText = collapse(convertedText, 0, pcList)
+      setConvertedText(collapsedText)
     } else {
       console.log('handleClickCollapsing() oneLevels: event=' + event)
       // TODO: collapse all levels
