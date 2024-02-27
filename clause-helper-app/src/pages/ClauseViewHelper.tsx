@@ -209,8 +209,8 @@ export function getParenthesisCorrespondence(
       }
     }
   }
-  // levelを基に降順にソート。Current levelの検索のため。
-  pcList.sort((a, b) => b.level - a.level)
+  // 置換対象文字長を降順にソート
+  pcList.sort((a, b) => b.end - b.beginning - (a.end - a.beginning))
   return pcList
 }
 
