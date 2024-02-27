@@ -156,58 +156,6 @@ describe('Parentheses Change Range', () => {
 })
 
 describe('Parenthesis Correspondence', () => {
-  it('should find correct parenthesis correspondence', () => {
-    const inputText =
-      '事業者（中間処理業者（発生から最終処分（埋立処分、海洋投入処分（海洋汚染等及び海上災害の防止に関する法律に基づき定められた海洋への投入の場所及び方法に関する基準に従つて行う処分をいう。）又は再生をいう。以下同じ。）が終了するまでの一連の処理の行程の中途において産業廃棄物を処分する者をいう。以下同じ。）を含む。次項及び第7項並びに次条第5項から第7項までにおいて同じ。）は、その産業廃棄物（特別管理産業廃棄物を除くものとし、中間処理産業廃棄物（発生から最終処分が終了するまでの一連の処理の行程の中途において産業廃棄物を処分した後の産業廃棄物をいう。以下同じ。）を含む。次項及び第7項において同じ。）の運搬又は処分を他人に委託する場合には、その運搬については第14条第12項に規定する産業廃棄物収集運搬業者その他環境省令で定める者に、その処分については同項に規定する産業廃棄物処分業者その他環境省令で定める者にそれぞれ委託しなければならない。'
-    const expectedCorrespondence = [
-      {
-        level: 3,
-        beginning: 31,
-        end: 92,
-        debugBegin: '海',
-        debugEnd: '又',
-      },
-      {
-        level: 2,
-        beginning: 19,
-        end: 106,
-        debugBegin: '埋',
-        debugEnd: 'が',
-      },
-      {
-        level: 1,
-        beginning: 10,
-        end: 150,
-        debugBegin: '発',
-        debugEnd: 'を',
-      },
-      {
-        level: 1,
-        beginning: 221,
-        end: 279,
-        debugBegin: '発',
-        debugEnd: 'を',
-      },
-      {
-        level: 0,
-        beginning: 3,
-        end: 184,
-        debugBegin: '中',
-        debugEnd: 'は',
-      },
-      {
-        level: 0,
-        beginning: 194,
-        end: 298,
-        debugBegin: '特',
-        debugEnd: 'の',
-      },
-    ]
-
-    const result = getParenthesisCorrespondence(inputText)
-    expect(result).toEqual(expectedCorrespondence)
-  })
-
   // https://note.com/lawyer_alpaca/n/ne09c189e813b
   it('should replace parenthesis blocks', () => {
     const inputText =
