@@ -102,10 +102,6 @@ type ParenthesisCorrespondence = LeftParenthesis & {
   nextToBeginning: string
   debugEnd: string
 }
-type NestedLevel = {
-  cur: number // Current Level for collapsing: -1 means no collapsing parenthesis
-  max: number // Max Level in the parenthesis correspondence list
-}
 type ButtonProps = { onClick: MouseEventHandler<HTMLButtonElement> }
 
 export function ClauseViewHelper() {
@@ -153,10 +149,12 @@ export function ClauseViewHelper() {
       collapsedText = collapse(origNumClause, 0, origPcList)
     } else {
       console.log('handleClickCollapsing() oneLevels: event=' + event)
-      const lv = getLevel(curPcList)
-      console.log(lv)
-      lv.cur = lv.cur === -1 ? lv.max : lv.cur - 1
-      collapsedText = collapse(origNumClause, Math.max(lv.cur, 0), origPcList)
+      let curLv = getCurrentLevel(curPcList)
+      const maxLv = getMaxLevel(origPcList)
+      console.log('curLv = ' + curLv + '  maxLv =' + maxLv)
+      // 短縮丸括弧が一つもなければmaxLvを代入し、一つでもあれば現在レベルー１を代入（但し０以上）
+      curLv = curLv === -1 ? maxLv : Math.max(curLv - 1, 0)
+      collapsedText = collapse(origNumClause, curLv, origPcList)
     }
     setConvertedText(collapsedText)
   }
@@ -248,15 +246,27 @@ export function collapse(
 }
 
 // 短縮表示されている丸括弧のレベル（深さ、ネスト）を返す
-export function getLevel(pcList: ParenthesisCorrespondence[]): NestedLevel {
-  const lv: NestedLevel = { cur: -1, max: 0 }
-  for (const pc of pcList) {
+// -1 means no collapsing parenthesis
+export function getCurrentLevel(
+  CurPcList: ParenthesisCorrespondence[],
+): number {
+  let curLv = -1
+  for (const pc of CurPcList) {
     if (pc.nextToBeginning === '…') {
-      lv.cur = pc.level
+      curLv = pc.level
+      break
     }
-    lv.max = Math.max(lv.max, pc.level)
   }
-  return lv
+  return curLv
+}
+
+// 最深の丸括弧のレベル（深さ、ネスト）を返す
+export function getMaxLevel(origPcList: ParenthesisCorrespondence[]): number {
+  let max = 0
+  for (const pc of origPcList) {
+    max = Math.max(max, pc.level)
+  }
+  return max
 }
 
 function replaceKanjiClause2Num(origText: string): string {
