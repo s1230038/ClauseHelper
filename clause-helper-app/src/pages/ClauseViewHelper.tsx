@@ -102,6 +102,10 @@ type ParenthesisCorrespondence = LeftParenthesis & {
   nextToBeginning: string
   debugEnd: string
 }
+type NestedLevel = {
+  cur: number // Current Level for collapsing
+  max: number // Max Level in the parenthesis correspondence list
+}
 type ButtonProps = { onClick: MouseEventHandler<HTMLButtonElement> }
 
 export function ClauseViewHelper() {
@@ -110,8 +114,8 @@ export function ClauseViewHelper() {
 
   useEffect(() => {
     const convertText = () => {
-      const converted: string = replaceKanjiClause2Num(originalText)
-      setConvertedText(converted)
+      const numClause: string = replaceKanjiClause2Num(originalText)
+      setConvertedText(numClause)
     }
     convertText()
   }, [originalText])
@@ -133,18 +137,21 @@ export function ClauseViewHelper() {
   const handleClickCollapsing: MouseEventHandler<HTMLButtonElement> = (
     event,
   ) => {
+    const numClause: string = replaceKanjiClause2Num(originalText)
     const pcList: ParenthesisCorrespondence[] =
-      getParenthesisCorrespondence(convertedText)
+      getParenthesisCorrespondence(numClause)
     console.log(pcList)
 
+    let collapsedText: string
     if (selectedRange === 'allLevels') {
       console.log('handleClickCollapsing() allLevels: event=' + event)
-      const collapsedText = collapse(convertedText, 0, pcList)
-      setConvertedText(collapsedText)
+      collapsedText = collapse(numClause, 0, pcList)
     } else {
       console.log('handleClickCollapsing() oneLevels: event=' + event)
-      // TODO: collapse all levels
+      const lv = getCurrentLevel(pcList)
+      collapsedText = collapse(numClause, Math.min(lv.cur + 1, lv.max), pcList)
     }
+    setConvertedText(collapsedText)
   }
 
   const handleClickExpanding: MouseEventHandler<HTMLButtonElement> = (
@@ -231,6 +238,20 @@ export function collapse(
     collapsedText = collapsedText.replaceAll(pBlock, '（…）')
   }
   return collapsedText
+}
+
+// 短縮表示されている丸括弧のレベル（深さ、ネスト）を返す
+export function getCurrentLevel(
+  pcList: ParenthesisCorrespondence[],
+): NestedLevel {
+  const lv: NestedLevel = { cur: 0, max: 0 }
+  for (const pc of pcList) {
+    if (pc.nextToBeginning === '…') {
+      lv.cur = pc.level
+    }
+    lv.max = Math.max(lv.max, pc.level)
+  }
+  return lv
 }
 
 function replaceKanjiClause2Num(origText: string): string {
