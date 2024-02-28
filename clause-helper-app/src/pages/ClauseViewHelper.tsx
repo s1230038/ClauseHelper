@@ -168,7 +168,8 @@ export function ClauseViewHelper() {
       setConvertedText(replaceKanjiClause2Num(originalText))
     } else {
       console.log('handleClickExpanding() oneLevels: event=' + event)
-      // TODO: collapse all levels
+      // TODO: expand one level
+      // TODO: integrate generating pcList between this and handleClickCollapsing into one function
     }
   }
 
