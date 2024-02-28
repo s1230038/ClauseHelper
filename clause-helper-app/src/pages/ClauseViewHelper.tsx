@@ -103,7 +103,7 @@ type ParenthesisCorrespondence = LeftParenthesis & {
   debugEnd: string
 }
 type NestedLevel = {
-  cur: number // Current Level for collapsing
+  cur: number // Current Level for collapsing: -1 means no collapsing parenthesis
   max: number // Max Level in the parenthesis correspondence list
 }
 type ButtonProps = { onClick: MouseEventHandler<HTMLButtonElement> }
@@ -155,11 +155,8 @@ export function ClauseViewHelper() {
       console.log('handleClickCollapsing() oneLevels: event=' + event)
       const lv = getLevel(curPcList)
       console.log(lv)
-      collapsedText = collapse(
-        origNumClause,
-        Math.max(lv.cur - 1, 0),
-        origPcList,
-      )
+      lv.cur = lv.cur === -1 ? lv.max : lv.cur - 1
+      collapsedText = collapse(origNumClause, Math.max(lv.cur, 0), origPcList)
     }
     setConvertedText(collapsedText)
   }
@@ -259,10 +256,6 @@ export function getLevel(pcList: ParenthesisCorrespondence[]): NestedLevel {
     }
     lv.max = Math.max(lv.max, pc.level)
   }
-  if (lv.cur === -1) {
-    lv.cur = lv.max
-  }
-
   return lv
 }
 
