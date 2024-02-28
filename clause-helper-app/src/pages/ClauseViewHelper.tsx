@@ -99,7 +99,7 @@ type ReplacePair = { from: string; to: string }
 type LeftParenthesis = { level: number; beginning: number }
 type ParenthesisCorrespondence = LeftParenthesis & {
   end: number
-  debugBegin: string
+  nextToBeginning: string
   debugEnd: string
 }
 type ButtonProps = { onClick: MouseEventHandler<HTMLButtonElement> }
@@ -200,7 +200,7 @@ export function getParenthesisCorrespondence(
           level: lp.level,
           beginning: lp.beginning,
           end: i,
-          debugBegin: text.charAt(lp.beginning + 1),
+          nextToBeginning: text.charAt(lp.beginning + 1),
           debugEnd: text.charAt(i + 1),
         }
         pcList.push(pc)
