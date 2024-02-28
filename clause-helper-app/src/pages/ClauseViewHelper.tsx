@@ -154,6 +154,7 @@ export function ClauseViewHelper() {
     } else {
       console.log('handleClickCollapsing() oneLevels: event=' + event)
       const lv = getCurrentLevel(curPcList)
+      console.log(lv)
       collapsedText = collapse(
         origNumClause,
         Math.min(lv.cur + 1, lv.max),
