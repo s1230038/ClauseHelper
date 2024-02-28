@@ -218,7 +218,7 @@ export function getParenthesisCorrespondence(
 export function collapse(
   origText: string,
   targetLevel: number,
-  pcList: ParenthesisCorrespondence[], // TODO: pcList = [] を渡した場合をテストすること。
+  pcList: ParenthesisCorrespondence[],
 ): string {
   const targetPcList = pcList.filter(({ level }) => level === targetLevel)
   if (targetLevel === undefined) {
