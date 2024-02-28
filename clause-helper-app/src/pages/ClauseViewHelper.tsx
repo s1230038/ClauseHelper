@@ -153,11 +153,11 @@ export function ClauseViewHelper() {
       collapsedText = collapse(origNumClause, 0, origPcList)
     } else {
       console.log('handleClickCollapsing() oneLevels: event=' + event)
-      const lv = getCurrentLevel(curPcList)
+      const lv = getLevel(curPcList)
       console.log(lv)
       collapsedText = collapse(
         origNumClause,
-        Math.min(lv.cur + 1, lv.max),
+        Math.max(lv.cur - 1, 0),
         origPcList,
       )
     }
@@ -251,16 +251,18 @@ export function collapse(
 }
 
 // 短縮表示されている丸括弧のレベル（深さ、ネスト）を返す
-export function getCurrentLevel(
-  pcList: ParenthesisCorrespondence[],
-): NestedLevel {
-  const lv: NestedLevel = { cur: 0, max: 0 }
+export function getLevel(pcList: ParenthesisCorrespondence[]): NestedLevel {
+  const lv: NestedLevel = { cur: -1, max: 0 }
   for (const pc of pcList) {
     if (pc.nextToBeginning === '…') {
       lv.cur = pc.level
     }
     lv.max = Math.max(lv.max, pc.level)
   }
+  if (lv.cur === -1) {
+    lv.cur = lv.max
+  }
+
   return lv
 }
 
