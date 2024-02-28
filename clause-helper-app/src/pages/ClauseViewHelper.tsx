@@ -137,19 +137,28 @@ export function ClauseViewHelper() {
   const handleClickCollapsing: MouseEventHandler<HTMLButtonElement> = (
     event,
   ) => {
-    const numClause: string = replaceKanjiClause2Num(originalText)
-    const pcList: ParenthesisCorrespondence[] =
-      getParenthesisCorrespondence(numClause)
-    console.log(pcList)
+    const origNumClause: string = replaceKanjiClause2Num(originalText)
+    const origPcList: ParenthesisCorrespondence[] =
+      getParenthesisCorrespondence(origNumClause)
+    const curPcList: ParenthesisCorrespondence[] =
+      getParenthesisCorrespondence(convertedText)
+    console.log('origPcList:')
+    console.log(origPcList)
+    console.log('curPcList:')
+    console.log(curPcList)
 
     let collapsedText: string
     if (selectedRange === 'allLevels') {
       console.log('handleClickCollapsing() allLevels: event=' + event)
-      collapsedText = collapse(numClause, 0, pcList)
+      collapsedText = collapse(origNumClause, 0, origPcList)
     } else {
       console.log('handleClickCollapsing() oneLevels: event=' + event)
-      const lv = getCurrentLevel(pcList)
-      collapsedText = collapse(numClause, Math.min(lv.cur + 1, lv.max), pcList)
+      const lv = getCurrentLevel(curPcList)
+      collapsedText = collapse(
+        origNumClause,
+        Math.min(lv.cur + 1, lv.max),
+        origPcList,
+      )
     }
     setConvertedText(collapsedText)
   }
