@@ -60,12 +60,7 @@ function CopyConvertedClause() {
 function ConvertedClause({ convertedText }: { convertedText: string }) {
   return (
     <>
-      <textarea
-        id="ConvertedClause"
-        value={convertedText}
-        data-testid="ConvertedClause"
-        readOnly
-      />
+      <textarea id="ConvertedClause" value={convertedText} data-testid="ConvertedClause" readOnly />
     </>
   )
 }
@@ -130,14 +125,10 @@ export function ClauseViewHelper() {
     setOriginalText(event.target.value)
   }
 
-  const handleClickCollapsing: MouseEventHandler<HTMLButtonElement> = (
-    event,
-  ) => {
+  const handleClickCollapsing: MouseEventHandler<HTMLButtonElement> = (event) => {
     const origNumClause: string = replaceKanjiClause2Num(originalText)
-    const origPcList: ParenthesisCorrespondence[] =
-      getParenthesisCorrespondence(origNumClause)
-    const curPcList: ParenthesisCorrespondence[] =
-      getParenthesisCorrespondence(convertedText)
+    const origPcList: ParenthesisCorrespondence[] = getParenthesisCorrespondence(origNumClause)
+    const curPcList: ParenthesisCorrespondence[] = getParenthesisCorrespondence(convertedText)
     console.log('origPcList:')
     console.log(origPcList)
     console.log('curPcList:')
@@ -159,9 +150,7 @@ export function ClauseViewHelper() {
     setConvertedText(collapsedText)
   }
 
-  const handleClickExpanding: MouseEventHandler<HTMLButtonElement> = (
-    event,
-  ) => {
+  const handleClickExpanding: MouseEventHandler<HTMLButtonElement> = (event) => {
     if (selectedRange === 'allLevels') {
       console.log('handleClickExpanding() allLevels: event=' + event)
       // convert the original text into the replaced one again
@@ -189,9 +178,7 @@ export function ClauseViewHelper() {
   )
 }
 
-export function getParenthesisCorrespondence(
-  text: string,
-): ParenthesisCorrespondence[] {
+export function getParenthesisCorrespondence(text: string): ParenthesisCorrespondence[] {
   const lpStack: LeftParenthesis[] = [] // Left Parentheses stack
   const pcList: ParenthesisCorrespondence[] = []
   let level: number = 0
@@ -248,9 +235,7 @@ export function collapse(
 
 // 短縮表示されている丸括弧のレベル（深さ、ネスト）を返す
 // -1 means no collapsing parenthesis
-export function getCurrentLevel(
-  CurPcList: ParenthesisCorrespondence[],
-): number {
+export function getCurrentLevel(CurPcList: ParenthesisCorrespondence[]): number {
   let curLv = -1
   for (const pc of CurPcList) {
     if (pc.nextToBeginning === '…') {
@@ -319,9 +304,7 @@ function getReplaceTableForBranchNumber(origText: string): ReplacePair[] {
 }
 
 // 第x条と第x項の置換テーブルを取得
-function getReplaceTableForArticleAndParagraph(
-  origText: string,
-): ReplacePair[] {
+function getReplaceTableForArticleAndParagraph(origText: string): ReplacePair[] {
   const artAndPara: ReplacedTarget[] = [
     { beginning: '第', end: '条' },
     { beginning: '第', end: '項' },
@@ -331,10 +314,7 @@ function getReplaceTableForArticleAndParagraph(
     // 置換対象を抽出
     const kanjiClauseList: string[] = extractSections(
       origText,
-      RegExp(
-        target.beginning + '[一二三四五六七八九十百千]+' + target.end,
-        'g',
-      ),
+      RegExp(target.beginning + '[一二三四五六七八九十百千]+' + target.end, 'g'),
     )
 
     // replacement table
@@ -365,9 +345,7 @@ function getKanjiClause2NumClauseTable(
 }
 
 // 枝番号（第〇条の〇の〇の〇）の変換
-function getKanjiBranch2NumBranchTable(
-  kanjiBranchList: string[],
-): ReplacePair[] {
+function getKanjiBranch2NumBranchTable(kanjiBranchList: string[]): ReplacePair[] {
   // 置換対象文字列と置換後文字列のペアの配列を作る
   const repTable: ReplacePair[] = [] // replacement table
   for (const kanjiBranch of kanjiBranchList) {

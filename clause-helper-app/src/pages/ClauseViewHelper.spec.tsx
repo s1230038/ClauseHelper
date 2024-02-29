@@ -1,11 +1,7 @@
 /* eslint-disable max-lines-per-function */
 /* eslint-disable no-irregular-whitespace */
 import { render, screen, RenderResult, fireEvent } from '@testing-library/react'
-import {
-  ClauseViewHelper,
-  getParenthesisCorrespondence,
-  collapse,
-} from './ClauseViewHelper'
+import { ClauseViewHelper, getParenthesisCorrespondence, collapse } from './ClauseViewHelper'
 
 describe('Input Clause', () => {
   let renderResult: RenderResult
@@ -35,8 +31,7 @@ describe('Input Clause', () => {
   it('should convert Kansuji clause into numerical one as normal case', () => {
     // TestIdがInputClauseであるコンポーネントに対応するinputの要素を取得する
     const inputNode: HTMLInputElement = screen.getByTestId('InputClause')
-    const convertedNode: HTMLInputElement =
-      screen.getByTestId('ConvertedClause')
+    const convertedNode: HTMLInputElement = screen.getByTestId('ConvertedClause')
 
     const inputText: string = `第十九条の三　法第百三条の二第五項第二号（法第百三条の三第二項及び第百六条の九において準用する場合を含む。）に規定する政令で定める特別の関係にある者は、次に掲げる関係にある者（特定株主を除く。）とする。
     一　共同で株式会社金融商品取引所（法第二条第十八項に規定する株式会社金融商品取引所をいう。以下同じ。）の対象議決権（法第百三条の二第一項に規定する対象議決権をいう。以下この号、第十九条の三の三、第十九条の三の三の二及び第十九条の三の四の二において同じ。）を取得し、若しくは保有し、又は当該株式会社金融商品取引所の対象議決権を行使することを合意している者（以下この条において「共同保有者」という。）の関係
@@ -60,8 +55,7 @@ describe('Input Clause', () => {
   it('should convert Kansuji clause into numerical one as tricky branch', () => {
     // TestIdがInputClauseであるコンポーネントに対応するinputの要素を取得する
     const inputNode: HTMLInputElement = screen.getByTestId('InputClause')
-    const convertedNode: HTMLInputElement =
-      screen.getByTestId('ConvertedClause')
+    const convertedNode: HTMLInputElement = screen.getByTestId('ConvertedClause')
 
     const inputText: string = `（現実売買等による相場操縦行為をした者に対する課徴金につき自己の計算において有価証券の買付け等をしたものとみなす場合）
     第三十三条の十三　法第百七十四条の二第八項に規定する政令で定める場合は、次に掲げる場合とする。
@@ -85,8 +79,7 @@ describe('Input Clause', () => {
   it('should convert Kansuji clause into numerical one as mixed Kou and Gou', () => {
     // TestIdがInputClauseであるコンポーネントに対応するinputの要素を取得する
     const inputNode: HTMLInputElement = screen.getByTestId('InputClause')
-    const convertedNode: HTMLInputElement =
-      screen.getByTestId('ConvertedClause')
+    const convertedNode: HTMLInputElement = screen.getByTestId('ConvertedClause')
 
     const inputText: string = `第二百六十四条の十　管理不全土地管理人は、管理不全土地管理命令の対象とされた土地及び管理不全土地管理命令の効力が及ぶ動産並びにその管理、処分その他の事由により管理不全土地管理人が得た財産（以下「管理不全土地等」という。）の管理及び処分をする権限を有する。
     ２　管理不全土地管理人が次に掲げる行為の範囲を超える行為をするには、裁判所の許可を得なければならない。ただし、この許可がないことをもって善意でかつ過失がない第三者に対抗することはできない。
