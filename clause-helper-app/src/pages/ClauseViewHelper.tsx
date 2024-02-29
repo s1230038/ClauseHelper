@@ -167,6 +167,7 @@ export function ClauseViewHelper() {
       let curLv = getCurrentLevel(curPcList)
       const maxLv = getMaxLevel(origPcList)
       console.log('curLv = ' + curLv + '  maxLv =' + maxLv)
+      // 短縮丸括弧が一つもなければそのまま-1とし、一つでもあれば現在レベル＋１を代入（但しmaxLv+1以下）
       curLv = curLv === -1 ? -1 : Math.min(curLv + 1, maxLv + 1)
       const collapsedText = collapse(origNumClause, curLv, origPcList)
       setConvertedText(collapsedText)
