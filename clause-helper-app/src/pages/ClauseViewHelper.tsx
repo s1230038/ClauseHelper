@@ -171,6 +171,7 @@ export function ClauseViewHelper() {
       curLv = curLv === -1 ? -1 : Math.min(curLv + 1, maxLv + 1)
       const collapsedText = collapse(origNumClause, curLv, origPcList)
       setConvertedText(collapsedText)
+      // TODO: UT for collapsing and expanding
       // TODO: integrate generating pcList between this and handleClickCollapsing into one function
     }
   }
