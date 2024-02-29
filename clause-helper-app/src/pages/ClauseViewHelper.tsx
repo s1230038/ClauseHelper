@@ -167,7 +167,7 @@ export function ClauseViewHelper() {
       let curLv = getCurrentLevel(curPcList)
       const maxLv = getMaxLevel(origPcList)
       console.log('curLv = ' + curLv + '  maxLv =' + maxLv)
-      curLv = curLv === -1 ? -1 : Math.max(curLv + 1, maxLv)
+      curLv = curLv === -1 ? -1 : Math.min(curLv + 1, maxLv + 1)
       const collapsedText = collapse(origNumClause, curLv, origPcList)
       setConvertedText(collapsedText)
       // TODO: integrate generating pcList between this and handleClickCollapsing into one function
