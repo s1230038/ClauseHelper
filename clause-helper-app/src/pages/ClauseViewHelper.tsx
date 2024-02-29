@@ -157,7 +157,19 @@ export function ClauseViewHelper() {
       setConvertedText(replaceKanjiClause2Num(originalText))
     } else {
       console.log('handleClickExpanding() oneLevels: event=' + event)
-      // TODO: expand one level
+      const origNumClause: string = replaceKanjiClause2Num(originalText)
+      const origPcList: ParenthesisCorrespondence[] = getParenthesisCorrespondence(origNumClause)
+      const curPcList: ParenthesisCorrespondence[] = getParenthesisCorrespondence(convertedText)
+      console.log('origPcList:')
+      console.log(origPcList)
+      console.log('curPcList:')
+      console.log(curPcList)
+      let curLv = getCurrentLevel(curPcList)
+      const maxLv = getMaxLevel(origPcList)
+      console.log('curLv = ' + curLv + '  maxLv =' + maxLv)
+      curLv = curLv === -1 ? -1 : Math.max(curLv + 1, maxLv)
+      const collapsedText = collapse(origNumClause, curLv, origPcList)
+      setConvertedText(collapsedText)
       // TODO: integrate generating pcList between this and handleClickCollapsing into one function
     }
   }
