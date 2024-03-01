@@ -312,5 +312,17 @@ describe('Collapse and expand parenthesis blocks', () => {
     fireEvent.click(expandNode)
     expect(convertedNode).toHaveValue(expected4)
   })
-  it('should not expand at initial input', () => {})
+  it('should not expand at initial input', () => {
+    // テキスト貼り付け直後
+    fireEvent.change(inputNode, { target: { value: inputText } })
+    expect(convertedNode).toHaveValue(expected4)
+    // 既に全レベルを展開した状態で、あえて展開ボタンをクリック
+    fireEvent.click(expandNode)
+    expect(convertedNode).toHaveValue(expected4)
+    // １階層ラジオボタンをクリックする
+    fireEvent.click(optionOneLevel)
+    // 既に全レベルを展開した状態で、あえて展開ボタンをクリック
+    fireEvent.click(expandNode)
+    expect(convertedNode).toHaveValue(expected4)
+  })
 })
