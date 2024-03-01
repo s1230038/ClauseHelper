@@ -237,6 +237,33 @@ describe('Collapse and expand parenthesis blocks', () => {
     // 短縮ボタンをクリック
     fireEvent.click(collapseNode)
     expect(convertedNode).toHaveValue(expected3)
+    // 短縮ボタンをクリック
+    fireEvent.click(collapseNode)
+    expect(convertedNode).toHaveValue(expected2)
+    // 短縮ボタンをクリック
+    fireEvent.click(collapseNode)
+    expect(convertedNode).toHaveValue(expected1)
+    // 短縮ボタンをクリック
+    fireEvent.click(collapseNode)
+    expect(convertedNode).toHaveValue(expected0)
+    // 既に全レベルを短縮した状態であえて短縮ボタンをクリック
+    fireEvent.click(collapseNode)
+    expect(convertedNode).toHaveValue(expected0)
+    // 展開ボタンをクリック
+    fireEvent.click(expandNode)
+    expect(convertedNode).toHaveValue(expected1)
+    // 展開ボタンをクリック
+    fireEvent.click(expandNode)
+    expect(convertedNode).toHaveValue(expected2)
+    // 展開ボタンをクリック
+    fireEvent.click(expandNode)
+    expect(convertedNode).toHaveValue(expected3)
+    // 展開ボタンをクリック
+    fireEvent.click(expandNode)
+    expect(convertedNode).toHaveValue(expected4)
+    // 既に全レベルを展開した状態で、あえて展開ボタンをクリック
+    fireEvent.click(expandNode)
+    expect(convertedNode).toHaveValue(expected4)
   })
   it('should collapse and expand by all level', () => {})
   it('should collapse by all level and expand by each one level', () => {})
