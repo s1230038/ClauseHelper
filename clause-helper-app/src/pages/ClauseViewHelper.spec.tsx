@@ -312,6 +312,39 @@ describe('Collapse and expand parenthesis blocks', () => {
     fireEvent.click(expandNode)
     expect(convertedNode).toHaveValue(expected4)
   })
+  it('should collapse by each one level and expand by all level', () => {
+    // テキスト貼り付け直後
+    fireEvent.change(inputNode, { target: { value: inputText } })
+    expect(convertedNode).toHaveValue(expected4)
+    // １階層ラジオボタンをクリックする
+    fireEvent.click(optionOneLevel)
+    // 短縮ボタンをクリック
+    fireEvent.click(collapseNode)
+    expect(convertedNode).toHaveValue(expected3)
+    // 短縮ボタンをクリック
+    fireEvent.click(collapseNode)
+    expect(convertedNode).toHaveValue(expected2)
+    // 短縮ボタンをクリック
+    fireEvent.click(collapseNode)
+    expect(convertedNode).toHaveValue(expected1)
+    // 短縮ボタンをクリック
+    fireEvent.click(collapseNode)
+    expect(convertedNode).toHaveValue(expected0)
+    // 既に全レベルを短縮した状態であえて短縮ボタンをクリック
+    fireEvent.click(collapseNode)
+    expect(convertedNode).toHaveValue(expected0)
+    // 全階層ラジオボタンをクリックする
+    fireEvent.click(optionAllLevel)
+    // 展開ボタンをクリック
+    fireEvent.click(expandNode)
+    expect(convertedNode).toHaveValue(expected0)
+    // 展開ボタンをクリック
+    fireEvent.click(expandNode)
+    expect(convertedNode).toHaveValue(expected4)
+    // 既に全レベルを展開した状態で、あえて展開ボタンをクリック
+    fireEvent.click(expandNode)
+    expect(convertedNode).toHaveValue(expected4)
+  })
   it('should not expand at initial input', () => {
     // テキスト貼り付け直後
     fireEvent.change(inputNode, { target: { value: inputText } })
