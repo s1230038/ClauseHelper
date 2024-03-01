@@ -5,7 +5,7 @@ import { useState, useEffect, MouseEventHandler } from 'react'
 function ExpandAllParentheses({ onClick }: ButtonProps) {
   return (
     <>
-      <button onClick={onClick} id="ExpandAllParentheses">
+      <button onClick={onClick} id="ExpandAllParentheses" data-testid="ExpandAllParentheses">
         丸括弧を展開
       </button>
     </>
@@ -15,7 +15,7 @@ function ExpandAllParentheses({ onClick }: ButtonProps) {
 function CollapseAllParentheses({ onClick }: ButtonProps) {
   return (
     <>
-      <button onClick={onClick} id="CollapseAllParentheses">
+      <button onClick={onClick} id="CollapseAllParentheses" data-testid="CollapseAllParentheses">
         丸括弧を短縮
       </button>
     </>

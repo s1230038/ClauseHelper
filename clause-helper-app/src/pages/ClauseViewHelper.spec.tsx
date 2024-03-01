@@ -219,7 +219,25 @@ describe('Collapse and expand parenthesis blocks', () => {
 
   const expected3 = `5　事業者（中間処理業者（発生から最終処分（埋立処分、海洋投入処分（…）又は再生をいう。以下同じ。）が終了するまでの一連の処理の行程の中途において産業廃棄物を処分する者をいう。以下同じ。）を含む。次項及び第7項並びに次条第5項から第7項までにおいて同じ。）は、その産業廃棄物（特別管理産業廃棄物を除くものとし、中間処理産業廃棄物（発生から最終処分が終了するまでの一連の処理の行程の中途において産業廃棄物を処分した後の産業廃棄物をいう。以下同じ。）を含む。次項及び第7項において同じ。）の運搬又は処分を他人に委託する場合には、その運搬については第14条第12項に規定する産業廃棄物収集運搬業者その他環境省令で定める者に、その処分については同項に規定する産業廃棄物処分業者その他環境省令で定める者にそれぞれ委託しなければならない。`
 
-  it('should collapse and expand by each one level', () => {})
+  const expected4 = `5　事業者（中間処理業者（発生から最終処分（埋立処分、海洋投入処分（海洋汚染等及び海上災害の防止に関する法律に基づき定められた海洋への投入の場所及び方法に関する基準に従つて行う処分をいう。）又は再生をいう。以下同じ。）が終了するまでの一連の処理の行程の中途において産業廃棄物を処分する者をいう。以下同じ。）を含む。次項及び第7項並びに次条第5項から第7項までにおいて同じ。）は、その産業廃棄物（特別管理産業廃棄物を除くものとし、中間処理産業廃棄物（発生から最終処分が終了するまでの一連の処理の行程の中途において産業廃棄物を処分した後の産業廃棄物をいう。以下同じ。）を含む。次項及び第7項において同じ。）の運搬又は処分を他人に委託する場合には、その運搬については第14条第12項に規定する産業廃棄物収集運搬業者その他環境省令で定める者に、その処分については同項に規定する産業廃棄物処分業者その他環境省令で定める者にそれぞれ委託しなければならない。`
+
+  it('should collapse and expand by each one level', () => {
+    const inputNode: HTMLInputElement = screen.getByTestId('InputClause')
+    const convertedNode: HTMLInputElement = screen.getByTestId('ConvertedClause')
+    const optionAllLevel: HTMLInputElement = screen.getByLabelText('全階層')
+    const optionOneLevel: HTMLInputElement = screen.getByLabelText('１階層')
+    const expandNode: HTMLInputElement = screen.getByTestId('ExpandAllParentheses')
+    const collapseNode: HTMLInputElement = screen.getByTestId('CollapseAllParentheses')
+
+    // テキスト貼り付け直後
+    fireEvent.change(inputNode, { target: { value: inputText } })
+    expect(convertedNode).toHaveValue(expected4)
+    // １階層ラジオボタンをクリックする
+    fireEvent.click(optionOneLevel)
+    // 短縮ボタンをクリック
+    fireEvent.click(collapseNode)
+    expect(convertedNode).toHaveValue(expected3)
+  })
   it('should collapse and expand by all level', () => {})
   it('should collapse by all level and expand by each one level', () => {})
   it('should not expand at initial input', () => {})
