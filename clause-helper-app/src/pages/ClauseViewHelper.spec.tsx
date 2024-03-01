@@ -335,8 +335,6 @@ describe('Collapse and expand parenthesis blocks', () => {
     expect(convertedNode).toHaveValue(expected0)
     // 全階層ラジオボタンをクリックする
     fireEvent.click(optionAllLevel)
-    // 展開ボタンをクリック
-    fireEvent.click(expandNode)
     expect(convertedNode).toHaveValue(expected0)
     // 展開ボタンをクリック
     fireEvent.click(expandNode)
