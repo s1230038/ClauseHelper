@@ -239,6 +239,7 @@ describe('Collapse and expand parenthesis blocks', () => {
     expect(convertedNode).toHaveValue(expected4)
     // １階層ラジオボタンをクリックする
     fireEvent.click(optionOneLevel)
+    expect(convertedNode).toHaveValue(expected4)
     // 短縮ボタンをクリック
     fireEvent.click(collapseNode)
     expect(convertedNode).toHaveValue(expected3)
@@ -296,6 +297,7 @@ describe('Collapse and expand parenthesis blocks', () => {
     expect(convertedNode).toHaveValue(expected0)
     // １階層ラジオボタンをクリックする
     fireEvent.click(optionOneLevel)
+    expect(convertedNode).toHaveValue(expected0)
     // 展開ボタンをクリック
     fireEvent.click(expandNode)
     expect(convertedNode).toHaveValue(expected1)
@@ -318,6 +320,7 @@ describe('Collapse and expand parenthesis blocks', () => {
     expect(convertedNode).toHaveValue(expected4)
     // １階層ラジオボタンをクリックする
     fireEvent.click(optionOneLevel)
+    expect(convertedNode).toHaveValue(expected4)
     // 短縮ボタンをクリック
     fireEvent.click(collapseNode)
     expect(convertedNode).toHaveValue(expected3)
@@ -352,11 +355,13 @@ describe('Collapse and expand parenthesis blocks', () => {
     expect(convertedNode).toHaveValue(expected4)
     // １階層ラジオボタンをクリックする
     fireEvent.click(optionOneLevel)
+    expect(convertedNode).toHaveValue(expected4)
     // 既に全レベルを展開した状態で、あえて展開ボタンをクリック
     fireEvent.click(expandNode)
     expect(convertedNode).toHaveValue(expected4)
     // 全階層ラジオボタンをクリックする
     fireEvent.click(optionAllLevel)
+    expect(convertedNode).toHaveValue(expected4)
     // 既に全レベルを展開した状態で、あえて展開ボタンをクリック
     fireEvent.click(expandNode)
     expect(convertedNode).toHaveValue(expected4)
