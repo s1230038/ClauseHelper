@@ -127,7 +127,7 @@ describe('Parentheses Change Range', () => {
     const optionAllLevel: HTMLInputElement = screen.getByLabelText('全階層')
     const optionOneLevel: HTMLInputElement = screen.getByLabelText('１階層')
 
-    // ボタンをクリックする
+    // ラジオボタンをクリックする
     fireEvent.click(optionOneLevel)
 
     expect(optionAllLevel.checked).toBe(false)
@@ -139,7 +139,7 @@ describe('Parentheses Change Range', () => {
     const optionAllLevel: HTMLInputElement = screen.getByLabelText('全階層')
     const optionOneLevel: HTMLInputElement = screen.getByLabelText('１階層')
 
-    // ボタンをクリックする
+    // ラジオボタンをクリックする
     fireEvent.click(optionOneLevel)
     fireEvent.click(optionAllLevel)
 
@@ -194,5 +194,19 @@ describe('Parenthesis Correspondence', () => {
     const pcList = getParenthesisCorrespondence(inputText)
     const result = collapse(inputText, 0, pcList)
     expect(result).toEqual(expected0)
+  })
+})
+
+describe('collapse and expand parenthesis blocks', () => {
+  let renderResult: RenderResult
+
+  // それぞれのテストケース前にコンポーネントを描画し、renderResultにセットする
+  beforeEach(() => {
+    renderResult = render(<ClauseViewHelper />)
+  })
+
+  // テストケース実行後に描画していたコンポーネントを開放する
+  afterEach(() => {
+    renderResult.unmount()
   })
 })
