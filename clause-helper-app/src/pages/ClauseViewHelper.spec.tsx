@@ -365,5 +365,11 @@ describe('Collapse and expand parenthesis blocks', () => {
     // 既に全レベルを展開した状態で、あえて展開ボタンをクリック
     fireEvent.click(expandNode)
     expect(convertedNode).toHaveValue(expected4)
+    // 全階層ラジオボタンをクリックする
+    fireEvent.click(optionAllLevel)
+    expect(convertedNode).toHaveValue(expected4)
+    // 短縮ボタンをクリック
+    fireEvent.click(collapseNode)
+    expect(convertedNode).toHaveValue(expected0)
   })
 })
