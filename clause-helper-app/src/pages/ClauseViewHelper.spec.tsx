@@ -148,7 +148,7 @@ describe('Parentheses Change Range', () => {
   })
 })
 
-describe('Parenthesis Correspondence', () => {
+describe('Function test: collapse()', () => {
   // https://note.com/lawyer_alpaca/n/ne09c189e813b
   it('should replace parenthesis blocks', () => {
     const inputText =
@@ -197,7 +197,7 @@ describe('Parenthesis Correspondence', () => {
   })
 })
 
-describe('collapse and expand parenthesis blocks', () => {
+describe('Collapse and expand parenthesis blocks', () => {
   let renderResult: RenderResult
 
   // それぞれのテストケース前にコンポーネントを描画し、renderResultにセットする
