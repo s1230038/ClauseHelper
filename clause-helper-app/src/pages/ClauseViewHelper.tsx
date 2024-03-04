@@ -1,24 +1,57 @@
 /* eslint-disable max-lines-per-function */
 import { kanji2number, findKanjiNumbers } from '@geolonia/japanese-numeral'
-import { useState, useEffect, MouseEventHandler } from 'react'
+import { useState, useEffect, ChangeEvent, MouseEventHandler } from 'react'
+
+type RadioButtonOption = { value: string; displayLabel: string }
+type OnChangeInput = (event: ChangeEvent<HTMLInputElement>) => void
+type OnChangeTextArea = (event: ChangeEvent<HTMLTextAreaElement>) => void
+type ReplacedTarget = { beginning: string; end: string }
+type ReplacePair = { from: string; to: string }
+type LeftParenthesis = { level: number; beginning: number }
+type ParenthesisCorrespondence = LeftParenthesis & {
+  end: number
+  nextToBeginning: string
+  debugEnd: string
+}
+type ButtonProps = { onClick: MouseEventHandler<HTMLButtonElement> }
+
+function Button({
+  onClick,
+  id,
+  label,
+  testId,
+}: {
+  onClick: MouseEventHandler<HTMLButtonElement>
+  id: string
+  label: string
+  testId: string
+}) {
+  return (
+    <button onClick={onClick} id={id} data-testid={testId}>
+      {label}
+    </button>
+  )
+}
 
 function ExpandAllParentheses({ onClick }: ButtonProps) {
   return (
-    <>
-      <button onClick={onClick} id="ExpandAllParentheses" data-testid="ExpandAllParentheses">
-        丸括弧を展開
-      </button>
-    </>
+    <Button
+      onClick={onClick}
+      id="ExpandAllParentheses"
+      label="丸括弧を展開"
+      testId="ExpandAllParentheses"
+    />
   )
 }
 
 function CollapseAllParentheses({ onClick }: ButtonProps) {
   return (
-    <>
-      <button onClick={onClick} id="CollapseAllParentheses" data-testid="CollapseAllParentheses">
-        丸括弧を短縮
-      </button>
-    </>
+    <Button
+      onClick={onClick}
+      id="CollapseAllParentheses"
+      label="丸括弧を短縮"
+      testId="CollapseAllParentheses"
+    />
   )
 }
 
@@ -49,19 +82,20 @@ function ParenthesesChangeRange({
   )
 }
 
-function CopyConvertedClause() {
+function CopyConvertedClause({ onClick }: ButtonProps) {
   return (
-    <>
-      <button id="CopyConvertedClause">コピー</button>
-    </>
+    <Button
+      onClick={onClick}
+      id="CopyConvertedClause"
+      label="コピー"
+      testId="CopyConvertedClause"
+    />
   )
 }
 
 function ConvertedClause({ convertedText }: { convertedText: string }) {
   return (
-    <>
-      <textarea id="ConvertedClause" value={convertedText} data-testid="ConvertedClause" readOnly />
-    </>
+    <textarea id="ConvertedClause" value={convertedText} data-testid="ConvertedClause" readOnly />
   )
 }
 
@@ -73,77 +107,44 @@ function InputClause({
   onChange: OnChangeTextArea
 }) {
   return (
-    <>
-      <textarea
-        id="InputClause"
-        placeholder="法律の条文を入力"
-        value={originalText}
-        onChange={onChange}
-        data-testid="InputClause"
-      />
-    </>
+    <textarea
+      id="InputClause"
+      placeholder="法律の条文を入力"
+      value={originalText}
+      onChange={onChange}
+      data-testid="InputClause"
+    />
   )
 }
-
-// 型エイリアス (type alias)
-type RadioButtonOption = { value: string; displayLabel: string }
-type OnChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => void
-type OnChangeTextArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => void
-type ReplacedTarget = { beginning: string; end: string }
-type ReplacePair = { from: string; to: string }
-type LeftParenthesis = { level: number; beginning: number }
-type ParenthesisCorrespondence = LeftParenthesis & {
-  end: number
-  nextToBeginning: string
-  debugEnd: string
-}
-type ButtonProps = { onClick: MouseEventHandler<HTMLButtonElement> }
 
 export function ClauseViewHelper() {
   const [originalText, setOriginalText] = useState('')
   const [convertedText, setConvertedText] = useState('')
-
-  useEffect(() => {
-    const convertText = () => {
-      const numClause: string = replaceKanjiClause2Num(originalText)
-      setConvertedText(numClause)
-    }
-    convertText()
-  }, [originalText])
-
   const [selectedRange, setSelectedRange] = useState('allLevels')
   const rangeOptions: RadioButtonOption[] = [
     { value: 'allLevels', displayLabel: '全階層' },
     { value: 'oneLevel', displayLabel: '１階層' },
   ]
 
-  const handleRangeChange: OnChangeInput = (event) => {
-    setSelectedRange(event.target.value)
-  }
+  useEffect(() => {
+    const convertText = () => setConvertedText(replaceKanjiClause2Num(originalText))
+    convertText()
+  }, [originalText])
 
-  const handleOriginalText: OnChangeTextArea = (event) => {
-    setOriginalText(event.target.value)
-  }
+  const handleRangeChange: OnChangeInput = (event) => setSelectedRange(event.target.value)
+  const handleOriginalText: OnChangeTextArea = (event) => setOriginalText(event.target.value)
 
   const handleClickCollapsing: MouseEventHandler<HTMLButtonElement> = (event) => {
     const origNumClause: string = replaceKanjiClause2Num(originalText)
     const origPcList: ParenthesisCorrespondence[] = getParenthesisCorrespondence(origNumClause)
     const curPcList: ParenthesisCorrespondence[] = getParenthesisCorrespondence(convertedText)
-    console.log('origPcList:')
-    console.log(origPcList)
-    console.log('curPcList:')
-    console.log(curPcList)
 
     let collapsedText: string
     if (selectedRange === 'allLevels') {
-      console.log('handleClickCollapsing() allLevels: event=' + event)
       collapsedText = collapse(origNumClause, 0, origPcList)
     } else {
-      console.log('handleClickCollapsing() oneLevels: event=' + event)
       let curLv = getCurrentLevel(curPcList)
       const maxLv = getMaxLevel(origPcList)
-      console.log('curLv = ' + curLv + '  maxLv =' + maxLv)
-      // 短縮丸括弧が一つもなければmaxLvを代入し、一つでもあれば現在レベルー１を代入（但し０以上）
       curLv = curLv === -1 ? maxLv : Math.max(curLv - 1, 0)
       collapsedText = collapse(origNumClause, curLv, origPcList)
     }
@@ -152,26 +153,17 @@ export function ClauseViewHelper() {
 
   const handleClickExpanding: MouseEventHandler<HTMLButtonElement> = (event) => {
     if (selectedRange === 'allLevels') {
-      console.log('handleClickExpanding() allLevels: event=' + event)
-      // convert the original text into the replaced one again
       setConvertedText(replaceKanjiClause2Num(originalText))
     } else {
-      console.log('handleClickExpanding() oneLevels: event=' + event)
       const origNumClause: string = replaceKanjiClause2Num(originalText)
       const origPcList: ParenthesisCorrespondence[] = getParenthesisCorrespondence(origNumClause)
       const curPcList: ParenthesisCorrespondence[] = getParenthesisCorrespondence(convertedText)
-      console.log('origPcList:')
-      console.log(origPcList)
-      console.log('curPcList:')
-      console.log(curPcList)
+
       let curLv = getCurrentLevel(curPcList)
       const maxLv = getMaxLevel(origPcList)
-      console.log('curLv = ' + curLv + '  maxLv =' + maxLv)
-      // 短縮丸括弧が一つもなければそのまま-1とし、一つでもあれば現在レベル＋１を代入（但しmaxLv+1以下）
       curLv = curLv === -1 ? -1 : Math.min(curLv + 1, maxLv + 1)
       const collapsedText = collapse(origNumClause, curLv, origPcList)
       setConvertedText(collapsedText)
-      // TODO: integrate generating pcList between this and handleClickCollapsing into one function
     }
   }
 
@@ -179,7 +171,7 @@ export function ClauseViewHelper() {
     <>
       <InputClause originalText={originalText} onChange={handleOriginalText} />
       <ConvertedClause convertedText={convertedText} />
-      <CopyConvertedClause />
+      <CopyConvertedClause onClick={() => {}} />
       <ParenthesesChangeRange
         rangeOptions={rangeOptions}
         selectedRange={selectedRange}
@@ -192,22 +184,23 @@ export function ClauseViewHelper() {
 }
 
 export function getParenthesisCorrespondence(text: string): ParenthesisCorrespondence[] {
-  const lpStack: LeftParenthesis[] = [] // Left Parentheses stack
+  const lpStack: LeftParenthesis[] = []
   const pcList: ParenthesisCorrespondence[] = []
+
   let level: number = 0
   for (let i = 0; i < text.length; i++) {
     const char: string = text.charAt(i)
+
     if (char === '（' && text.charAt(i + 1) !== '」') {
-      lpStack.push({ level: level, beginning: i })
+      lpStack.push({ level, beginning: i })
       level++
     } else if (char === '）') {
       if (lpStack.length === 0) {
-        // 対応する開き括弧がない場合は不正
-        const message = 'The correspondence between parentheses is invalid.'
-        throw new Error(message)
+        throw new Error('The correspondence between parentheses is invalid.')
       }
       const lp: LeftParenthesis | undefined = lpStack.pop()
       level--
+
       if (typeof lp === 'object' && lp != null) {
         const pc: ParenthesisCorrespondence = {
           level: lp.level,
@@ -222,78 +215,67 @@ export function getParenthesisCorrespondence(text: string): ParenthesisCorrespon
       }
     }
   }
-  // 置換対象文字長の降順でソート。短い置換対象文字列で長い置換対象文字列を意図せず置換しないため
+
   pcList.sort((a, b) => b.end - b.beginning - (a.end - a.beginning))
+
   return pcList
 }
 
-// 指定したtargetLevelのネストまで丸括弧を短縮表示する
 export function collapse(
   origText: string,
   targetLevel: number,
   pcList: ParenthesisCorrespondence[],
 ): string {
   const targetPcList = pcList.filter(({ level }) => level === targetLevel)
+
   if (targetLevel === undefined) {
     return origText
   }
+
   let collapsedText = origText
+
   for (const pc of targetPcList) {
-    // Parenthesis block
     const pBlock = origText.slice(pc.beginning, pc.end + 1)
     collapsedText = collapsedText.replaceAll(pBlock, '（…）')
   }
+
   return collapsedText
 }
 
-// 短縮表示されている丸括弧のレベル（深さ、ネスト）を返す
-// -1 means no collapsing parenthesis
 export function getCurrentLevel(CurPcList: ParenthesisCorrespondence[]): number {
   let curLv = -1
+
   for (const pc of CurPcList) {
     if (pc.nextToBeginning === '…') {
       curLv = pc.level
       break
     }
   }
+
   return curLv
 }
 
-// 最深の丸括弧のレベル（深さ、ネスト）を返す
 export function getMaxLevel(origPcList: ParenthesisCorrespondence[]): number {
-  let max = 0
-  for (const pc of origPcList) {
-    max = Math.max(max, pc.level)
-  }
-  return max
+  return origPcList.reduce((max, pc) => Math.max(max, pc.level), 0)
 }
 
 function replaceKanjiClause2Num(origText: string): string {
   let converted = origText
-  // 置換対象が長い方から置換テーブルに配置
+
   let repTable: ReplacePair[] = getReplaceTableForBranchNumber(origText)
   repTable = repTable.concat(getReplaceTableForArticleAndParagraph(origText))
-
-  // repTableを文字数の長い要素から降順にソート。
-  // 長い置換対象文字列と短い置換対象文字列に重複する文字列がある場合、
-  // 先に短い方の置換をすると後の長い方の置換が行われなくなるため。
   repTable.sort((a, b) => b.from.length - a.from.length)
 
-  // 置換処理
-  console.log(repTable)
   for (const target of repTable) {
     converted = converted.replaceAll(target.from, target.to)
   }
 
-  // 全角数字を半角数字に変換
   converted = replaceHankakuSuji2Num(converted)
 
   return converted
 }
 
-// 枝番号（第〇条の〇の〇の〇）の変換テーブル
 function getReplaceTableForBranchNumber(origText: string): ReplacePair[] {
-  // 置換対象を抽出
   const branchNest3: string[] = extractSections(
     origText,
     RegExp(
@@ -309,28 +291,28 @@ function getReplaceTableForBranchNumber(origText: string): ReplacePair[] {
     origText,
     RegExp('条の[一二三四五六七八九十百千]+', 'g'),
   )
-  // 置換テーブルを生成
+
   let repTable: ReplacePair[] = getKanjiBranch2NumBranchTable(branchNest3)
   repTable = repTable.concat(getKanjiBranch2NumBranchTable(branchNest2))
   repTable = repTable.concat(getKanjiBranch2NumBranchTable(branchNest1))
+
   return repTable
 }
 
-// 第x条と第x項の置換テーブルを取得
 function getReplaceTableForArticleAndParagraph(origText: string): ReplacePair[] {
   const artAndPara: ReplacedTarget[] = [
     { beginning: '第', end: '条' },
     { beginning: '第', end: '項' },
   ]
+
   let repTable: ReplacePair[] = []
+
   for (const target of artAndPara) {
-    // 置換対象を抽出
     const kanjiClauseList: string[] = extractSections(
       origText,
       RegExp(target.beginning + '[一二三四五六七八九十百千]+' + target.end, 'g'),
     )
 
-    // replacement table
     const newRepTable: ReplacePair[] = getKanjiClause2NumClauseTable(
       kanjiClauseList,
       target.beginning,
@@ -338,6 +320,7 @@ function getReplaceTableForArticleAndParagraph(origText: string): ReplacePair[] 
     )
     repTable = repTable.concat(newRepTable)
   }
+
   return repTable
 }
 
@@ -346,29 +329,32 @@ function getKanjiClause2NumClauseTable(
   beginning: string,
   end: string,
 ): ReplacePair[] {
-  // 置換対象文字列と置換後文字列のペアの配列を作る
-  const repTable: ReplacePair[] = [] // replacement table
+  const repTable: ReplacePair[] = []
+
   for (const kanjiClause of kanjiClauseList) {
     const kanjiNumList = findKanjiNumbers(kanjiClause)
-    const kanjiNum: string = kanjiNumList[0] // kanjiNumList[0]のみが存在すると想定
+    const kanjiNum: string = kanjiNumList[0]
     const numClause: string = beginning + kanji2number(kanjiNum) + end
     repTable.push({ from: kanjiClause, to: numClause })
   }
+
   return repTable
 }
 
-// 枝番号（第〇条の〇の〇の〇）の変換
 function getKanjiBranch2NumBranchTable(kanjiBranchList: string[]): ReplacePair[] {
-  // 置換対象文字列と置換後文字列のペアの配列を作る
-  const repTable: ReplacePair[] = [] // replacement table
+  const repTable: ReplacePair[] = []
+
   for (const kanjiBranch of kanjiBranchList) {
     let numBranch: string = '条'
     const kanjiNumList = findKanjiNumbers(kanjiBranch)
+
     for (const kanjiNum of kanjiNumList) {
       numBranch = numBranch + 'の' + kanji2number(kanjiNum)
     }
+
     repTable.push({ from: kanjiBranch, to: numBranch })
   }
+
   return repTable
 }
 
