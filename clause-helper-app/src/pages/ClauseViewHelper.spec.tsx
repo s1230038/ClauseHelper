@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 /* eslint-disable no-irregular-whitespace */
 import { render, screen, RenderResult, fireEvent } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { userEvent } from '@testing-library/user-event'
 import { ClauseViewHelper, getParenthesisCorrespondence, collapse } from './ClauseViewHelper'
 
 describe('Input Clause', () => {
@@ -459,16 +459,19 @@ describe('Copy into clipboard', () => {
   二　現物出資財産等のうち、市場価格のある有価証券（…）について定款に記載され、又は記録された価額が当該有価証券の市場価格として法務省令で定める方法により算定されるものを超えない場合　当該有価証券についての第28条第一号又は第二号に掲げる事項
   三　現物出資財産等について定款に記載され、又は記録された価額が相当であることについて弁護士、弁護士法人、弁護士・外国法事務弁護士共同法人、公認会計士（…）、監査法人、税理士又は税理士法人の証明（…）を受けた場合　第28条第一号又は第二号に掲げる事項（…）`
 
-  it('should collapse and expand by each one level', () => {
+  it('should collapse and expand by each one level', async () => {
+    const user = userEvent.setup()
     // テキスト貼り付け直後
     fireEvent.change(inputNode, { target: { value: inputText } })
     // コピーボタンをクリック
-    fireEvent.click(copyButtonNode)
-    expect(navigator.clipboard.readText).toHaveValue(expectedInitial)
+    await user.click(copyButtonNode)
+    let clipboardText = await navigator.clipboard.readText()
+    expect(clipboardText).toHaveValue(expectedInitial)
     // 短縮ボタンをクリック
     fireEvent.click(collapseNode)
     // コピーボタンをクリック
-    fireEvent.click(copyButtonNode)
-    expect(navigator.clipboard.readText).toHaveValue(expectedCollapsed)
+    await user.click(copyButtonNode)
+    clipboardText = await navigator.clipboard.readText()
+    expect(clipboardText).toHaveValue(expectedCollapsed)
   })
 })
