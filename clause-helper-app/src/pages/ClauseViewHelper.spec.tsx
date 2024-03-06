@@ -1,6 +1,7 @@
 /* eslint-disable max-lines-per-function */
 /* eslint-disable no-irregular-whitespace */
 import { render, screen, RenderResult, fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { ClauseViewHelper, getParenthesisCorrespondence, collapse } from './ClauseViewHelper'
 
 describe('Input Clause', () => {
