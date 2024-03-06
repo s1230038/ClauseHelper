@@ -49,10 +49,21 @@ function ParenthesesChangeRange({
   )
 }
 
-function CopyConvertedClause() {
+function CopyConvertedClause({ convertedText }: { convertedText: string }) {
+  const handleClickCopyingText: MouseEventHandler<HTMLButtonElement> = async () => {
+    try {
+      await navigator.clipboard.writeText(convertedText)
+      console.log('copying into clipboard successfully completed.')
+    } catch (error) {
+      console.log('Copying fails.')
+    }
+  }
+
   return (
     <>
-      <button id="CopyConvertedClause">コピー</button>
+      <button id="CopyConvertedClause" onClick={handleClickCopyingText}>
+        コピー
+      </button>
     </>
   )
 }
@@ -179,7 +190,7 @@ export function ClauseViewHelper() {
     <>
       <InputClause originalText={originalText} onChange={handleOriginalText} />
       <ConvertedClause convertedText={convertedText} />
-      <CopyConvertedClause />
+      <CopyConvertedClause convertedText={convertedText} />
       <ParenthesesChangeRange
         rangeOptions={rangeOptions}
         selectedRange={selectedRange}
