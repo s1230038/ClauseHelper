@@ -167,7 +167,6 @@ export function ClauseViewHelper() {
         return curLv === -1 ? -1 : Math.min(curLv + 1, maxLv + 1)
       })
       setConvertedText(collapsedText)
-      // TODO: integrate generating pcList between this and handleClickCollapsing into one function
     }
   }
 
