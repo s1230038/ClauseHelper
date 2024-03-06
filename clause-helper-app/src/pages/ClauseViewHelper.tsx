@@ -53,9 +53,9 @@ function CopyConvertedClause({ convertedText }: { convertedText: string }) {
   const handleClickCopyingText: MouseEventHandler<HTMLButtonElement> = async () => {
     try {
       await navigator.clipboard.writeText(convertedText)
-      console.log('copying into clipboard successfully completed.')
+      console.info('copying into clipboard successfully completed.')
     } catch (error) {
-      console.log('Copying fails.')
+      console.error('Copying fails.')
     }
   }
 
@@ -144,20 +144,13 @@ export function ClauseViewHelper() {
     const origNumClause: string = replaceKanjiClause2Num(originalText)
     const origPcList: ParenthesisCorrespondence[] = getParenthesisCorrespondence(origNumClause)
     const curPcList: ParenthesisCorrespondence[] = getParenthesisCorrespondence(convertedText)
-    console.log('origPcList:')
-    console.log(origPcList)
-    console.log('curPcList:')
-    console.log(curPcList)
 
     let collapsedText: string
     if (selectedRange === 'allLevels') {
-      console.log('handleClickCollapsing() allLevels: event=' + event)
       collapsedText = collapse(origNumClause, 0, origPcList)
     } else {
-      console.log('handleClickCollapsing() oneLevels: event=' + event)
       let curLv = getCurrentLevel(curPcList)
       const maxLv = getMaxLevel(origPcList)
-      console.log('curLv = ' + curLv + '  maxLv =' + maxLv)
       // 短縮丸括弧が一つもなければmaxLvを代入し、一つでもあれば現在レベルー１を代入（但し０以上）
       curLv = curLv === -1 ? maxLv : Math.max(curLv - 1, 0)
       collapsedText = collapse(origNumClause, curLv, origPcList)
@@ -167,21 +160,14 @@ export function ClauseViewHelper() {
 
   const handleClickExpanding: MouseEventHandler<HTMLButtonElement> = (event) => {
     if (selectedRange === 'allLevels') {
-      console.log('handleClickExpanding() allLevels: event=' + event)
       // convert the original text into the replaced one again
       setConvertedText(replaceKanjiClause2Num(originalText))
     } else {
-      console.log('handleClickExpanding() oneLevels: event=' + event)
       const origNumClause: string = replaceKanjiClause2Num(originalText)
       const origPcList: ParenthesisCorrespondence[] = getParenthesisCorrespondence(origNumClause)
       const curPcList: ParenthesisCorrespondence[] = getParenthesisCorrespondence(convertedText)
-      console.log('origPcList:')
-      console.log(origPcList)
-      console.log('curPcList:')
-      console.log(curPcList)
       let curLv = getCurrentLevel(curPcList)
       const maxLv = getMaxLevel(origPcList)
-      console.log('curLv = ' + curLv + '  maxLv =' + maxLv)
       // 短縮丸括弧が一つもなければそのまま-1とし、一つでもあれば現在レベル＋１を代入（但しmaxLv+1以下）
       curLv = curLv === -1 ? -1 : Math.min(curLv + 1, maxLv + 1)
       const collapsedText = collapse(origNumClause, curLv, origPcList)
@@ -295,7 +281,7 @@ function replaceKanjiClause2Num(origText: string): string {
   repTable.sort((a, b) => b.from.length - a.from.length)
 
   // 置換処理
-  console.log(repTable)
+  console.info(repTable)
   for (const target of repTable) {
     converted = converted.replaceAll(target.from, target.to)
   }
