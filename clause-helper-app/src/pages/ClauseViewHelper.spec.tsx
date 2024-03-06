@@ -377,7 +377,6 @@ describe('Collapse and expand parenthesis blocks', () => {
 describe('Copy into clipboard', () => {
   let renderResult: RenderResult
   let inputNode: HTMLInputElement
-  let convertedNode: HTMLInputElement
   let collapseNode: HTMLInputElement
   let copyButtonNode: HTMLInputElement
 
@@ -385,9 +384,22 @@ describe('Copy into clipboard', () => {
   beforeEach(() => {
     renderResult = render(<ClauseViewHelper />)
     inputNode = screen.getByTestId('InputClause')
-    convertedNode = screen.getByTestId('ConvertedClause')
     collapseNode = screen.getByTestId('CollapseAllParentheses')
     copyButtonNode = screen.getByTestId('CopyConvertedClause')
+    // jsdom が Clipboard API を実装していないのでダミー実装を用意する
+    // https://zenn.dev/mstssk/articles/ea99ab2a1fdcfe
+    Object.assign(navigator, {
+      clipboard: {
+        text: '',
+        readText() {
+          return Promise.resolve(this.text)
+        },
+        writeText(data: string) {
+          this.text = data
+          return Promise.resolve()
+        },
+      },
+    })
   })
 
   // テストケース実行後に描画していたコンポーネントを開放する
@@ -448,9 +460,13 @@ describe('Copy into clipboard', () => {
   it('should collapse and expand by each one level', () => {
     // テキスト貼り付け直後
     fireEvent.change(inputNode, { target: { value: inputText } })
-    expect(convertedNode).toHaveValue(expectedInitial)
+    // コピーボタンをクリック
+    fireEvent.click(copyButtonNode)
+    expect(navigator.clipboard.readText).toHaveValue(expectedInitial)
     // 短縮ボタンをクリック
     fireEvent.click(collapseNode)
-    expect(convertedNode).toHaveValue(expectedCollapsed)
+    // コピーボタンをクリック
+    fireEvent.click(copyButtonNode)
+    expect(navigator.clipboard.readText).toHaveValue(expectedCollapsed)
   })
 })
