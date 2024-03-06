@@ -61,7 +61,11 @@ function CopyConvertedClause({ convertedText }: { convertedText: string }) {
 
   return (
     <>
-      <button id="CopyConvertedClause" onClick={handleClickCopyingText}>
+      <button
+        id="CopyConvertedClause"
+        onClick={handleClickCopyingText}
+        data-testid="CopyConvertedClause"
+      >
         コピー
       </button>
     </>
