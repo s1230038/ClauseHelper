@@ -415,7 +415,6 @@ describe('Copy into clipboard', () => {
   三　設立時取締役（第三十八条第一項に規定する設立時取締役をいう。）又は設立時監査役（同条第三項第二号に規定する設立時監査役をいう。）
   四　業務の停止の処分を受け、その停止の期間を経過しない者
   五　弁護士法人、弁護士・外国法事務弁護士共同法人、監査法人又は税理士法人であって、その社員の半数以上が第一号から第三号までに掲げる者のいずれかに該当するもの`
-
   const expectedInitial = `（定款の記載又は記録事項に関する検査役の選任）
   第33条　発起人は、定款に第28条各号に掲げる事項についての記載又は記録があるときは、第30条第1項の公証人の認証の後遅滞なく、当該事項を調査させるため、裁判所に対し、検査役の選任の申立てをしなければならない。
   2　前項の申立てがあった場合には、裁判所は、これを不適法として却下する場合を除き、検査役を選任しなければならない。
@@ -446,10 +445,12 @@ describe('Copy into clipboard', () => {
   二　現物出資財産等のうち、市場価格のある有価証券（…）について定款に記載され、又は記録された価額が当該有価証券の市場価格として法務省令で定める方法により算定されるものを超えない場合　当該有価証券についての第28条第一号又は第二号に掲げる事項
   三　現物出資財産等について定款に記載され、又は記録された価額が相当であることについて弁護士、弁護士法人、弁護士・外国法事務弁護士共同法人、公認会計士（…）、監査法人、税理士又は税理士法人の証明（…）を受けた場合　第28条第一号又は第二号に掲げる事項（…）`
 
-  
-  it('should copy the converted text into the clipboard', () = {
+  it('should collapse and expand by each one level', () => {
     // テキスト貼り付け直後
     fireEvent.change(inputNode, { target: { value: inputText } })
     expect(convertedNode).toHaveValue(expectedInitial)
+    // 短縮ボタンをクリック
+    fireEvent.click(collapseNode)
+    expect(convertedNode).toHaveValue(expectedCollapsed)
   })
 })
