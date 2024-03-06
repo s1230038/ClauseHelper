@@ -140,7 +140,7 @@ export function ClauseViewHelper() {
     setOriginalText(event.target.value)
   }
 
-  const handleClickCollapsing: MouseEventHandler<HTMLButtonElement> = (event) => {
+  const handleClickCollapsing: MouseEventHandler<HTMLButtonElement> = () => {
     const origNumClause: string = replaceKanjiClause2Num(originalText)
     const origPcList: ParenthesisCorrespondence[] = getParenthesisCorrespondence(origNumClause)
     const curPcList: ParenthesisCorrespondence[] = getParenthesisCorrespondence(convertedText)
@@ -158,7 +158,7 @@ export function ClauseViewHelper() {
     setConvertedText(collapsedText)
   }
 
-  const handleClickExpanding: MouseEventHandler<HTMLButtonElement> = (event) => {
+  const handleClickExpanding: MouseEventHandler<HTMLButtonElement> = () => {
     if (selectedRange === 'allLevels') {
       // convert the original text into the replaced one again
       setConvertedText(replaceKanjiClause2Num(originalText))
