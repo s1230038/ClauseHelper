@@ -141,19 +141,18 @@ export function ClauseViewHelper() {
   }
 
   const handleClickCollapsing: MouseEventHandler<HTMLButtonElement> = () => {
-    const origNumClause: string = replaceKanjiClause2Num(originalText)
-    const origPcList: ParenthesisCorrespondence[] = getParenthesisCorrespondence(origNumClause)
-    const curPcList: ParenthesisCorrespondence[] = getParenthesisCorrespondence(convertedText)
-
     let collapsedText: string
     if (selectedRange === 'allLevels') {
-      collapsedText = collapse(origNumClause, 0, origPcList)
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      collapsedText = collapseAndExpand(originalText, convertedText, (_curLv, _maxLv) => {
+        // 全階層を短縮
+        return 0
+      })
     } else {
-      let curLv = getCurrentLevel(curPcList)
-      const maxLv = getMaxLevel(origPcList)
-      // 短縮丸括弧が一つもなければmaxLvを代入し、一つでもあれば現在レベルー１を代入（但し０以上）
-      curLv = curLv === -1 ? maxLv : Math.max(curLv - 1, 0)
-      collapsedText = collapse(origNumClause, curLv, origPcList)
+      collapsedText = collapseAndExpand(originalText, convertedText, (curLv, maxLv) => {
+        // 短縮丸括弧が一つもなければmaxLvを代入し、一つでもあれば現在レベルー１を代入（但し０以上）
+        return curLv === -1 ? maxLv : Math.max(curLv - 1, 0)
+      })
     }
     setConvertedText(collapsedText)
   }
@@ -163,14 +162,10 @@ export function ClauseViewHelper() {
       // convert the original text into the replaced one again
       setConvertedText(replaceKanjiClause2Num(originalText))
     } else {
-      const origNumClause: string = replaceKanjiClause2Num(originalText)
-      const origPcList: ParenthesisCorrespondence[] = getParenthesisCorrespondence(origNumClause)
-      const curPcList: ParenthesisCorrespondence[] = getParenthesisCorrespondence(convertedText)
-      let curLv = getCurrentLevel(curPcList)
-      const maxLv = getMaxLevel(origPcList)
-      // 短縮丸括弧が一つもなければそのまま-1とし、一つでもあれば現在レベル＋１を代入（但しmaxLv+1以下）
-      curLv = curLv === -1 ? -1 : Math.min(curLv + 1, maxLv + 1)
-      const collapsedText = collapse(origNumClause, curLv, origPcList)
+      const collapsedText = collapseAndExpand(originalText, convertedText, (curLv, maxLv) => {
+        // 短縮丸括弧が一つもなければそのまま-1とし、一つでもあれば現在レベル＋１を代入（但しmaxLv+1以下）
+        return curLv === -1 ? -1 : Math.min(curLv + 1, maxLv + 1)
+      })
       setConvertedText(collapsedText)
       // TODO: integrate generating pcList between this and handleClickCollapsing into one function
     }
