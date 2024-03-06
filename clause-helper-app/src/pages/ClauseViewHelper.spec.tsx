@@ -387,26 +387,11 @@ describe('Copy into clipboard', () => {
     inputNode = screen.getByTestId('InputClause')
     collapseNode = screen.getByTestId('CollapseAllParentheses')
     copyButtonNode = screen.getByTestId('CopyConvertedClause')
-    // jsdom が Clipboard API を実装していないのでダミー実装を用意する
-    // https://zenn.dev/mstssk/articles/ea99ab2a1fdcfe
-    Object.assign(navigator, {
-      clipboard: {
-        text: '',
-        readText() {
-          return Promise.resolve(this.text)
-        },
-        writeText(data: string) {
-          this.text = data
-          return Promise.resolve()
-        },
-      },
-    })
   })
 
   // テストケース実行後に描画していたコンポーネントを開放する
   afterEach(() => {
     renderResult.unmount()
-    Object.assign(navigator, { clipboard: undefined })
   })
 
   const inputText = `（定款の記載又は記録事項に関する検査役の選任）
@@ -466,12 +451,12 @@ describe('Copy into clipboard', () => {
     // コピーボタンをクリック
     await user.click(copyButtonNode)
     let clipboardText = await navigator.clipboard.readText()
-    expect(clipboardText).toHaveValue(expectedInitial)
+    expect(clipboardText).toBe(expectedInitial)
     // 短縮ボタンをクリック
     fireEvent.click(collapseNode)
     // コピーボタンをクリック
     await user.click(copyButtonNode)
     clipboardText = await navigator.clipboard.readText()
-    expect(clipboardText).toHaveValue(expectedCollapsed)
+    expect(clipboardText).toBe(expectedCollapsed)
   })
 })
