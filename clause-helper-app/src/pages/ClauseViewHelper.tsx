@@ -192,6 +192,21 @@ export function ClauseViewHelper() {
   )
 }
 
+function collapseAndExpand(
+  originalText: string,
+  convertedText: string,
+  changeLevel: (curLv: number, maxLv: number) => number,
+): string {
+  const origNumClause: string = replaceKanjiClause2Num(originalText)
+  const origPcList: ParenthesisCorrespondence[] = getParenthesisCorrespondence(origNumClause)
+  const curPcList: ParenthesisCorrespondence[] = getParenthesisCorrespondence(convertedText)
+  const curLv = getCurrentLevel(curPcList)
+  const maxLv = getMaxLevel(origPcList)
+  const changeInto = changeLevel(curLv, maxLv)
+  const collapsedText = collapse(origNumClause, changeInto, origPcList)
+  return collapsedText
+}
+
 export function getParenthesisCorrespondence(text: string): ParenthesisCorrespondence[] {
   const lpStack: LeftParenthesis[] = [] // Left Parentheses stack
   const pcList: ParenthesisCorrespondence[] = []
