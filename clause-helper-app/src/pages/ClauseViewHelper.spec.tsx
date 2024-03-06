@@ -405,6 +405,7 @@ describe('Copy into clipboard', () => {
   // テストケース実行後に描画していたコンポーネントを開放する
   afterEach(() => {
     renderResult.unmount()
+    Object.assign(navigator, { clipboard: undefined })
   })
 
   const inputText = `（定款の記載又は記録事項に関する検査役の選任）
@@ -462,11 +463,11 @@ describe('Copy into clipboard', () => {
     fireEvent.change(inputNode, { target: { value: inputText } })
     // コピーボタンをクリック
     fireEvent.click(copyButtonNode)
-    expect(navigator.clipboard.readText()).toHaveValue(expectedInitial)
+    expect(navigator.clipboard.readText).toHaveValue(expectedInitial)
     // 短縮ボタンをクリック
     fireEvent.click(collapseNode)
     // コピーボタンをクリック
     fireEvent.click(copyButtonNode)
-    expect(navigator.clipboard.readText()).toHaveValue(expectedCollapsed)
+    expect(navigator.clipboard.readText).toHaveValue(expectedCollapsed)
   })
 })
