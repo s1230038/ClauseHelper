@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import { kanji2number, findKanjiNumbers } from '@geolonia/japanese-numeral'
-import { useState, useEffect, MouseEventHandler } from 'react'
+import { useState, MouseEventHandler } from 'react'
 
 function ExpandAllParentheses({ onClick }: ButtonProps) {
   return (
