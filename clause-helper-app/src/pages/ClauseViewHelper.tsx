@@ -25,12 +25,16 @@ function CollapseAllParentheses({ onClick }: ButtonProps) {
 function ParenthesesChangeRange({
   rangeOptions,
   selectedRange,
-  onChange,
+  setSelectedRange,
 }: {
   rangeOptions: RadioButtonOption[]
   selectedRange: string
-  onChange: OnChangeInput
+  setSelectedRange: Dispatch<SetStateAction<string>>
 }) {
+  const handleRangeChange: OnChangeInput = (event) => {
+    setSelectedRange(event.target.value)
+  }
+
   return (
     <>
       <p>丸括弧の展開／縮小の範囲</p>
@@ -40,7 +44,7 @@ function ParenthesesChangeRange({
             type="radio"
             value={option.value}
             checked={selectedRange === option.value}
-            onChange={onChange}
+            onChange={handleRangeChange}
           />
           {option.displayLabel}
         </label>
@@ -132,10 +136,6 @@ export function ClauseViewHelper() {
     { value: 'oneLevel', displayLabel: '１階層' },
   ]
 
-  const handleRangeChange: OnChangeInput = (event) => {
-    setSelectedRange(event.target.value)
-  }
-
   const handleClickCollapsing: MouseEventHandler<HTMLButtonElement> = () => {
     let collapsedText: string
     if (selectedRange === 'allLevels') {
@@ -178,7 +178,7 @@ export function ClauseViewHelper() {
       <ParenthesesChangeRange
         rangeOptions={rangeOptions}
         selectedRange={selectedRange}
-        onChange={handleRangeChange}
+        setSelectedRange={setSelectedRange}
       />
       <CollapseAllParentheses onClick={handleClickCollapsing} />
       <ExpandAllParentheses onClick={handleClickExpanding} />
