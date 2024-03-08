@@ -118,14 +118,6 @@ export function ClauseViewHelper() {
   const [originalText, setOriginalText] = useState('')
   const [convertedText, setConvertedText] = useState('')
 
-  useEffect(() => {
-    const convertText = () => {
-      const numClause: string = replaceKanjiClause2Num(originalText)
-      setConvertedText(numClause)
-    }
-    convertText()
-  }, [originalText])
-
   const [selectedRange, setSelectedRange] = useState('allLevels')
   const rangeOptions: RadioButtonOption[] = [
     { value: 'allLevels', displayLabel: '全階層' },
@@ -138,6 +130,8 @@ export function ClauseViewHelper() {
 
   const handleOriginalText: OnChangeTextArea = (event) => {
     setOriginalText(event.target.value)
+    const numClause: string = replaceKanjiClause2Num(event.target.value)
+    setConvertedText(numClause)
   }
 
   const handleClickCollapsing: MouseEventHandler<HTMLButtonElement> = () => {
