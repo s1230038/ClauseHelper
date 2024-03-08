@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import { kanji2number, findKanjiNumbers } from '@geolonia/japanese-numeral'
-import { useState, MouseEventHandler } from 'react'
+import { useState, MouseEventHandler, Dispatch, SetStateAction } from 'react'
 
 function ExpandAllParentheses({ onClick }: ButtonProps) {
   return (
@@ -82,18 +82,26 @@ function ConvertedClause({ convertedText }: { convertedText: string }) {
 
 function InputClause({
   originalText,
-  onChange,
+  setOriginalText,
+  setConvertedText,
 }: {
   originalText: string
-  onChange: OnChangeTextArea
+  setOriginalText: Dispatch<SetStateAction<string>>
+  setConvertedText: Dispatch<SetStateAction<string>>
 }) {
+  const handleOriginalText: OnChangeTextArea = (event) => {
+    setOriginalText(event.target.value)
+    const numClause: string = replaceKanjiClause2Num(event.target.value)
+    setConvertedText(numClause)
+  }
+
   return (
     <>
       <textarea
         id="InputClause"
         placeholder="法律の条文を入力"
         value={originalText}
-        onChange={onChange}
+        onChange={handleOriginalText}
         data-testid="InputClause"
       />
     </>
@@ -128,12 +136,6 @@ export function ClauseViewHelper() {
     setSelectedRange(event.target.value)
   }
 
-  const handleOriginalText: OnChangeTextArea = (event) => {
-    setOriginalText(event.target.value)
-    const numClause: string = replaceKanjiClause2Num(event.target.value)
-    setConvertedText(numClause)
-  }
-
   const handleClickCollapsing: MouseEventHandler<HTMLButtonElement> = () => {
     let collapsedText: string
     if (selectedRange === 'allLevels') {
@@ -166,7 +168,11 @@ export function ClauseViewHelper() {
 
   return (
     <>
-      <InputClause originalText={originalText} onChange={handleOriginalText} />
+      <InputClause
+        originalText={originalText}
+        setOriginalText={setOriginalText}
+        setConvertedText={setConvertedText}
+      />
       <ConvertedClause convertedText={convertedText} />
       <CopyConvertedClause convertedText={convertedText} />
       <ParenthesesChangeRange
