@@ -12,10 +12,40 @@ function ExpandAllParentheses({ onClick }: ButtonProps) {
   )
 }
 
-function CollapseAllParentheses({ onClick }: ButtonProps) {
+function CollapseAllParentheses({
+  selectedRange,
+  originalText,
+  convertedText,
+  setConvertedText,
+}: {
+  selectedRange: string
+  originalText: string
+  convertedText: string
+  setConvertedText: Dispatch<SetStateAction<string>>
+}) {
+  const handleClickCollapsing: MouseEventHandler<HTMLButtonElement> = () => {
+    let collapsedText: string
+    if (selectedRange === 'allLevels') {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      collapsedText = collapseAndExpand(originalText, convertedText, (_curLv, _maxLv) => {
+        // 全階層を短縮
+        return 0
+      })
+    } else {
+      collapsedText = collapseAndExpand(originalText, convertedText, (curLv, maxLv) => {
+        // 短縮丸括弧が一つもなければmaxLvを代入し、一つでもあれば現在レベルー１を代入（但し０以上）
+        return curLv === -1 ? maxLv : Math.max(curLv - 1, 0)
+      })
+    }
+    setConvertedText(collapsedText)
+  }
   return (
     <>
-      <button onClick={onClick} id="CollapseAllParentheses" data-testid="CollapseAllParentheses">
+      <button
+        onClick={handleClickCollapsing}
+        id="CollapseAllParentheses"
+        data-testid="CollapseAllParentheses"
+      >
         丸括弧を短縮
       </button>
     </>
@@ -136,23 +166,6 @@ export function ClauseViewHelper() {
     { value: 'oneLevel', displayLabel: '１階層' },
   ]
 
-  const handleClickCollapsing: MouseEventHandler<HTMLButtonElement> = () => {
-    let collapsedText: string
-    if (selectedRange === 'allLevels') {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      collapsedText = collapseAndExpand(originalText, convertedText, (_curLv, _maxLv) => {
-        // 全階層を短縮
-        return 0
-      })
-    } else {
-      collapsedText = collapseAndExpand(originalText, convertedText, (curLv, maxLv) => {
-        // 短縮丸括弧が一つもなければmaxLvを代入し、一つでもあれば現在レベルー１を代入（但し０以上）
-        return curLv === -1 ? maxLv : Math.max(curLv - 1, 0)
-      })
-    }
-    setConvertedText(collapsedText)
-  }
-
   const handleClickExpanding: MouseEventHandler<HTMLButtonElement> = () => {
     if (selectedRange === 'allLevels') {
       // convert the original text into the replaced one again
@@ -180,7 +193,12 @@ export function ClauseViewHelper() {
         selectedRange={selectedRange}
         setSelectedRange={setSelectedRange}
       />
-      <CollapseAllParentheses onClick={handleClickCollapsing} />
+      <CollapseAllParentheses
+        selectedRange={selectedRange}
+        originalText={originalText}
+        convertedText={convertedText}
+        setConvertedText={setConvertedText}
+      />
       <ExpandAllParentheses onClick={handleClickExpanding} />
     </>
   )
