@@ -193,25 +193,13 @@ export function ClauseViewHelper() {
   return (
     <>
       <InputClause {...{ originalText, setOriginalText, setConvertedText }} />
-      <ConvertedClause convertedText={convertedText} />
-      <CopyConvertedClause convertedText={convertedText} />
-      <ParenthesesChangeRange
-        rangeOptions={rangeOptions}
-        selectedRange={selectedRange}
-        setSelectedRange={setSelectedRange}
-      />
+      <ConvertedClause {...{ convertedText }} />
+      <CopyConvertedClause {...{ convertedText }} />
+      <ParenthesesChangeRange {...{ rangeOptions, selectedRange, setSelectedRange }} />
       <CollapseAllParentheses
-        selectedRange={selectedRange}
-        originalText={originalText}
-        convertedText={convertedText}
-        setConvertedText={setConvertedText}
+        {...{ selectedRange, originalText, convertedText, setConvertedText }}
       />
-      <ExpandAllParentheses
-        originalText={originalText}
-        convertedText={convertedText}
-        selectedRange={selectedRange}
-        setConvertedText={setConvertedText}
-      />
+      <ExpandAllParentheses {...{ originalText, convertedText, selectedRange, setConvertedText }} />
     </>
   )
 }
