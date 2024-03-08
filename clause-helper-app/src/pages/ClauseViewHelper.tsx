@@ -192,11 +192,7 @@ export function ClauseViewHelper() {
 
   return (
     <>
-      <InputClause
-        originalText={originalText}
-        setOriginalText={setOriginalText}
-        setConvertedText={setConvertedText}
-      />
+      <InputClause {...{ originalText, setOriginalText, setConvertedText }} />
       <ConvertedClause convertedText={convertedText} />
       <CopyConvertedClause convertedText={convertedText} />
       <ParenthesesChangeRange
