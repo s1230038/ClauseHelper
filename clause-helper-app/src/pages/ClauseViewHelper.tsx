@@ -2,10 +2,36 @@
 import { kanji2number, findKanjiNumbers } from '@geolonia/japanese-numeral'
 import { useState, MouseEventHandler, Dispatch, SetStateAction } from 'react'
 
-function ExpandAllParentheses({ onClick }: ButtonProps) {
+function ExpandAllParentheses({
+  originalText,
+  convertedText,
+  selectedRange,
+  setConvertedText,
+}: {
+  originalText: string
+  convertedText: string
+  selectedRange: string
+  setConvertedText: Dispatch<SetStateAction<string>>
+}) {
+  const handleClickExpanding: MouseEventHandler<HTMLButtonElement> = () => {
+    if (selectedRange === 'allLevels') {
+      // convert the original text into the replaced one again
+      setConvertedText(replaceKanjiClause2Num(originalText))
+    } else {
+      const collapsedText = collapseAndExpand(originalText, convertedText, (curLv, maxLv) => {
+        // 短縮丸括弧が一つもなければそのまま-1とし、一つでもあれば現在レベル＋１を代入（但しmaxLv+1以下）
+        return curLv === -1 ? -1 : Math.min(curLv + 1, maxLv + 1)
+      })
+      setConvertedText(collapsedText)
+    }
+  }
   return (
     <>
-      <button onClick={onClick} id="ExpandAllParentheses" data-testid="ExpandAllParentheses">
+      <button
+        onClick={handleClickExpanding}
+        id="ExpandAllParentheses"
+        data-testid="ExpandAllParentheses"
+      >
         丸括弧を展開
       </button>
     </>
@@ -154,7 +180,6 @@ type ParenthesisCorrespondence = LeftParenthesis & {
   nextToBeginning: string
   debugEnd: string
 }
-type ButtonProps = { onClick: MouseEventHandler<HTMLButtonElement> }
 
 export function ClauseViewHelper() {
   const [originalText, setOriginalText] = useState('')
@@ -165,19 +190,6 @@ export function ClauseViewHelper() {
     { value: 'allLevels', displayLabel: '全階層' },
     { value: 'oneLevel', displayLabel: '１階層' },
   ]
-
-  const handleClickExpanding: MouseEventHandler<HTMLButtonElement> = () => {
-    if (selectedRange === 'allLevels') {
-      // convert the original text into the replaced one again
-      setConvertedText(replaceKanjiClause2Num(originalText))
-    } else {
-      const collapsedText = collapseAndExpand(originalText, convertedText, (curLv, maxLv) => {
-        // 短縮丸括弧が一つもなければそのまま-1とし、一つでもあれば現在レベル＋１を代入（但しmaxLv+1以下）
-        return curLv === -1 ? -1 : Math.min(curLv + 1, maxLv + 1)
-      })
-      setConvertedText(collapsedText)
-    }
-  }
 
   return (
     <>
@@ -199,7 +211,12 @@ export function ClauseViewHelper() {
         convertedText={convertedText}
         setConvertedText={setConvertedText}
       />
-      <ExpandAllParentheses onClick={handleClickExpanding} />
+      <ExpandAllParentheses
+        originalText={originalText}
+        convertedText={convertedText}
+        selectedRange={selectedRange}
+        setConvertedText={setConvertedText}
+      />
     </>
   )
 }
