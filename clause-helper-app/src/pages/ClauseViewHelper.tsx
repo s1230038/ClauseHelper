@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import { kanji2number, findKanjiNumbers } from '@geolonia/japanese-numeral'
 import { useState, MouseEventHandler, Dispatch, SetStateAction } from 'react'
 
