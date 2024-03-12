@@ -3,7 +3,6 @@ const nextConfig = {
   typescript: {
     tsconfigPath: 'tsconfig.build.json',
   },
-  pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js'],
   reactStrictMode: true,
   compiler: (() => {
     let compilerConfig = {
