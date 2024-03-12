@@ -2,7 +2,7 @@
 /* eslint-disable no-irregular-whitespace */
 import { render, screen, RenderResult, fireEvent } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { ClauseViewHelper, getParenthesisCorrespondence, collapse } from './ClauseViewHelper'
+import { ClauseViewHelper, getParenthesisCorrespondence, collapse } from '../pages/ClauseViewHelper'
 
 describe('Input Clause', () => {
   let renderResult: RenderResult
