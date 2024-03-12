@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  typescript: {
+    tsconfigPath: 'tsconfig.build.json',
+  },
   reactStrictMode: true,
   compiler: (() => {
     let compilerConfig = {
@@ -17,7 +20,6 @@ const nextConfig = {
 
     return compilerConfig
   })(),
-  exclude: /\.spec\.tsx$/,
 }
 
 module.exports = nextConfig
