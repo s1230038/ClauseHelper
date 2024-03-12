@@ -1,14 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  webpack: (config, options) => {
-    config.module.rules.push({
-      test: /\.spec\.tsx$/,
-      use: options.defaultLoaders.babel,
-      exclude: options.isServer ? undefined : /\\.spec\\.tsx$/,
-    })
-    return config
-  },
   compiler: (() => {
     let compilerConfig = {
       // styledComponentsの有効化
@@ -25,6 +17,7 @@ const nextConfig = {
 
     return compilerConfig
   })(),
+  exclude: /\.spec\.tsx$/,
 }
 
 module.exports = nextConfig
