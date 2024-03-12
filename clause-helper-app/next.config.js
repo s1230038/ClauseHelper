@@ -17,6 +17,7 @@ const nextConfig = {
 
     return compilerConfig
   })(),
+  exclude: /\.spec\.tsx$/,
 }
 
 module.exports = nextConfig
