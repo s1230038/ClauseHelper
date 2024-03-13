@@ -16,12 +16,14 @@
     },
 
     "cSpell.words": [
+        "callout",
         "geolonia",
+        "HankakuSuji",
         "kansuji",
         "nextjs",
         "nocheck",
         "Nums",
         "testid",
-        "HankakuSuji"
+        "vercel"
     ],
 }
