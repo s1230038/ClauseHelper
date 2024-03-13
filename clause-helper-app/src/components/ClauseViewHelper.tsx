@@ -1,5 +1,6 @@
 import { kanji2number, findKanjiNumbers } from '@geolonia/japanese-numeral'
 import { useState, MouseEventHandler, Dispatch, SetStateAction } from 'react'
+import styles from '../styles/Home.module.css'
 
 function ExpandAllParentheses({
   originalText,
@@ -191,16 +192,21 @@ export function ClauseViewHelper() {
   ]
 
   return (
-    <>
-      <InputClause {...{ originalText, setOriginalText, setConvertedText }} />
-      <ConvertedClause {...{ convertedText }} />
-      <CopyConvertedClause {...{ convertedText }} />
-      <ParenthesesChangeRange {...{ rangeOptions, selectedRange, setSelectedRange }} />
-      <CollapseAllParentheses
-        {...{ selectedRange, originalText, convertedText, setConvertedText }}
-      />
-      <ExpandAllParentheses {...{ originalText, convertedText, selectedRange, setConvertedText }} />
-    </>
+    <div className={styles.container}>
+      <main className={styles.main}>
+        <h1 className={styles.title}>条文ビューワー</h1>
+        <InputClause {...{ originalText, setOriginalText, setConvertedText }} />
+        <ConvertedClause {...{ convertedText }} />
+        <CopyConvertedClause {...{ convertedText }} />
+        <ParenthesesChangeRange {...{ rangeOptions, selectedRange, setSelectedRange }} />
+        <CollapseAllParentheses
+          {...{ selectedRange, originalText, convertedText, setConvertedText }}
+        />
+        <ExpandAllParentheses
+          {...{ originalText, convertedText, selectedRange, setConvertedText }}
+        />
+      </main>
+    </div>
   )
 }
 
