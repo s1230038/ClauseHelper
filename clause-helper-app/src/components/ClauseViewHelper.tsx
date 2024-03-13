@@ -195,8 +195,10 @@ export function ClauseViewHelper() {
     <div className={styles.container}>
       <main className={styles.main}>
         <h1 className={styles.title}>条文ビューワー</h1>
-        <InputClause {...{ originalText, setOriginalText, setConvertedText }} />
-        <ConvertedClause {...{ convertedText }} />
+        <div className={styles.textarea}>
+          <InputClause {...{ originalText, setOriginalText, setConvertedText }} />
+          <ConvertedClause {...{ convertedText }} />
+        </div>
         <CopyConvertedClause {...{ convertedText }} />
         <ParenthesesChangeRange {...{ rangeOptions, selectedRange, setSelectedRange }} />
         <CollapseAllParentheses
