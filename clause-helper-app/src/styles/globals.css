@@ -6,9 +6,17 @@ body {
 }
 
 /* テキストエリアとボタンのスタイル */
-textarea,
+textarea {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
 button {
-  display: block;
+  display: inline;
   width: 100%;
   margin-bottom: 1rem;
   padding: 0.5rem;
