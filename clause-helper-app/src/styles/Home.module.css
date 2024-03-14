@@ -12,7 +12,13 @@
   flex-direction: row;
   min-height: 30rem;
   column-gap: 10px;
-  flex-wrap: rap;
+  flex-wrap: wrap; /* 変更 */
+  justify-content: center; /* 追加 */
+}
+
+.clause > * {
+  flex: 1 1 40%; /* 追加 */
+  max-width: calc(50% - 5px); /* 追加 */
 }
 
 .copyButton {
