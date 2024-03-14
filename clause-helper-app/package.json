@@ -12,6 +12,7 @@
     "format": "next lint --fix --dir src",
     "secretlint": "secretlint --maskSecrets --secretlintignore .gitignore \"**/*\"",
     "storybook": "storybook dev -p 6006",
+    "stylelint": "stylelint **/*.{css,scss,sass}",
     "build-storybook": "storybook build"
   },
   "dependencies": {
