@@ -20,6 +20,10 @@ echo '* ESLint automatically formats files:'
 npm run format
 echo
 
+echo '* stylelint automatically formats files:'
+npm run stylelint
+echo
+
 cd ..
 echo '*** npm script completed ***'
 
