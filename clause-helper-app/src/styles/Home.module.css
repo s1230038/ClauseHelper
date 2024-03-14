@@ -10,7 +10,7 @@
 .clause {
   display: flex;
   flex-direction: row;
-  min-height: 250px;
+  min-height: 30rem;
   column-gap: 10px;
   flex-wrap: rap;
 }
