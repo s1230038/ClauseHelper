@@ -32,7 +32,7 @@ function ExpandAllParentheses({
         id="ExpandAllParentheses"
         data-testid="ExpandAllParentheses"
       >
-        丸括弧を展開
+        展開
       </button>
     </>
   )
@@ -72,7 +72,7 @@ function CollapseAllParentheses({
         id="CollapseAllParentheses"
         data-testid="CollapseAllParentheses"
       >
-        丸括弧を短縮
+        短縮
       </button>
     </>
   )
@@ -93,7 +93,7 @@ function ParenthesesChangeRange({
 
   return (
     <>
-      <p>丸括弧の展開／縮小の範囲</p>
+      <p>丸括弧の</p>
       {rangeOptions.map((option) => (
         <label key={option.value}>
           <input
@@ -105,6 +105,7 @@ function ParenthesesChangeRange({
           {option.displayLabel}
         </label>
       ))}
+      <p>を</p>
     </>
   )
 }
@@ -159,7 +160,7 @@ function InputClause({
     <>
       <textarea
         id="InputClause"
-        placeholder="法律の条文を入力"
+        placeholder="法律の条文を貼り付け"
         value={originalText}
         onChange={handleOriginalText}
         data-testid="InputClause"
@@ -199,14 +200,18 @@ export function ClauseViewHelper() {
           <InputClause {...{ originalText, setOriginalText, setConvertedText }} />
           <ConvertedClause {...{ convertedText }} />
         </div>
-        <CopyConvertedClause {...{ convertedText }} />
-        <ParenthesesChangeRange {...{ rangeOptions, selectedRange, setSelectedRange }} />
-        <CollapseAllParentheses
-          {...{ selectedRange, originalText, convertedText, setConvertedText }}
-        />
-        <ExpandAllParentheses
-          {...{ originalText, convertedText, selectedRange, setConvertedText }}
-        />
+        <div className={styles.copyButton}>
+          <CopyConvertedClause {...{ convertedText }} />
+        </div>
+        <div className={styles.manipulator}>
+          <ParenthesesChangeRange {...{ rangeOptions, selectedRange, setSelectedRange }} />
+          <CollapseAllParentheses
+            {...{ selectedRange, originalText, convertedText, setConvertedText }}
+          />
+          <ExpandAllParentheses
+            {...{ originalText, convertedText, selectedRange, setConvertedText }}
+          />
+        </div>
       </main>
     </div>
   )

@@ -8,9 +8,25 @@
 }
 
 .clause {
-  display: inherit;
+  display: flex;
   flex-direction: row;
   min-height: 250px;
+  column-gap: 10px;
+  flex-wrap: rap;
+}
+
+.copyButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+
+.manipulator {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+  flex-wrap: rap;
 }
 
 .description {
