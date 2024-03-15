@@ -12,19 +12,6 @@
   min-height: 10rem;
   margin: 0.5rem;
 }
-.clause {
-  display: flex;
-  flex-direction: row;
-  min-height: 30rem;
-  column-gap: 10px;
-  flex-wrap: wrap;
-  align-items: stretch;
-  justify-content: center;
-}
-
-.clause > * {
-  flex: 1;
-}
 
 .copyButton {
   padding: 1rem;
