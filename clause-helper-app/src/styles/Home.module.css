@@ -7,6 +7,11 @@
   min-height: 100vh;
 }
 
+.main > textarea {
+  align-items: stretch;
+  min-height: 10rem;
+  margin: 0.5rem;
+}
 .clause {
   display: flex;
   flex-direction: row;
@@ -22,8 +27,7 @@
 }
 
 .copyButton {
-  position: relative;
-  left: 5rem;
+  padding: 1rem;
 }
 
 .manipulator {
