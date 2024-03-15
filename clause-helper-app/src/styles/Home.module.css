@@ -28,7 +28,7 @@
 .manipulator {
   display: flex;
   flex-direction: row;
-  column-gap: 30px;
+  column-gap: 2rem;
   flex-wrap: wrap;
 }
 
