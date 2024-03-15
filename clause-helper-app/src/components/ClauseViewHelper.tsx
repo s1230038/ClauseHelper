@@ -194,10 +194,11 @@ export function ClauseViewHelper() {
 
   return (
     <div className={styles.container}>
+      <title>条文ビューワー</title>
       <div className={styles.header}>
         <h1>条文ビューワー</h1>
         <p>
-          条文を張り付けると、条や項の漢数字のみ算用数字に変換して下段に表示します。条文中の丸括弧を短縮することもできます。
+          条文を張り付けると、条と項の漢数字のみ算用数字に変換して下段に表示します。条文中の丸括弧を短縮することもできます。
         </p>
       </div>
       <div className={styles.main}>
