@@ -196,6 +196,12 @@ export function ClauseViewHelper() {
     <div className={styles.container}>
       <div className={styles.header}>
         <h1>条文ビューワー</h1>
+      </div>
+      <div className={styles.main}>
+        <InputClause {...{ originalText, setOriginalText, setConvertedText }} />
+        <ConvertedClause {...{ convertedText }} />
+      </div>
+      <div className={styles.footer}>
         <div className={styles.manipulator}>
           <CopyConvertedClause {...{ convertedText }} />
           <ParenthesesChangeRange {...{ rangeOptions, selectedRange, setSelectedRange }} />
@@ -207,8 +213,6 @@ export function ClauseViewHelper() {
           />
         </div>
       </div>
-      <InputClause {...{ originalText, setOriginalText, setConvertedText }} />
-      <ConvertedClause {...{ convertedText }} />
     </div>
   )
 }
