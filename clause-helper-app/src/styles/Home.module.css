@@ -28,6 +28,13 @@
 .manipulator {
   display: flex;
   flex-direction: row;
-  column-gap: 10px;
+  column-gap: 30px;
+  flex-wrap: wrap;
+}
+
+.manipulator > .parentheses {
+  display: flex;
+  flex-direction: row;
+  column-gap: 2px;
   flex-wrap: wrap;
 }

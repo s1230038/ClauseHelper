@@ -127,7 +127,7 @@ function CopyConvertedClause({ convertedText }: { convertedText: string }) {
         onClick={handleClickCopyingText}
         data-testid="CopyConvertedClause"
       >
-        コピー
+        変換後をコピー
       </button>
     </>
   )
@@ -204,13 +204,15 @@ export function ClauseViewHelper() {
       <div className={styles.footer}>
         <div className={styles.manipulator}>
           <CopyConvertedClause {...{ convertedText }} />
-          <ParenthesesChangeRange {...{ rangeOptions, selectedRange, setSelectedRange }} />
-          <CollapseAllParentheses
-            {...{ selectedRange, originalText, convertedText, setConvertedText }}
-          />
-          <ExpandAllParentheses
-            {...{ originalText, convertedText, selectedRange, setConvertedText }}
-          />
+          <div className={styles.parentheses}>
+            <ParenthesesChangeRange {...{ rangeOptions, selectedRange, setSelectedRange }} />
+            <CollapseAllParentheses
+              {...{ selectedRange, originalText, convertedText, setConvertedText }}
+            />
+            <ExpandAllParentheses
+              {...{ originalText, convertedText, selectedRange, setConvertedText }}
+            />
+          </div>
         </div>
       </div>
     </div>
