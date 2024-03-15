@@ -195,7 +195,7 @@ export function ClauseViewHelper() {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <h1 className={styles.title}>条文ビューワー</h1>
+        <h1>条文ビューワー</h1>
         <div className={styles.clause}>
           <InputClause {...{ originalText, setOriginalText, setConvertedText }} />
           <ConvertedClause {...{ convertedText }} />
