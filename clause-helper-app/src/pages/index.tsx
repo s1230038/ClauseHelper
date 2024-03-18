@@ -1,4 +1,4 @@
-import { ClauseViewer } from '../components/ClauseViewHelper'
+import { ClauseViewer } from '@/components/ClauseViewer'
 
 function App() {
   return (
