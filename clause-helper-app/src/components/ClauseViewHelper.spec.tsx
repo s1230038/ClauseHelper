@@ -2,14 +2,14 @@
 /* eslint-disable no-irregular-whitespace */
 import { render, screen, RenderResult, fireEvent } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { ClauseViewHelper, getParenthesisCorrespondence, collapse } from './ClauseViewHelper'
+import { ClauseViewer, getParenthesisCorrespondence, collapse } from './ClauseViewHelper'
 
 describe('Input Clause', () => {
   let renderResult: RenderResult
 
   // それぞれのテストケース前にコンポーネントを描画し、renderResultにセットする
   beforeEach(() => {
-    renderResult = render(<ClauseViewHelper />)
+    renderResult = render(<ClauseViewer />)
   })
 
   // テストケース実行後に描画していたコンポーネントを開放する
@@ -106,7 +106,7 @@ describe('Parentheses Change Range', () => {
 
   // それぞれのテストケース前にコンポーネントを描画し、renderResultにセットする
   beforeEach(() => {
-    renderResult = render(<ClauseViewHelper />)
+    renderResult = render(<ClauseViewer />)
   })
 
   // テストケース実行後に描画していたコンポーネントを開放する
@@ -209,7 +209,7 @@ describe('Collapse and expand parenthesis blocks', () => {
 
   // それぞれのテストケース前にコンポーネントを描画し、renderResultにセットする
   beforeEach(() => {
-    renderResult = render(<ClauseViewHelper />)
+    renderResult = render(<ClauseViewer />)
     inputNode = screen.getByTestId('InputClause')
     convertedNode = screen.getByTestId('ConvertedClause')
     optionAllLevel = screen.getByLabelText('全階層')
@@ -384,7 +384,7 @@ describe('Copy into clipboard', () => {
 
   // それぞれのテストケース前にコンポーネントを描画し、renderResultにセットする
   beforeEach(() => {
-    renderResult = render(<ClauseViewHelper />)
+    renderResult = render(<ClauseViewer />)
     inputNode = screen.getByTestId('InputClause')
     collapseNode = screen.getByTestId('CollapseAllParentheses')
     copyButtonNode = screen.getByTestId('CopyConvertedClause')

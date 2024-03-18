@@ -183,7 +183,7 @@ type ParenthesisCorrespondence = LeftParenthesis & {
   debugEnd: string
 }
 
-export function ClauseViewHelper() {
+export function ClauseViewer() {
   const [originalText, setOriginalText] = useState('')
   const [convertedText, setConvertedText] = useState('')
 
