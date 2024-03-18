@@ -2,8 +2,8 @@
 /* eslint-disable no-irregular-whitespace */
 import { render, screen, RenderResult, fireEvent } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { getParenthesisCorrespondence, collapse } from './ConverterLogic'
 import { ClauseViewer } from './ClauseViewer'
+import { getParenthesisCorrespondence, collapse } from './ConverterLogic'
 
 describe('Input Clause', () => {
   let renderResult: RenderResult

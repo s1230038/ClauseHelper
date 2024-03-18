@@ -1,7 +1,7 @@
 import { MouseEventHandler, Dispatch, SetStateAction } from 'react'
 import styles from '../styles/Home.module.css'
-import { RadioButtonOption, OnChangeInput, OnChangeTextArea } from './Types'
 import { replaceKanjiClause2Num, collapseAndExpand } from './ConverterLogic'
+import { RadioButtonOption, OnChangeInput, OnChangeTextArea } from './Types'
 
 export function ExpandAllParentheses({
   originalText,
