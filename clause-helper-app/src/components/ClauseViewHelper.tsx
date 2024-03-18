@@ -1,6 +1,15 @@
 import { kanji2number, findKanjiNumbers } from '@geolonia/japanese-numeral'
 import { MouseEventHandler, Dispatch, SetStateAction } from 'react'
 import styles from '../styles/Home.module.css'
+import {
+  RadioButtonOption,
+  OnChangeInput,
+  OnChangeTextArea,
+  ParenthesisCorrespondence,
+  LeftParenthesis,
+  ReplacePair,
+  ReplacedTarget,
+} from './Types'
 
 export function ExpandAllParentheses({
   originalText,
@@ -168,19 +177,6 @@ export function InputClause({
       />
     </>
   )
-}
-
-// 型エイリアス (type alias)
-export type RadioButtonOption = { value: string; displayLabel: string }
-type OnChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => void
-type OnChangeTextArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => void
-type ReplacedTarget = { beginning: string; end: string }
-type ReplacePair = { from: string; to: string }
-type LeftParenthesis = { level: number; beginning: number }
-type ParenthesisCorrespondence = LeftParenthesis & {
-  end: number
-  nextToBeginning: string
-  debugEnd: string
 }
 
 function collapseAndExpand(

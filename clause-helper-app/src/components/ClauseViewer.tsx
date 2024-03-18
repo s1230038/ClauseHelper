@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import styles from '../styles/Home.module.css'
 import {
-  RadioButtonOption,
   InputClause,
   ConvertedClause,
   CopyConvertedClause,
@@ -9,6 +8,7 @@ import {
   CollapseAllParentheses,
   ExpandAllParentheses,
 } from './ClauseViewHelper'
+import { RadioButtonOption } from './Types'
 
 export function ClauseViewer() {
   const [originalText, setOriginalText] = useState('')
