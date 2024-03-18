@@ -15,7 +15,13 @@
   padding: 0.5rem;
 }
 
-.main > textarea {
+.inputTextarea {
+  height: 3rem; /* 高さを3remに固定 */
+  resize: none;
+  padding: 0.5rem;
+}
+
+.main > textarea:not(.inputTextarea) {
   flex: 1;
   resize: none;
   padding: 0.5rem;

@@ -163,6 +163,7 @@ function InputClause({
         placeholder="法律の条文を貼り付け"
         value={originalText}
         onChange={handleOriginalText}
+        className={styles.inputTextarea}
         data-testid="InputClause"
       />
     </>
