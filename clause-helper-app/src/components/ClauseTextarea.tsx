@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react'
 import styles from '../styles/Home.module.css'
-import { replaceKanjiClause2Num } from './Kanji2NumLogic'
 import { OnChangeTextArea } from './Types'
+import { replaceKanjiClause2Num } from './logic/Kanji2NumLogic'
 
 export function ConvertedClause({ convertedText }: { convertedText: string }) {
   return (

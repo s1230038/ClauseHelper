@@ -1,6 +1,6 @@
 import { MouseEventHandler, Dispatch, SetStateAction } from 'react'
-import { collapseAndExpand } from './CollapseExpand'
-import { replaceKanjiClause2Num } from './Kanji2NumLogic'
+import { collapseAndExpand } from './logic/CollapseExpand'
+import { replaceKanjiClause2Num } from './logic/Kanji2NumLogic'
 
 export function ExpandAllParentheses({
   originalText,
