@@ -16,7 +16,7 @@
 }
 
 .inputTextarea {
-  height: 3rem; /* 高さを3remに固定 */
+  height: 4rem;
   resize: none;
   padding: 0.5rem;
 }
