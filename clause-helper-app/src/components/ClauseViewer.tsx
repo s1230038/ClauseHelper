@@ -3,10 +3,10 @@ import styles from '../styles/Home.module.css'
 import { InputClause, ConvertedClause } from './ClauseTextarea'
 import {
   CopyConvertedClause,
-  ParenthesesChangeRange,
   CollapseAllParentheses,
   ExpandAllParentheses,
 } from './ClauseViewHelper'
+import { ParenthesesChangeRange } from './ParenthesesChangeRange'
 import { RadioButtonOption } from './Types'
 
 export function ClauseViewer() {
