@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import styles from '../styles/Home.module.css'
+import { InputClause, ConvertedClause } from './ClauseTextarea'
 import {
-  InputClause,
-  ConvertedClause,
   CopyConvertedClause,
   ParenthesesChangeRange,
   CollapseAllParentheses,

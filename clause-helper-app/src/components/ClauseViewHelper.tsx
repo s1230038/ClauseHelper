@@ -1,7 +1,6 @@
 import { MouseEventHandler, Dispatch, SetStateAction } from 'react'
-import styles from '../styles/Home.module.css'
 import { replaceKanjiClause2Num, collapseAndExpand } from './ConverterLogic'
-import { RadioButtonOption, OnChangeInput, OnChangeTextArea } from './Types'
+import { RadioButtonOption, OnChangeInput } from './Types'
 
 export function ExpandAllParentheses({
   originalText,
@@ -130,43 +129,6 @@ export function CopyConvertedClause({ convertedText }: { convertedText: string }
       >
         変換後をコピー
       </button>
-    </>
-  )
-}
-
-export function ConvertedClause({ convertedText }: { convertedText: string }) {
-  return (
-    <>
-      <textarea id="ConvertedClause" value={convertedText} data-testid="ConvertedClause" readOnly />
-    </>
-  )
-}
-
-export function InputClause({
-  originalText,
-  setOriginalText,
-  setConvertedText,
-}: {
-  originalText: string
-  setOriginalText: Dispatch<SetStateAction<string>>
-  setConvertedText: Dispatch<SetStateAction<string>>
-}) {
-  const handleOriginalText: OnChangeTextArea = (event) => {
-    setOriginalText(event.target.value)
-    const numClause: string = replaceKanjiClause2Num(event.target.value)
-    setConvertedText(numClause)
-  }
-
-  return (
-    <>
-      <textarea
-        id="InputClause"
-        placeholder="法律の条文を貼り付け"
-        value={originalText}
-        onChange={handleOriginalText}
-        className={styles.inputTextarea}
-        data-testid="InputClause"
-      />
     </>
   )
 }
