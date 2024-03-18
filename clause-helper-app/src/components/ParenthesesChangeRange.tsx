@@ -1,17 +1,18 @@
-import { Dispatch, SetStateAction } from 'react';
-import { RadioButtonOption, OnChangeInput } from './Types';
-
+import { Dispatch, SetStateAction } from 'react'
+import { RadioButtonOption, OnChangeInput } from './Types'
 
 export function ParenthesesChangeRange({
-  rangeOptions, selectedRange, setSelectedRange,
+  rangeOptions,
+  selectedRange,
+  setSelectedRange,
 }: {
-  rangeOptions: RadioButtonOption[];
-  selectedRange: string;
-  setSelectedRange: Dispatch<SetStateAction<string>>;
+  rangeOptions: RadioButtonOption[]
+  selectedRange: string
+  setSelectedRange: Dispatch<SetStateAction<string>>
 }) {
   const handleRangeChange: OnChangeInput = (event) => {
-    setSelectedRange(event.target.value);
-  };
+    setSelectedRange(event.target.value)
+  }
 
   return (
     <>
@@ -22,11 +23,12 @@ export function ParenthesesChangeRange({
             type="radio"
             value={option.value}
             checked={selectedRange === option.value}
-            onChange={handleRangeChange} />
+            onChange={handleRangeChange}
+          />
           {option.displayLabel}
         </label>
       ))}
       <p>を</p>
     </>
-  );
+  )
 }
