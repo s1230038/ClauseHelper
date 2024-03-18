@@ -1,5 +1,5 @@
 import { ParenthesisCorrespondence, LeftParenthesis } from '../Types'
-import { replaceKanjiClause2Num } from './Kanji2NumLogic'
+import { replaceKanjiClause2Num } from './Kanji2Num'
 
 export function collapseAndExpand(
   originalText: string,
