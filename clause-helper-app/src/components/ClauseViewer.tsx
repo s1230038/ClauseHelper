@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import styles from '../styles/Home.module.css'
 import { InputClause, ConvertedClause } from './ClauseTextarea'
-import { CollapseAllParentheses, ExpandAllParentheses } from './ClauseViewHelper'
 import { CopyConvertedClause } from './CopyConvertedClause'
+import { CollapseAllParentheses, ExpandAllParentheses } from './ManipulateParentheses'
 import { ParenthesesChangeRange } from './ParenthesesChangeRange'
 import { RadioButtonOption } from './Types'
 
