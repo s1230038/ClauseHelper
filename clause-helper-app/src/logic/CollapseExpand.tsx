@@ -1,4 +1,4 @@
-import { ParenthesisCorrespondence, LeftParenthesis } from '../Types'
+import { ParenthesisCorrespondence, LeftParenthesis } from '../components/Types'
 import { replaceKanjiClause2Num } from './Kanji2Num'
 
 export function collapseAndExpand(

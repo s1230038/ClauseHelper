@@ -1,5 +1,5 @@
 import { kanji2number, findKanjiNumbers } from '@geolonia/japanese-numeral'
-import { ReplacePair, ReplacedTarget } from '../Types'
+import { ReplacePair, ReplacedTarget } from '../components/Types'
 
 export function replaceKanjiClause2Num(origText: string): string {
   let converted = origText
