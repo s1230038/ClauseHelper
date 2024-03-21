@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useState } from 'react'
 import styles from '../styles/Home.module.css'
 import { InputClause, ConvertedClause } from './ClauseTextarea'
@@ -43,6 +44,7 @@ export function ClauseViewer() {
           </div>
         </div>
       </div>
+      <Link href="/TermsOfUse">免責事項</Link>
     </div>
   )
 }
