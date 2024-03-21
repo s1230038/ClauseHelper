@@ -31,10 +31,6 @@
   padding: 0.5rem;
 }
 
-.link {
-  padding: 0.5rem;
-}
-
 .manipulator {
   display: flex;
   flex-direction: row;
