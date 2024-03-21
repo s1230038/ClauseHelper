@@ -43,8 +43,10 @@ export function ClauseViewer() {
             />
           </div>
         </div>
+        <div className={styles.termsofuse}>
+          <Link href="/TermsOfUse">免責事項</Link>
+        </div>
       </div>
-      <Link href="/TermsOfUse">免責事項</Link>
     </div>
   )
 }
