@@ -489,7 +489,7 @@ describe('Navigation by Link', () => {
     renderClauseViewer.unmount()
   })
 
-  it('Should route to selected page in navbar', async () => {
+  it('Should move to selected page with link', async () => {
     const user = userEvent.setup()
 
     user.click(screen.getByTestId('TermsOfUse'))
