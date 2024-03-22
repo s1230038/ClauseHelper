@@ -8,9 +8,7 @@ function TermsOfUse() {
       <p>
         本Webアプリケーションを利用した結果生じるいかなる損害についても、作者は責任を負いかねます。ユーザー自身の責任で利用をお願いします。
       </p>
-      <Link href="/" data-testid="returnToIndex">
-        戻る
-      </Link>
+      <Link href="/">戻る</Link>
     </div>
   )
 }

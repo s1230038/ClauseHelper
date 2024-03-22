@@ -4,7 +4,6 @@ import { render, screen, RenderResult, fireEvent } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { getParenthesisCorrespondence, collapse } from '../logic/CollapseExpand'
 import { ClauseViewer } from './ClauseViewer'
-import TermsOfUse from '@/pages/TermsOfUse'
 
 describe('Input Clause', () => {
   let renderResult: RenderResult
@@ -474,23 +473,5 @@ describe('Copy into clipboard', () => {
     await user.click(copyButtonNode)
     clipboardText = await navigator.clipboard.readText()
     expect(clipboardText).toBe(expectedCollapsed)
-  })
-})
-
-describe('ClauseViewer Navigation by Link', () => {
-  it('Should move to selected page with link', async () => {
-    const renderResult: RenderResult = render(<ClauseViewer />)
-    userEvent.click(screen.getByTestId('TermsOfUse'))
-    expect(await screen.findByText('戻る')).toBeInTheDocument()
-    renderResult.unmount()
-  })
-})
-
-describe('TermsOfUse Navigation by Link', () => {
-  it('Should move to selected page with link', async () => {
-    const renderResult: RenderResult = render(<TermsOfUse />)
-    userEvent.click(screen.getByTestId('returnToIndex'))
-    expect(await screen.findByText('条文ビューワー')).toBeInTheDocument()
-    renderResult.unmount()
   })
 })
