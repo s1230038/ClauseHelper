@@ -24,9 +24,7 @@ export function ClauseViewer() {
         <h1>条文ビューワー</h1>
         <p>
           条文を張り付けると、条と項の漢数字のみ算用数字に変換して下段に表示します。条文中の丸括弧を短縮することもできます。
-          <Link href="/TermsOfUse" data-testid="linkToTermsOfUse">
-            免責事項
-          </Link>
+          <Link href="/TermsOfUse">免責事項</Link>
         </p>
       </div>
       <div className={styles.main}>
