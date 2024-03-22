@@ -477,17 +477,20 @@ describe('Copy into clipboard', () => {
   })
 })
 
-describe('Navigation by Link', () => {
+describe('ClauseViewer Navigation by Link', () => {
   it('Should move to selected page with link', async () => {
-    let renderResult: RenderResult
-    renderResult = render(<ClauseViewer />)
-    let user = userEvent.setup()
+    const renderResult: RenderResult = render(<ClauseViewer />)
+    const user = userEvent.setup()
     user.click(screen.getByTestId('TermsOfUse'))
     expect(await screen.findByText('免責事項')).toBeInTheDocument()
     renderResult.unmount()
+  })
+})
 
-    renderResult = render(<TermsOfUse />)
-    user = userEvent.setup()
+describe('TermsOfUse Navigation by Link', () => {
+  it('Should move to selected page with link', async () => {
+    const renderResult: RenderResult = render(<TermsOfUse />)
+    const user = userEvent.setup()
     user.click(screen.getByTestId('returnToIndex'))
     expect(await screen.findByText('条文ビューワー')).toBeInTheDocument()
     renderResult.unmount()
