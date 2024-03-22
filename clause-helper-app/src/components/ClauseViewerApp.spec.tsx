@@ -475,3 +475,26 @@ describe('Copy into clipboard', () => {
     expect(clipboardText).toBe(expectedCollapsed)
   })
 })
+
+describe('Navigation by Link', () => {
+  let renderClauseViewer: RenderResult
+
+  // それぞれのテストケース前にコンポーネントを描画し、renderResultにセットする
+  beforeEach(() => {
+    renderClauseViewer = render(<ClauseViewer />)
+  })
+
+  // テストケース実行後に描画していたコンポーネントを開放する
+  afterEach(() => {
+    renderClauseViewer.unmount()
+  })
+
+  it('Should route to selected page in navbar', async () => {
+    const user = userEvent.setup()
+
+    user.click(screen.getByTestId('TermsOfUse'))
+    expect(await screen.findByText('免責事項')).toBeInTheDocument()
+    user.click(screen.getByTestId('returnToIndex'))
+    expect(await screen.findByText('条文ビューワー')).toBeInTheDocument()
+  })
+})
