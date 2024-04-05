@@ -1,4 +1,11 @@
-import Document, { DocumentContext, DocumentInitialProps } from 'next/document'
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+  DocumentInitialProps,
+} from 'next/document'
 import React from 'react'
 import { ServerStyleSheet } from 'styled-components'
 
@@ -27,5 +34,22 @@ export default class MyDocument extends Document {
     } finally {
       sheet.seal()
     }
+  }
+
+  render() {
+    return (
+      <Html>
+        <Head>
+          <meta
+            name="google-site-verification"
+            content="KHhDfJWX6rvJ3JtcOOqZvmjOwqyK2EXVRXMC6zdVM0Y"
+          />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    )
   }
 }
