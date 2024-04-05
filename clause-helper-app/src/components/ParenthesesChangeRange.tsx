@@ -24,6 +24,7 @@ export function ParenthesesChangeRange({
             value={option.value}
             checked={selectedRange === option.value}
             onChange={handleRangeChange}
+            id={option.value + 'Input'}
           />
           {option.displayLabel}
         </label>
