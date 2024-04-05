@@ -44,7 +44,9 @@ export function ClauseViewer() {
             />
           </div>
         </div>
-        <a href="https://s1230038.github.io/">このアプリを作った人は？</a>
+        <a href="https://s1230038.github.io/" target="_blank" rel="noopener noreferrer">
+          このアプリを作った人は？
+        </a>
       </div>
     </div>
   )
