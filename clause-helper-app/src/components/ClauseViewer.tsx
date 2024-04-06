@@ -25,6 +25,9 @@ export function ClauseViewer() {
         <p>
           条文を張り付けると、条と項の漢数字のみ算用数字に変換して下段に表示します。条文中の丸括弧を短縮することもできます。
           <Link href="/TermsOfUse">免責事項</Link>
+          <a href="https://s1230038.github.io/" target="_blank" rel="noopener noreferrer">
+            このアプリを作った人は？
+          </a>
         </p>
       </div>
       <div className={styles.main}>
@@ -44,9 +47,6 @@ export function ClauseViewer() {
             />
           </div>
         </div>
-        <a href="https://s1230038.github.io/" target="_blank" rel="noopener noreferrer">
-          このアプリを作った人は？
-        </a>
       </div>
     </div>
   )

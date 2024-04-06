@@ -8,6 +8,10 @@
   padding: 0.5rem;
 }
 
+.header > p > * {
+  padding: 0.5rem;
+}
+
 .main {
   flex: 1;
   display: flex;
