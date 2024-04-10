@@ -1,6 +1,13 @@
 import { ParenthesisCorrespondence, LeftParenthesis } from '../components/Types'
 import { replaceKanjiClause2Num } from './Kanji2Num'
 
+/**
+ * 丸括弧の縮小・展開したテキストを返す
+ * @param originalText original Text
+ * @param convertedText converted Text: 漢数字の算用数字への変換後の条文
+ * @param changeLevel change level : current level と max level (最深ネスト)から目的のレベルを返すラムダ式
+ * @returns
+ */
 export function collapseAndExpand(
   originalText: string,
   convertedText: string,
@@ -16,6 +23,11 @@ export function collapseAndExpand(
   return collapsedText
 }
 
+/**
+ * 丸括弧リストを返す
+ * @param text
+ * @returns parenthesis correspondence list
+ */
 export function getParenthesisCorrespondence(text: string): ParenthesisCorrespondence[] {
   const lpStack: LeftParenthesis[] = [] // Left Parentheses stack
   const pcList: ParenthesisCorrespondence[] = []
@@ -51,8 +63,13 @@ export function getParenthesisCorrespondence(text: string): ParenthesisCorrespon
   pcList.sort((a, b) => b.end - b.beginning - (a.end - a.beginning))
   return pcList
 }
-// 指定したtargetLevelのネストまで丸括弧を短縮表示する
-
+/**
+ * 指定したtargetLevelのネストまで丸括弧を短縮表示する
+ * @param origText original text
+ * @param targetLevel target level: 最も外側の丸括弧のlevel = 0
+ * @param pcList parenthesis correspondence list
+ * @returns
+ */
 export function collapse(
   origText: string,
   targetLevel: number,
@@ -70,9 +87,12 @@ export function collapse(
   }
   return collapsedText
 }
-// 短縮表示されている丸括弧のレベル（深さ、ネスト）を返す
-// -1 means no collapsing parenthesis
 
+/**
+ * 短縮表示されている丸括弧のレベル（深さ、ネスト）を返す
+ * @param CurPcList current parenthesis correspondence list
+ * @returns current level: -1 means no collapsing parenthesis
+ */
 export function getCurrentLevel(CurPcList: ParenthesisCorrespondence[]): number {
   let curLv = -1
   for (const pc of CurPcList) {
@@ -83,8 +103,12 @@ export function getCurrentLevel(CurPcList: ParenthesisCorrespondence[]): number 
   }
   return curLv
 }
-// 最深の丸括弧のレベル（深さ、ネスト）を返す
 
+/**
+ * 最深の丸括弧のレベル（深さ、ネスト）を返す
+ * @param origPcList original parenthesis correspondence
+ * @returns
+ */
 export function getMaxLevel(origPcList: ParenthesisCorrespondence[]): number {
   let max = 0
   for (const pc of origPcList) {

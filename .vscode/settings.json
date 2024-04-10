@@ -30,6 +30,8 @@
         "stylelint",
         "termsofuse",
         "testid",
+        "Zenkaku",
+        "Suji",
         "vercel"
     ],
 }

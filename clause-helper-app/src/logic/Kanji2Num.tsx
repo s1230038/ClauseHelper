@@ -1,6 +1,11 @@
 import { kanji2number, findKanjiNumbers } from '@geolonia/japanese-numeral'
 import { ReplacePair, ReplacedTarget } from '../components/Types'
 
+/**
+ * 条文漢数字を算用数字に変換
+ * @param origText original text
+ * @returns converted text
+ */
 export function replaceKanjiClause2Num(origText: string): string {
   let converted = origText
   // 置換対象が長い方から置換テーブルに配置
@@ -19,11 +24,15 @@ export function replaceKanjiClause2Num(origText: string): string {
   }
 
   // 全角数字を半角数字に変換
-  converted = replaceHankakuSuji2Num(converted)
+  converted = replaceZenkakuSuji2Num(converted)
 
   return converted
 }
-// 枝番号（第〇条の〇の〇の〇）の変換テーブル
+/**
+ * 枝番号（第〇条の〇の〇の〇）の変換テーブルを返す
+ * @param origText original text
+ * @returns replace pair table
+ */
 function getReplaceTableForBranchNumber(origText: string): ReplacePair[] {
   // 置換対象を抽出
   const branchNest3: string[] = extractSections(
@@ -47,7 +56,11 @@ function getReplaceTableForBranchNumber(origText: string): ReplacePair[] {
   repTable = repTable.concat(getKanjiBranch2NumBranchTable(branchNest1))
   return repTable
 }
-// 第x条と第x項の置換テーブルを取得
+/**
+ * 第x条と第x項の置換テーブルリストを返す
+ * @param origText original text
+ * @returns replace pair table
+ */
 function getReplaceTableForArticleAndParagraph(origText: string): ReplacePair[] {
   const artAndPara: ReplacedTarget[] = [
     { beginning: '第', end: '条' },
@@ -71,6 +84,13 @@ function getReplaceTableForArticleAndParagraph(origText: string): ReplacePair[] 
   }
   return repTable
 }
+/**
+ * 漢数字と算用数字の置換テーブルリストを生成
+ * @param kanjiClauseList
+ * @param beginning
+ * @param end
+ * @returns Replace Pair List
+ */
 function getKanjiClause2NumClauseTable(
   kanjiClauseList: string[],
   beginning: string,
@@ -86,7 +106,11 @@ function getKanjiClause2NumClauseTable(
   }
   return repTable
 }
-// 枝番号（第〇条の〇の〇の〇）の変換
+/**
+ * 枝番号（第〇条の〇の〇の〇）の変換テーブルリストを取得
+ * @param kanjiBranchList
+ * @returns Replace Pair list
+ */
 function getKanjiBranch2NumBranchTable(kanjiBranchList: string[]): ReplacePair[] {
   // 置換対象文字列と置換後文字列のペアの配列を作る
   const repTable: ReplacePair[] = [] // replacement table
@@ -100,11 +124,23 @@ function getKanjiBranch2NumBranchTable(kanjiBranchList: string[]): ReplacePair[]
   }
   return repTable
 }
+
+/**
+ * 第x条と第x項の抽出(xは漢数字)
+ * @param text
+ * @param regex
+ * @returns
+ */
 function extractSections(text: string, regex: RegExp): string[] {
   const matches = [...new Set(text.match(regex))]
   return matches ? matches : []
 }
-function replaceHankakuSuji2Num(text: string): string {
+/**
+ * 全角数字を半角数字に変換
+ * @param text
+ * @returns
+ */
+function replaceZenkakuSuji2Num(text: string): string {
   const fullNums = '０１２３４５６７８９'
   return text.replace(/[０-９]/g, (m) => fullNums.indexOf(m).toString())
 }
