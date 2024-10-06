@@ -154,6 +154,7 @@ function replaceZenkakuSuji2Num(text: string): string {
  */
 function appendSpaceBeforeBody(text: string): string {
   // 枝番号を含めた条の部分の直後に全角スペースを入れる
-  const result = text.replace(/(^第\d+条(の\d+)*(?!　))/gm, '$1　')
+  const pattern = '(^第d+条のd+のd+のd+)(?!　)'
+  const result = text.replace(pattern, '$1　')
   return result
 }
