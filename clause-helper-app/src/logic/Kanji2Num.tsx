@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 import { kanji2number, findKanjiNumbers } from '@geolonia/japanese-numeral'
 import { ReplacePair, ReplacedTarget } from '../components/Types'
 
@@ -11,20 +12,19 @@ export function replaceKanjiClause2Num(origText: string): string {
   // 置換対象が長い方から置換テーブルに配置
   let repTable: ReplacePair[] = getReplaceTableForBranchNumber(origText)
   repTable = repTable.concat(getReplaceTableForArticleAndParagraph(origText))
-
   // repTableを文字数の長い要素から降順にソート。
   // 長い置換対象文字列と短い置換対象文字列に重複する文字列がある場合、
   // 先に短い方の置換をすると後の長い方の置換が行われなくなるため。
   repTable.sort((a, b) => b.from.length - a.from.length)
-
   // 置換処理
   console.info(repTable)
   for (const target of repTable) {
     converted = converted.replaceAll(target.from, target.to)
   }
-
   // 全角数字を半角数字に変換
   converted = replaceZenkakuSuji2Num(converted)
+  // 本文の冒頭にスペースを追記
+  converted = appendSpaceBeforeBody(converted)
 
   return converted
 }
@@ -143,4 +143,17 @@ function extractSections(text: string, regex: RegExp): string[] {
 function replaceZenkakuSuji2Num(text: string): string {
   const fullNums = '０１２３４５６７８９'
   return text.replace(/[０-９]/g, (m) => fullNums.indexOf(m).toString())
+}
+/**
+ * 本文の冒頭に全角スペースを追記（但し、既に全角スペースがある場合は何もしない）
+ * E.g.
+ * 第1条この法律は、議会制民主政治の下における
+ * 第1条　この法律は、議会制民主政治の下における
+ * @param text
+ * @returns
+ */
+function appendSpaceBeforeBody(text: string): string {
+  // 枝番号を含めた条の部分の直後に全角スペースを入れる
+  const result = text.replace(/(^第\d+条(の\d+)*(?!　))/gm, '$1　')
+  return result
 }

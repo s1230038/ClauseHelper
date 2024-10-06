@@ -100,6 +100,22 @@ describe('Input Clause', () => {
     // convertedNodeに変換されたテキストが表示されているか確認する
     expect(convertedNode).toHaveValue(convertedText)
   })
+
+  // 条と本文の間に全角スペースがない場合はスペースを追記するテスト
+  it('should append a Zenkaku space before body if there is no space between clause and body', () => {
+    // TestIdがInputClauseであるコンポーネントに対応するinputの要素を取得する
+    const inputNode: HTMLInputElement = screen.getByTestId('InputClause')
+    const convertedNode: HTMLInputElement = screen.getByTestId('ConvertedClause')
+
+    const inputText: string = `第一条この法律は、議会制民主政治の下における政党その他の政治団体の機能の重要性及び公職の候補者の責務の重要性にかんがみ、政治団体及び公職の候補者により行われる政治活動が国民の不断の監視と批判の下に行われるようにするため、政治団体の届出、政治団体に係る政治資金の収支の公開並びに政治団体及び公職の候補者に係る政治資金の授受の規正その他の措置を講ずることにより、政治活動の公明と公正を確保し、もつて民主政治の健全な発達に寄与することを目的とする。`
+
+    const convertedText = `第1条　この法律は、議会制民主政治の下における政党その他の政治団体の機能の重要性及び公職の候補者の責務の重要性にかんがみ、政治団体及び公職の候補者により行われる政治活動が国民の不断の監視と批判の下に行われるようにするため、政治団体の届出、政治団体に係る政治資金の収支の公開並びに政治団体及び公職の候補者に係る政治資金の授受の規正その他の措置を講ずることにより、政治活動の公明と公正を確保し、もつて民主政治の健全な発達に寄与することを目的とする。`
+
+    // fireEventを使って、inputNodeのonChangeイベントを発火する
+    fireEvent.change(inputNode, { target: { value: inputText } })
+    // convertedNodeに変換されたテキストが表示されているか確認する
+    expect(convertedNode).toHaveValue(convertedText)
+  })
 })
 
 describe('Parentheses Change Range', () => {
