@@ -1,9 +1,13 @@
 {
-    "extends": "./tsconfig.json",
-    "exclude": [
-      "node_modules",
-      "**/*.test.tsx",
-      "**/*.spec.tsx",
-      "**/*.storybook.tsx"
-    ]
-  }
+  // ブラウザ向けビルド: src/*.ts → dist/js/*.js
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "rootDir": "src",
+    "outDir": "dist/js",
+    "sourceMap": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"]
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.spec.ts"]
+}

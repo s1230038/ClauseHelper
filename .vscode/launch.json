@@ -1,24 +1,23 @@
 {
     "version": "0.2.0",
     "configurations": [
-    {
-        // client side debug
-        "type": "chrome",
-        "request": "launch",
-        "name": "Next.js Client",
-        "url": "http://localhost:3000",
-        "webRoot": "${workspaceFolder}"
+        {
+            // client side debug (先に npm run dev を起動しておく)
+            "type": "chrome",
+            "request": "launch",
+            "name": "Clause Viewer: Client",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/clause-helper-app/dist"
         },
-      {
-        // server side debug
-        "type": "node",
-        "request": "attach",
-        "name": "Nextjs: Server",
-        "skipFiles": [
-          "<node_internals>/**"
-        ],
-        "port": 9229
-      }
-    ],
+        {
+            // テストのデバッグ
+            "type": "node",
+            "request": "launch",
+            "name": "Clause Viewer: Tests",
+            "cwd": "${workspaceFolder}/clause-helper-app",
+            "runtimeExecutable": "node",
+            "runtimeArgs": ["--test", "src/**/*.spec.ts"],
+            "skipFiles": ["<node_internals>/**"]
+        }
+    ]
 }
-  

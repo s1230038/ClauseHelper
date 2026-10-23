@@ -1,40 +1,30 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# clause-helper-app
 
-## Getting Started
+条文ビューワーのWebアプリ本体です。依存パッケージは TypeScript のみで、フレームワークは使っていません。
 
-First, run the development server:
+## 必要なもの
+
+- Node.js 22.18 以上（テストとスクリプトは Node の型ストリッピングで `.ts` を直接実行します）
+
+## コマンド
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install         # TypeScript をインストール
+npm run dev         # http://localhost:3000 で開発サーバーを起動（src の変更時に自動で再コンパイル）
+npm run build       # dist/ にビルド（public/ のコピー + src のコンパイル）
+npm start           # ビルド済みの dist/ を配信
+npm run typecheck   # 型チェック
+npm test            # テスト（node:test）
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 構成
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- `public/` — HTML・CSS・favicon。ビルド時に `dist/` へコピーされます
+- `src/` — TypeScript。`dist/js/` に ES モジュールとしてコンパイルされます
+- `scripts/` — ビルド・開発サーバー用スクリプト
+- `types/node.d.ts` — `@types/node` の代わりに、使用している Node.js API だけを宣言した型定義
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## デプロイ（Vercel）
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+`vercel.json` で `npm run build` と出力先 `dist/` を指定しています。
+Google Analytics の測定IDは、ビルド時の環境変数 `GA_MEASUREMENT_ID`（なければ `NEXT_PUBLIC_GA_ID`）から HTML に埋め込まれます。

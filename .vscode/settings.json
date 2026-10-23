@@ -1,37 +1,16 @@
 {
-    "eslint.nodePath": ".\\clause-helper-app\\node_modules",
-    "eslint.format.enable": true,
-    "eslint.codeActionsOnSave.rules": null,
-    "eslint.options": {
-        "overrideConfigFile": ".\\clause-helper-app\\.eslintrc.json"
-    },
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit",
-        "source.fixAll.stylelint": "explicit"
-    },
-    "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "css.validate": false,
-    "scss.validate": false,
+    "typescript.tsdk": "clause-helper-app/node_modules/typescript/lib",
     "cSpell.words": [
         "callout",
-        "geolonia",
         "gtag",
         "HankakuSuji",
         "kansuji",
-        "nextjs",
         "nocheck",
         "Nums",
         "pageview",
-        "stylelint",
         "termsofuse",
-        "testid",
         "Zenkaku",
         "Suji",
         "vercel"
-    ],
+    ]
 }

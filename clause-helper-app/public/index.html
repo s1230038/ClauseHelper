@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google-site-verification" content="KHhDfJWX6rvJ3JtcOOqZvmjOwqyK2EXVRXMC6zdVM0Y" />
+    <meta name="ga-measurement-id" content="%GA_MEASUREMENT_ID%" />
+    <title>条文ビューワー</title>
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="module" src="/js/analytics.js"></script>
+    <script type="module" src="/js/main.js"></script>
+    <script defer src="/_vercel/speed-insights/script.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>条文ビューワー</h1>
+        <p>
+          条文を張り付けると、条と項の漢数字のみ算用数字に変換して下段に表示します。条文中の丸括弧を短縮することもできます。
+          <a href="/TermsOfUse">免責事項</a>
+          <a href="https://s1230038.github.io/" target="_blank" rel="noopener noreferrer">このアプリを作った人は？</a>
+        </p>
+      </div>
+      <div class="main">
+        <textarea id="InputClause" class="inputTextarea" placeholder="条文を貼り付け"></textarea>
+        <textarea id="ConvertedClause" readonly></textarea>
+      </div>
+      <div class="footer">
+        <div class="manipulator">
+          <button id="CopyConvertedClause" type="button">変換後をコピー</button>
+          <div class="parentheses">
+            <p>丸括弧の</p>
+            <label><input type="radio" name="range" value="allLevels" id="allLevelsInput" checked />全階層</label>
+            <label><input type="radio" name="range" value="oneLevel" id="oneLevelInput" />１階層</label>
+            <p>を</p>
+            <button id="CollapseAllParentheses" type="button">短縮</button>
+            <button id="ExpandAllParentheses" type="button">展開</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
